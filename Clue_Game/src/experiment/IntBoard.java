@@ -10,19 +10,23 @@ public class IntBoard {
 	private Set<BoardCell> targets;
 	private BoardCell[][] grid;
 	
-	public void calcAdjacencies(){
+	public IntBoard() {
 		
+	}
+	
+	public void calcAdjacencies(){
+
 	}
 	
 	public void calcTargets(){
-		
+
 	}
 	
-	public void getTargets(){
-		
+	public Set<BoardCell> getTargets(){
+		return null;
 	}
 	
-	public void getAdjList(){
-		
+	public LinkedList<BoardCell> getAdjList(BoardCell boardCell){
+		return null;
 	}
 }
