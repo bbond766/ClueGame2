@@ -18,7 +18,7 @@ public class IntBoard {
 
 	}
 	
-	public void calcTargets(){
+	public void calcTargets(BoardCell boardCell, int distance){
 
 	}
 	
@@ -27,6 +27,10 @@ public class IntBoard {
 	}
 	
 	public LinkedList<BoardCell> getAdjList(BoardCell boardCell){
+		return null;
+	}
+	
+	public BoardCell getCell(int row, int column) {
 		return null;
 	}
 }
