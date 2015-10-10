@@ -1,7 +1,7 @@
 package game;
 
 public class BoardCell {
-	private int row, column;
+	public int row, column;
 	private char initial;
 	public enum DoorDirection {UP,DOWN,LEFT,RIGHT,NONE}
 	
