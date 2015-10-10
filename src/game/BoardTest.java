@@ -1,4 +1,4 @@
-package experiment;
+package game;
 
 import static org.junit.Assert.*;
 
@@ -8,17 +8,17 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-public class IntBoardTest {
-	private IntBoard board;
+public class BoardTest {
+	private Board board;
 	
 	@Before
 	public void init() {
-		board = new IntBoard();
+		board = new Board();
 	}
 	
 	@Test
 	public void topLeftCorner() {
-		assertTrue(board.getAdjList(new BoardCell(0, 0)) != null);
+		Assert.assertTrue(board.getAdjList(new BoardCell(0, 0)) != null);
 	}
 	
 	@Test public void bottomRightCorner() {
