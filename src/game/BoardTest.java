@@ -18,7 +18,7 @@ public class BoardTest {
 	
 	@Test
 	public void topLeftCorner() {
-		Assert.assertTrue(board.getAdjList(new BoardCell(0, 0)) != null);
+		assertTrue(board.getAdjList(new BoardCell(0, 0)) != null);
 	}
 	
 	@Test public void bottomRightCorner() {
