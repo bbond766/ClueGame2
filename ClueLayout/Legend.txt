@@ -1,0 +1,11 @@
+C, Canary Room, Card
+B, Bowling Ally, Card
+L, Lounge, Card
+H, Hall, Card
+O, Outside, Card
+D, Dog Room, Card
+R, Rumpus Room, Card
+K, Kave Room, Card
+W, Walkway, Other
+X, Closet, Other
+
