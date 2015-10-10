@@ -1,7 +1,7 @@
 package game;
 
 public class BoardCell {
-	public int row, column;
+	private int row, column;
 	private char initial;
 	public enum DoorDirection {UP,DOWN,LEFT,RIGHT,NONE}
 	
@@ -24,5 +24,15 @@ public class BoardCell {
 	
 	public boolean isDoorway(){
 		return false;
+	}
+	
+	public int getRow()
+	{
+		return row;
+	}
+	
+	public int getColumn()
+	{
+		return column;
 	}
 }

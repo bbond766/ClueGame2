@@ -11,37 +11,57 @@ import org.junit.Test;
 public class BoardTest {
 	private Board board;
 	
-	@Before
+	/*
+	 * TEST FOR CLUEBOARD ASSIGNMENT
+	 */
+	
+	//TEST FOR CORRECT NUMBER OF ROOMS
+	@Test
+	public void numberOfRooms(){
+		assertEquals(9 , board.getNumberOfRooms());
+	}
+	
+	
+	/*
+	 * TEST FOR CLUEPATHS ASSIGNMENT
+	 */
+	
+	//@Before
 	public void init() {
 		board = new Board(4);
 	}
 	
-	@Test
+	//@Test
 	public void topLeftCorner() {
 		assertTrue(board.getAdjList(new BoardCell(0, 0)) != null);
 	}
 	
-	@Test public void bottomRightCorner() {
+	//@Test 
+	public void bottomRightCorner() {
 		assertTrue(board.getAdjList(new BoardCell(3, 3)) != null);
 	}
 
-	@Test public void rightEdge() {
+	//@Test 
+	public void rightEdge() {
 		assertTrue(board.getAdjList(new BoardCell(1, 3)) != null);
 	}
 
-	@Test public void leftEdge() {
+	//@Test 
+	public void leftEdge() {
 		assertTrue(board.getAdjList(new BoardCell(3, 0)) != null);
 	}
 
-	@Test public void secondColumn() {
+	//@Test 
+	public void secondColumn() {
 		assertTrue(board.getAdjList(new BoardCell(1, 1)) != null);
 	}
 
-	@Test public void secondFromLastColumn() {
+	//@Test 
+	public void secondFromLastColumn() {
 		assertTrue(board.getAdjList(new BoardCell(2, 2)) != null);
 	}
 	
-	@Test
+	//@Test
 	public void testAdjacency00()
 	{
 		board = new Board(2);
@@ -52,7 +72,7 @@ public class BoardTest {
 		assertEquals(2, testList.size());
 	}
 	
-	@Test
+	//@Test
 	public void testAdjacency01()
 	{
 		board = new Board(2);
@@ -63,7 +83,7 @@ public class BoardTest {
 		assertEquals(2, testList.size());
 	}
 	
-	@Test
+	//@Test
 	public void testAdjacency10()
 	{
 		board = new Board(2);
@@ -74,7 +94,7 @@ public class BoardTest {
 		assertEquals(2, testList.size());
 	}
 	
-	@Test
+	//@Test
 	public void testAdjacency11()
 	{
 		board = new Board(2);
@@ -85,7 +105,7 @@ public class BoardTest {
 		assertEquals(2, testList.size());
 	}
 	
-	@Test
+	//@Test
 	public void testTargets00_3()
 	{
 		BoardCell cell = board.getCell(0, 0);
@@ -100,7 +120,7 @@ public class BoardTest {
 		assertTrue(targets.contains(board.getCell(1, 0)));
 	}
 
-	@Test
+	//@Test
 	public void testTargets00_4()
 	{
 		BoardCell cell = board.getCell(0, 0);
@@ -115,7 +135,7 @@ public class BoardTest {
 		assertTrue(targets.contains(board.getCell(3, 1)));
 	}
 
-	@Test
+	//@Test
 	public void testTargets33_2()
 	{
 		BoardCell cell = board.getCell(3, 3);
@@ -127,7 +147,7 @@ public class BoardTest {
 		assertTrue(targets.contains(board.getCell(1, 3)));
 	}
 
-	@Test
+	//@Test
 	public void testTargets33_3()
 	{
 		BoardCell cell = board.getCell(3, 3);

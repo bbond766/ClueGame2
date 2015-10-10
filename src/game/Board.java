@@ -5,10 +5,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Set;
 
 public class Board {
 	private int numRows;
@@ -91,14 +87,14 @@ public class Board {
 	
 	public LinkedList<BoardCell> getAdjList(BoardCell boardCell){
 		LinkedList<BoardCell> list = new LinkedList<BoardCell>();
-		if(boardCell.row - 1 >= 0)
-			list.add(grid[boardCell.row - 1][boardCell.column]);
-		if(boardCell.row + 1 < gridSize)
-			list.add(grid[boardCell.row + 1][boardCell.column]);
-		if(boardCell.column - 1 >= 0)
-			list.add(grid[boardCell.row][boardCell.column - 1]);
-		if(boardCell.column + 1 < gridSize)
-			list.add(grid[boardCell.row][boardCell.column + 1]);
+		if(boardCell.getRow() - 1 >= 0)
+			list.add(grid[boardCell.getRow() - 1][boardCell.getColumn()]);
+		if(boardCell.getRow() + 1 < gridSize)
+			list.add(grid[boardCell.getRow() + 1][boardCell.getColumn()]);
+		if(boardCell.getColumn() - 1 >= 0)
+			list.add(grid[boardCell.getRow()][boardCell.getColumn() - 1]);
+		if(boardCell.getColumn() + 1 < gridSize)
+			list.add(grid[boardCell.getRow()][boardCell.getColumn() + 1]);
 		
 		return list;
 	}
@@ -106,4 +102,13 @@ public class Board {
 	public BoardCell getCell(int row, int column) {
 		return grid[row][column];
 	}
+	
+	public static void main(String[] args) {
+		
+	}
+	
+	public int getNumberOfRooms(){
+		return rooms.size();
+	}
+	
 }
