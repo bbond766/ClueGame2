@@ -12,12 +12,11 @@ import java.util.HashSet;
 public class Board {
 	private int numRows;
 	private int numColumns;
-	private BoardCell board = new BoardCell();
 	private static Map<Character, String> rooms;
 	private Map<BoardCell, LinkedList<BoardCell>> adjMtx;
 	private Set<BoardCell> targets;
 	private Set<BoardCell> visited;
-	private BoardCell[][] grid;
+	private BoardCell[][] board;
 	private String boardConfigFile;
 	private String roomConfigFile;
 	
@@ -29,10 +28,10 @@ public class Board {
 		numRows = rows;
 		numColumns = columns;
 		
-		grid = new BoardCell[numRows][numColumns];
+		board = new BoardCell[numRows][numColumns];
 		for(int i=0; i < numRows; i++)
 			for(int j=0; j < numColumns; j++)
-				grid[i][j] = new BoardCell(i, j);
+				board[i][j] = new BoardCell(i, j);
 	}
 	
 	public Board(String layoutFile, String legendFile) {
@@ -85,7 +84,7 @@ public class Board {
 		final int NUM_ROWS = 22;
 		final int NUM_COLUMNS = 23;
 
-		grid = new BoardCell[NUM_ROWS][NUM_COLUMNS];
+		board = new BoardCell[NUM_ROWS][NUM_COLUMNS];
 
 		try {
 			FileReader reader = new FileReader(boardConfigFile);
@@ -98,20 +97,20 @@ public class Board {
 				numColumns = 0;
 				while(line.hasNext()) {
 					String s = line.next();
-					grid[numRows][numColumns] = new BoardCell(numRows, numColumns, s.charAt(0));
+					board[numRows][numColumns] = new BoardCell(numRows, numColumns, s.charAt(0));
 					if(s.length() > 1) {
 						switch(s.charAt(1)) {
 						case 'U':
-							grid[numRows][numColumns].setDoorDirection(DoorDirection.UP);
+							board[numRows][numColumns].setDoorDirection(DoorDirection.UP);
 							break;
 						case 'D':
-							grid[numRows][numColumns].setDoorDirection(DoorDirection.DOWN);
+							board[numRows][numColumns].setDoorDirection(DoorDirection.DOWN);
 							break;
 						case 'L':
-							grid[numRows][numColumns].setDoorDirection(DoorDirection.LEFT);
+							board[numRows][numColumns].setDoorDirection(DoorDirection.LEFT);
 							break;
 						case 'R':
-							grid[numRows][numColumns].setDoorDirection(DoorDirection.RIGHT);
+							board[numRows][numColumns].setDoorDirection(DoorDirection.RIGHT);
 							break;
 						}
 					}
@@ -139,11 +138,11 @@ public class Board {
 	public void calcAdjacencies(){
 		for(int i=0; i < numRows; i++)
 			for(int j=0; j < numColumns; j++)
-				adjMtx.put(grid[i][j], getAdjList(grid[i][j]));
+				adjMtx.put(board[i][j], getAdjList(board[i][j]));
 	}
 
 	public void calcTargets(int row, int column, int distance) {
-		calcTargets(grid[row][column], distance);
+		calcTargets(board[row][column], distance);
 	}
 	
 	public void calcTargets(BoardCell boardCell, int distance){
@@ -178,7 +177,7 @@ public class Board {
 	}
 	
 	public BoardCell getCellAt(int row, int column){
-		return grid[row][column];
+		return board[row][column];
 	}
 	
 	public Set<BoardCell> getTargets(){
@@ -186,7 +185,7 @@ public class Board {
 	}
 	
 	public LinkedList<BoardCell> getAdjList(int row, int column) {
-		return getAdjList(grid[row][column]);
+		return getAdjList(board[row][column]);
 	}
 	
 	public LinkedList<BoardCell> getAdjList(BoardCell boardCell){
@@ -195,37 +194,37 @@ public class Board {
 		if(boardCell.isDoorway()) {
 			switch(boardCell.getDoorDirection()) {
 			case UP:
-				list.add(grid[boardCell.getRow() - 1][boardCell.getColumn()]);
+				list.add(board[boardCell.getRow() - 1][boardCell.getColumn()]);
 				break;
 			case DOWN:
-				list.add(grid[boardCell.getRow() + 1][boardCell.getColumn()]);
+				list.add(board[boardCell.getRow() + 1][boardCell.getColumn()]);
 				break;
 			case LEFT:
-				list.add(grid[boardCell.getRow()][boardCell.getColumn() - 1]);
+				list.add(board[boardCell.getRow()][boardCell.getColumn() - 1]);
 				break;
 			case RIGHT:
-				list.add(grid[boardCell.getRow()][boardCell.getColumn() + 1]);
+				list.add(board[boardCell.getRow()][boardCell.getColumn() + 1]);
 				break;
 			}
 		} else if(boardCell.getInitial() != 'W') {
 		} else {
 			if(boardCell.getRow() - 1 >= 0) {
-				BoardCell cell = grid[boardCell.getRow() - 1][boardCell.getColumn()];
+				BoardCell cell = board[boardCell.getRow() - 1][boardCell.getColumn()];
 				if((!cell.isDoorway() && cell.getInitial() == 'W') || cell.getDoorDirection() == DoorDirection.DOWN)
 					list.add(cell);
 			}
 			if(boardCell.getRow() + 1 < numRows) {
-				BoardCell cell = grid[boardCell.getRow() + 1][boardCell.getColumn()];
+				BoardCell cell = board[boardCell.getRow() + 1][boardCell.getColumn()];
 				if((!cell.isDoorway() && cell.getInitial() == 'W') || cell.getDoorDirection() == DoorDirection.UP)
 					list.add(cell);
 			}
 			if(boardCell.getColumn() - 1 >= 0) {
-				BoardCell cell = grid[boardCell.getRow()][boardCell.getColumn() - 1];
+				BoardCell cell = board[boardCell.getRow()][boardCell.getColumn() - 1];
 				if((!cell.isDoorway() && cell.getInitial() == 'W') || cell.getDoorDirection() == DoorDirection.RIGHT)
 					list.add(cell);
 			}
 			if(boardCell.getColumn() + 1 < numColumns) {
-				BoardCell cell = grid[boardCell.getRow()][boardCell.getColumn() + 1];
+				BoardCell cell = board[boardCell.getRow()][boardCell.getColumn() + 1];
 				if((!cell.isDoorway() && cell.getInitial() == 'W') || cell.getDoorDirection() == DoorDirection.LEFT)
 					list.add(cell);
 			}
@@ -235,7 +234,7 @@ public class Board {
 	}
 	
 	public BoardCell getCell(int row, int column) {
-		return grid[row][column];
+		return board[row][column];
 	}
 	
 	public static void main(String[] args) {
