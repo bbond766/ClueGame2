@@ -180,7 +180,7 @@ public class Board {
 	}
 	
 	public LinkedList<BoardCell> getAdjList(int row, int column) {
-		return getAdjList(new BoardCell(row, column));
+		return getAdjList(grid[row][column]);
 	}
 	
 	public LinkedList<BoardCell> getAdjList(BoardCell boardCell){
@@ -201,25 +201,26 @@ public class Board {
 				list.add(grid[boardCell.getRow()][boardCell.getColumn() + 1]);
 				break;
 			}
+		} else if(boardCell.getInitial() != 'W') {
 		} else {
 			if(boardCell.getRow() - 1 >= 0) {
 				BoardCell cell = grid[boardCell.getRow() - 1][boardCell.getColumn()];
-				if(!cell.isDoorway() || cell.getDoorDirection() == DoorDirection.DOWN)
+				if((!cell.isDoorway() && cell.getInitial() == 'W') || cell.getDoorDirection() == DoorDirection.DOWN)
 					list.add(cell);
 			}
 			if(boardCell.getRow() + 1 < numRows) {
 				BoardCell cell = grid[boardCell.getRow() + 1][boardCell.getColumn()];
-				if(!cell.isDoorway() || cell.getDoorDirection() == DoorDirection.UP)
+				if((!cell.isDoorway() && cell.getInitial() == 'W') || cell.getDoorDirection() == DoorDirection.UP)
 					list.add(cell);
 			}
 			if(boardCell.getColumn() - 1 >= 0) {
 				BoardCell cell = grid[boardCell.getRow()][boardCell.getColumn() - 1];
-				if(!cell.isDoorway() || cell.getDoorDirection() == DoorDirection.RIGHT)
+				if((!cell.isDoorway() && cell.getInitial() == 'W') || cell.getDoorDirection() == DoorDirection.RIGHT)
 					list.add(cell);
 			}
 			if(boardCell.getColumn() + 1 < numColumns) {
 				BoardCell cell = grid[boardCell.getRow()][boardCell.getColumn() + 1];
-				if(!cell.isDoorway() || cell.getDoorDirection() == DoorDirection.LEFT)
+				if((!cell.isDoorway() && cell.getInitial() == 'W') || cell.getDoorDirection() == DoorDirection.LEFT)
 					list.add(cell);
 			}
 		}
