@@ -141,7 +141,7 @@ public class Board {
 	}
 
 	public void calcTargets(int row, int column, int distance) {
-		calcTargets(new BoardCell(row, column), distance);
+		calcTargets(grid[row][column], distance);
 	}
 	
 	public void calcTargets(BoardCell boardCell, int distance){
