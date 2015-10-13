@@ -42,7 +42,7 @@ public class Board {
 //		initialize();
 	} 
 	
-	public void initialize(){
+	public void initialize() {
 		rooms = new HashMap<Character, String>();
 		
 		try {
@@ -67,10 +67,12 @@ public class Board {
 			Scanner in = new Scanner(reader).useDelimiter(",");
 
 			while(in.hasNextLine()) {
-				Character c = in.next().charAt(0);
-				String s = in.next();
+				Character c = in.next().trim().charAt(0);
+				String s = in.next().trim();
 				rooms.put(c, s);
-				in.nextLine();
+				s = in.nextLine().trim();
+				if(s.length() == 0)
+					throw new BadConfigFormatException();
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -165,8 +167,12 @@ public class Board {
 			return adjacent;
 		}
 		
-		for(BoardCell target : adjacent)
-			targets.addAll(findAllTargets(target, visited, distance-1));
+		for(BoardCell target : adjacent) {
+			if(target.isDoorway())
+				targets.add(target);
+			else
+				targets.addAll(findAllTargets(target, visited, distance-1));
+		}
 		
 		return targets;
 	}
