@@ -1,4 +1,4 @@
-package game;
+package clueTests;
 
 import static org.junit.Assert.*;
 
@@ -7,6 +7,9 @@ import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import clueGame.Board;
+import clueGame.BoardCell;
 
 public class BoardTest {
 	private Board board;
@@ -18,7 +21,9 @@ public class BoardTest {
 	//TEST FOR CORRECT NUMBER OF ROOMS
 	@Test
 	public void numberOfRooms(){
-		assertEquals(9 , board.getNumberOfRooms());
+		board = new Board();
+		board.initialize();
+		assertEquals(11 , board.getNumberOfRooms());
 	}
 	
 	
@@ -28,7 +33,8 @@ public class BoardTest {
 	
 	//@Before
 	public void init() {
-		board = new Board(4);
+		board = new Board(4, 4);
+		board.initialize();
 	}
 	
 	//@Test
@@ -64,7 +70,7 @@ public class BoardTest {
 	//@Test
 	public void testAdjacency00()
 	{
-		board = new Board(2);
+		board = new Board(2, 2);
 		BoardCell cell = board.getCell(0,0);
 		LinkedList<BoardCell> testList = board.getAdjList(cell);
 		assertTrue(testList.contains(board.getCell(1, 0)));
@@ -75,7 +81,7 @@ public class BoardTest {
 	//@Test
 	public void testAdjacency01()
 	{
-		board = new Board(2);
+		board = new Board(2, 2);
 		BoardCell cell = board.getCell(0,1);
 		LinkedList<BoardCell> testList = board.getAdjList(cell);
 		assertTrue(testList.contains(board.getCell(0, 0)));
@@ -86,7 +92,7 @@ public class BoardTest {
 	//@Test
 	public void testAdjacency10()
 	{
-		board = new Board(2);
+		board = new Board(2, 2);
 		BoardCell cell = board.getCell(1,0);
 		LinkedList<BoardCell> testList = board.getAdjList(cell);
 		assertTrue(testList.contains(board.getCell(0, 0)));
@@ -97,7 +103,7 @@ public class BoardTest {
 	//@Test
 	public void testAdjacency11()
 	{
-		board = new Board(2);
+		board = new Board(2, 2);
 		BoardCell cell = board.getCell(1,1);
 		LinkedList<BoardCell> testList = board.getAdjList(cell);
 		assertTrue(testList.contains(board.getCell(0, 1)));
