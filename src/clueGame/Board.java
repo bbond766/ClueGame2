@@ -63,15 +63,14 @@ public class Board {
 	public void loadRoomConfig() throws BadConfigFormatException {
 		try {
 			FileReader reader = new FileReader(roomConfigFile);
-			Scanner in = new Scanner(reader).useDelimiter(",");
+			Scanner in = new Scanner(reader);
 
 			while(in.hasNextLine()) {
-				Character c = in.next().trim().charAt(0);
-				String s = in.next().trim();
-				rooms.put(c, s);
-				s = in.nextLine().trim();
-				if(s.length() == 0)
+				String[] room = in.nextLine().split(",");
+				if(room.length != 3)
 					throw new BadConfigFormatException();
+
+				rooms.put(room[0].trim().charAt(0), room[1].trim());
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -92,30 +91,33 @@ public class Board {
 
 			numRows = 0;
 			while(in.hasNextLine()) {
-				Scanner line = new Scanner(in.nextLine()).useDelimiter(",");
+				String[] row = in.nextLine().split(",");
 				
-				numColumns = 0;
-				while(line.hasNext()) {
-					String s = line.next();
-					board[numRows][numColumns] = new BoardCell(numRows, numColumns, s.charAt(0));
-					if(s.length() > 1) {
-						switch(s.charAt(1)) {
+				numColumns = row.length;
+				
+				for(int i = 0; i < numColumns; i++) {
+					if(!rooms.containsKey(row[i].charAt(0)))
+						throw new BadConfigFormatException();
+
+					board[numRows][i] = new BoardCell(numRows, i, row[i].charAt(0));
+					if(row[i].length() > 1) {
+						switch(row[i].charAt(1)) {
 						case 'U':
-							board[numRows][numColumns].setDoorDirection(DoorDirection.UP);
+							board[numRows][i].setDoorDirection(DoorDirection.UP);
 							break;
 						case 'D':
-							board[numRows][numColumns].setDoorDirection(DoorDirection.DOWN);
+							board[numRows][i].setDoorDirection(DoorDirection.DOWN);
 							break;
 						case 'L':
-							board[numRows][numColumns].setDoorDirection(DoorDirection.LEFT);
+							board[numRows][i].setDoorDirection(DoorDirection.LEFT);
 							break;
 						case 'R':
-							board[numRows][numColumns].setDoorDirection(DoorDirection.RIGHT);
+							board[numRows][i].setDoorDirection(DoorDirection.RIGHT);
 							break;
 						}
 					}
-					numColumns++;
 				}
+
 				if(numColumns != NUM_COLUMNS) {
 					throw new BadConfigFormatException();
 				}
