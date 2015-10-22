@@ -1,11 +1,13 @@
 package clueGame;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -19,6 +21,10 @@ public class Board {
 	private BoardCell[][] board;
 	private String boardConfigFile;
 	private String roomConfigFile;
+	private String playerConfigFile;
+	private String cardConfigFile;
+	private Solution theAnswer;
+	private List<Player> players = new ArrayList<Player>();
 	
 	public Board() {
 		this("ClueLayout.csv", "ClueLegend.txt");
@@ -129,7 +135,9 @@ public class Board {
 		}
 	}
 	
-	public void selectAnswer() {
+	public void loadPlayerConfig() {}
+	
+	public void loadCardConfig() {}
 		
 	}
 	
@@ -234,6 +242,18 @@ public class Board {
 		
 		return list;
 	}
+	
+	public void selectAnswer() {}
+	
+	public Card handleSuggestion(Solution suggestion, String accusingPlayer, BoardCell clicked) {
+		return null;
+	}
+	
+	public boolean checkAccusation(Solution accusation) {
+		return (Boolean) null;
+	}
+	
+	public void dealCards() {}
 	
 	public BoardCell getCell(int row, int column) {
 		return board[row][column];
