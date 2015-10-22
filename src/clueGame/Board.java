@@ -138,8 +138,6 @@ public class Board {
 	public void loadPlayerConfig() {}
 	
 	public void loadCardConfig() {}
-		
-	}
 	
 	public static Map<Character, String> getRooms() {
 		return rooms;
