@@ -8,6 +8,7 @@ import java.util.Set;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -24,10 +25,11 @@ public class Board {
 	private String playerConfigFile;
 	private String cardConfigFile;
 	private Solution theAnswer;
+	private List<Card> deck = new ArrayList<Card>();
 	private List<Player> players = new ArrayList<Player>();
 	
 	public Board() {
-		this("ClueLayout.csv", "ClueLegend.txt");
+		this("ClueLayout.csv", "ClueLegend.txt", "ClueLayout/Players.txt", "ClueLayout/Cards.txt");
 	}
 
 	public Board(int rows, int columns) {
@@ -40,9 +42,11 @@ public class Board {
 				board[i][j] = new BoardCell(i, j);
 	}
 	
-	public Board(String layoutFile, String legendFile) {
+	public Board(String layoutFile, String legendFile, String playerFile, String cardFile) {
 		boardConfigFile = layoutFile;
 		roomConfigFile = legendFile;
+		playerConfigFile = playerFile;
+		cardConfigFile = cardFile;
 
 //		initialize();
 	} 
@@ -135,9 +139,55 @@ public class Board {
 		}
 	}
 	
-	public void loadPlayerConfig() {}
+	public void loadPlayerConfig() throws BadConfigFormatException {
+		try {
+			FileReader reader = new FileReader(playerConfigFile);
+			Scanner in = new Scanner(reader);
+			
+			while (in.hasNextLine()) {
+				String[] player = in.nextLine().split(",");
+				if (player.length != 2)
+					throw new BadConfigFormatException();
+				
+				// Add human player to list
+				if (player[1] == "Human")
+					players.add(new HumanPlayer(player[0]));
+				
+				// Add AI player to list
+				else if (player[2] == "Computer")
+					players.add(new ComputerPlayer(player[0]));
+				else
+					throw new BadConfigFormatException();
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
 	
-	public void loadCardConfig() {}
+	public void loadCardConfig() throws BadConfigFormatException {
+		try {
+			FileReader reader = new FileReader(cardConfigFile);
+			Scanner in = new Scanner(reader);
+			
+			while (in.hasNextLine()) {
+				String[] card = in.nextLine().split(",");
+				if (card.length != 2)
+					throw new BadConfigFormatException();
+				
+				// Add card to deck
+				if (card[1] == "Room")
+					deck.add(new Card(card[0], CardType.ROOM));
+				else if (card[1] == "Person")
+					deck.add(new Card(card[0], CardType.PERSON));
+				else if (card[1] == "Weapon")
+					deck.add(new Card(card[0], CardType.WEAPON));
+				else
+					throw new BadConfigFormatException();
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	public static Map<Character, String> getRooms() {
 		return rooms;
@@ -241,17 +291,54 @@ public class Board {
 		return list;
 	}
 	
-	public void selectAnswer() {}
+	public void selectAnswer() {
+		// Selects answer from first room, person, and weapon in
+		// the deck after shuffling
+		
+		shuffleDeck();
+		String room=null;
+		String person=null;
+		String weapon=null;
+		
+		for (int i=0; i<deck.size(); i++)
+			if (deck.get(i).getType() == CardType.ROOM) {
+				room = deck.get(i).getName();
+				deck.remove(i);
+				break;
+			}
+		for (int i=0; i<deck.size(); i++)
+			if (deck.get(i).getType() == CardType.PERSON) {
+				person = deck.get(i).getName();
+				deck.remove(i);
+				break;
+			}
+		for (int i=0; i<deck.size(); i++)
+			if (deck.get(i).getType() == CardType.WEAPON) {
+				weapon = deck.get(i).getName();
+				deck.remove(i);
+				break;
+			}
+		
+		theAnswer = new Solution(room, person, weapon);
+	}
 	
 	public Card handleSuggestion(Solution suggestion, String accusingPlayer, BoardCell clicked) {
+		// TODO
 		return null;
 	}
 	
 	public boolean checkAccusation(Solution accusation) {
+		// TODO
 		return (Boolean) null;
 	}
 	
-	public void dealCards() {}
+	public void dealCards() {
+		// TODO
+	}
+	
+	public void shuffleDeck() {
+		Collections.shuffle(deck);
+	}
 	
 	public BoardCell getCell(int row, int column) {
 		return board[row][column];

@@ -16,7 +16,7 @@ public class AdjacencyTests {
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		board = new Board("ClueLayout/Layout.csv", "ClueLayout/Legend.txt");
+		board = new Board("ClueLayout/Layout.csv", "ClueLayout/Legend.txt", "ClueLayout/Players.txt", "ClueLayout/Cards.txt");
 		board.initialize();
 	}
 

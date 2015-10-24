@@ -11,6 +11,10 @@ public class Player {
 	private Color color;
 	private List<Card> cards = new ArrayList<Card>();
 	
+	public Player(String name) {
+		this.playerName = name;
+	}
+	
 	public Card disproveSuggestion(Solution suggestion) {
 		return null;
 	}
