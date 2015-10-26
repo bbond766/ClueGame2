@@ -5,20 +5,61 @@ import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import clueGame.BadConfigFormatException;
+import clueGame.Board;
+import clueGame.Solution;
+
 public class GameActionTests {
+	
+	private static Board board;
 
 	@BeforeClass
 	public static void setUp() {
-		// TODO
+		// Load the config files, calculates adjacencies, selects the answer, and deals the cards
+		board = new Board("ClueLayout/Layout.csv", "ClueLayout/Legend.txt", "ClueLayout/Players.txt", "ClueLayout/Cards.txt");
+		board.initialize();
 	}
 	
 	@Test
-	public void checkAccusation() {
-		// TODO
-		/* Check that good and bad accusations are handled correctly
-		 * An accusation is different from a suggestion - in this case
-		 * the game says yes or no to the player's accusation.
+	public void makeAccusation() {
+		/* Test whether the board appropriately handles correct
+		 * and incorrect accusations
 		 */
+		
+		// Create new board but do not randomly select answer
+		Board newBoard = new Board("ClueLayout/Layout.csv", "ClueLayout/Legend.txt", "ClueLayout/Players.txt", "ClueLayout/Cards.txt");
+		try {
+			newBoard.loadBoardConfig();
+		} catch (BadConfigFormatException e) {
+			e.printStackTrace();
+		}
+		try {
+			newBoard.loadCardConfig();
+		} catch (BadConfigFormatException e) {
+			e.printStackTrace();
+		}
+		try {
+			newBoard.loadPlayerConfig();
+		} catch (BadConfigFormatException e) {
+			e.printStackTrace();
+		}
+		try {
+			newBoard.loadRoomConfig();
+		} catch (BadConfigFormatException e) {
+			e.printStackTrace();
+		}
+		
+		newBoard.setAnswer();    // Debugging method sets answer to Miss Scarlet, Canary Room, Candlestick
+		newBoard.dealCards();
+		
+		// Test correct solution
+		assertTrue(newBoard.checkAccusation(new Solution("Canary Room", "Miss Scarlet", "Candlestick")));
+		// Test incorrect room
+		assertFalse(newBoard.checkAccusation(new Solution("Rumpus Room", "Miss Scarlet", "Candlestick")));
+		// Test incorrect person
+		assertFalse(newBoard.checkAccusation(new Solution("Canary Room", "Mr. Green", "Candlestick")));
+		// Test incorrect weapon
+		assertFalse(newBoard.checkAccusation(new Solution("Canary Room", "Miss Scarlet", "Lead Pipe")));		
 	}
 	
 	@Test
@@ -77,15 +118,6 @@ public class GameActionTests {
 		/* Suggestion should not include any cards that are not
 		 * in the player's hand or that have been seen.
 		 * Suggestion should choose randomly from the unseen cards.
-		 */
-	}
-	
-	@Test
-	public void makeAccusation() {
-		// TODO
-		/* All 3 cards need to be correct
-		 * How do we store solution?
-		 * Do we pass in cards, strings, solution struct?
 		 */
 	}
 

@@ -402,4 +402,25 @@ public class Board {
 	public ArrayList<Card> getDeck() {
 		return deck;
 	}
+
+	public Solution getAnswer() {
+		return theAnswer;
+	}
+
+	public void setAnswer() {
+		/* For debugging, sets the answer to Miss Scarlet,
+		 * Canary Room, and Candlestick.
+	     */
+		
+		for (int i=0; i<deck.size(); i++) {
+			if (deck.get(i).getName() == "Miss Scarlet")
+				deck.remove(i);
+			if (deck.get(i).getName() == "Canary Room")
+				deck.remove(i);
+			if (deck.get(i).getName() == "Candlestick")
+				deck.remove(i);
+		}
+			
+		theAnswer = new Solution("Canary Room", "Miss Scarlet", "Candlestick");
+	}
 }

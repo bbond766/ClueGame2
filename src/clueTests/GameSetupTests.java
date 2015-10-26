@@ -130,7 +130,6 @@ public class GameSetupTests {
 	
 	@Test
 	public void testDealCards() {
-		// TODO
 		/* Test that all cards are dealt, all players have
 		 * roughly the same number of cards, and no two
 		 * players have the same card
