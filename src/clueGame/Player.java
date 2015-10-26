@@ -36,6 +36,10 @@ public abstract class Player {
 		return null;
 	}
 	
+	public void giveCard(Card c) {
+		hand.add(c);
+	}
+	
 	public String getName() {
 		return playerName;
 	}

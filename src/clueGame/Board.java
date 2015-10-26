@@ -101,15 +101,14 @@ public class Board {
 			while(in.hasNextLine()) {
 				String[] room = in.nextLine().split(", ");
 				if(room.length != 3)
-					throw new BadConfigFormatException();
+					throw new BadConfigFormatException("Too many fields in room config");
 
 				rooms.put(room[0].charAt(0), room[1]);
 				
-				if (room[2] == "Card")
+				if (room[2].equals("Card")) 
 					deck.add(new Card(room[1], CardType.ROOM));
 			}
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -133,7 +132,7 @@ public class Board {
 				
 				for(int i = 0; i < numColumns; i++) {
 					if(!rooms.containsKey(row[i].charAt(0)))
-						throw new BadConfigFormatException();
+						throw new BadConfigFormatException("Unrecognized room");
 
 					board[numRows][i] = new BoardCell(numRows, i, row[i].charAt(0));
 					if(row[i].length() > 1) {
@@ -155,12 +154,11 @@ public class Board {
 				}
 
 				if(numColumns != NUM_COLUMNS) {
-					throw new BadConfigFormatException();
+					throw new BadConfigFormatException("numColumns: " + numColumns + ", NUM_COLUMNS: " + NUM_COLUMNS);
 				}
 				numRows++;
 			}
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -171,28 +169,28 @@ public class Board {
 			Scanner in = new Scanner(reader);
 			
 			while (in.hasNextLine()) {
-				String[] player = in.nextLine().split(",");
-				if (player.length != 2)
-					throw new BadConfigFormatException();
+				String[] player = in.nextLine().split(", ");
+				if (player.length != 5)
+					throw new BadConfigFormatException("Too many fields in player config file");
 				
 				if (!Player.colors.containsKey(player[2]))
-					throw new BadConfigFormatException();
+					throw new BadConfigFormatException("Color " + player[2] + " is not valid");
 				
 				if (Integer.parseInt(player[3]) >= numRows || Integer.parseInt(player[3]) < 0)
-					throw new BadConfigFormatException();
+					throw new BadConfigFormatException("row value is " + player[3] + ", must be between 0 and " + numRows);
 				
 				if (Integer.parseInt(player[4]) >= numColumns || Integer.parseInt(player[4]) < 0)
-					throw new BadConfigFormatException();
+					throw new BadConfigFormatException("column value is " + player[4] + ", must be between 0 and " + numColumns);
 				
 				// Add human player to list
-				if (player[1] == "Human")
+				if (player[1].equals("Human"))
 					players.add(new HumanPlayer(player[0], player[2], Integer.parseInt(player[3]), Integer.parseInt(player[4])));
 				
 				// Add AI player to list
-				else if (player[1] == "Computer")
+				else if (player[1].equals("Computer"))
 					players.add(new ComputerPlayer(player[0], player[2], Integer.parseInt(player[3]), Integer.parseInt(player[4])));
 				else
-					throw new BadConfigFormatException();
+					throw new BadConfigFormatException("Player must be either Human or Computer controlled, field says: " + player[1]);
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -205,17 +203,17 @@ public class Board {
 			Scanner in = new Scanner(reader);
 			
 			while (in.hasNextLine()) {
-				String[] card = in.nextLine().split(",");
+				String[] card = in.nextLine().split(", ");
 				if (card.length != 2)
-					throw new BadConfigFormatException();
+					throw new BadConfigFormatException("Too many fields in card config file");
 				
 				// Add card to deck
-				if (card[1] == "Person")
+				if (card[1].equals("Person"))
 					deck.add(new Card(card[0], CardType.PERSON));
-				else if (card[1] == "Weapon")
+				else if (card[1].equals("Weapon"))
 					deck.add(new Card(card[0], CardType.WEAPON));
 				else
-					throw new BadConfigFormatException();
+					throw new BadConfigFormatException("Invalid type: " + card[1]);
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -366,7 +364,12 @@ public class Board {
 	}
 	
 	public void dealCards() {
-		// TODO
+		int counter = 0;
+		while (!deck.isEmpty()) {                          // while the deck has cards
+			players.get(counter).giveCard(deck.get(0));    // give the top card in the deck to the current player
+			deck.remove(0);                                // remove the top card from the deck
+			counter = (counter + 1) % players.size();      // look at the next player
+		}
 	}
 	
 	public void shuffleDeck() {

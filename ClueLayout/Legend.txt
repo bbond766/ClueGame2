@@ -1,5 +1,5 @@
 C, Canary Room, Card
-B, Bowling Ally, Card
+B, Bowling Alley, Card
 L, Lounge, Card
 H, Hall, Card
 O, Outside, Card

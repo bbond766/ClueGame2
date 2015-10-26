@@ -78,18 +78,19 @@ public class GameSetupTests {
 			e.printStackTrace();
 		}
 		try {
-			newBoard.loadRoomConfig();
-		} catch (BadConfigFormatException e) {
-			e.printStackTrace();
-		}
-		try {
 			newBoard.loadPlayerConfig();
 		} catch (BadConfigFormatException e) {
 			e.printStackTrace();
 		}
+		try {
+			newBoard.loadRoomConfig();
+		} catch (BadConfigFormatException e) {
+			e.printStackTrace();
+		}
+
 		
 		// Test that every card was loaded into the deck
-		ArrayList<Card> testList = board.getDeck();
+		ArrayList<Card> testList = newBoard.getDeck();
 		assertEquals(testList.size(), 20);
 		
 		// Test that each type of card has the correct number
@@ -116,11 +117,11 @@ public class GameSetupTests {
 		boolean foundMrsWhite = false;
 		boolean foundCandlestick = false;
 		for (Card c: testList) {
-			if (c.getName() == "Canary Room")
+			if (c.getName().equals("Canary Room"))
 				foundCanaryRoom = true;
-			else if (c.getName() == "Mrs. White")
+			else if (c.getName().equals("Mrs. White"))
 				foundMrsWhite = true;
-			else if (c.getName() == "Candlestick")
+			else if (c.getName().equals("Candlestick"))
 				foundCandlestick = true;
 		}
 		assertTrue(foundCanaryRoom);
@@ -142,7 +143,7 @@ public class GameSetupTests {
 		assertEquals(testDeck.size(), 0);
 		for (Player p : testPlayers)
 			totalCards += p.getHandSize();
-		assertEquals(totalCards, 20);
+		assertEquals(totalCards, 17);    // 3 cards are stored as the answer, so 17 cards are dealt
 		
 		// Test all players have similar hand sizes
 		for (Player p : testPlayers)
