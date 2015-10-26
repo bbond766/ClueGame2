@@ -6,11 +6,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Player {
+public abstract class Player {
 	protected String playerName;
 	protected int row;
 	protected int column;
 	protected Color color;
+	protected String colorName;
 	protected ArrayList<Card> cards = new ArrayList<Card>();
 	public static final Map<String, Color> colors;
 	static {
@@ -25,7 +26,8 @@ public class Player {
 	
 	public Player(String name, String color, int row, int col) {
 		this.playerName = name;
-		this.color = colors.get(color);
+		this.colorName = color;
+		this.color = colors.get(colorName);
 		this.row = row;
 		this.column = col;
 	}
@@ -37,4 +39,18 @@ public class Player {
 	public String getName() {
 		return playerName;
 	}
+	
+	public String getColorName() {
+		return colorName;
+	}
+	
+	public int getRow() {
+		return row;
+	}
+	
+	public int getColumn() {
+		return column;
+	}
+	
+	abstract public boolean isHuman();
 }

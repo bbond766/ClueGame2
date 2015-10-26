@@ -9,4 +9,9 @@ public class HumanPlayer extends Player {
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	public boolean isHuman() {
+		return true;
+	}
+
 }

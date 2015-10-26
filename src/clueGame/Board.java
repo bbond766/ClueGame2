@@ -399,4 +399,7 @@ public class Board {
 		return players;
 	}
 
+	public ArrayList<Card> getDeck() {
+		return deck;
+	}
 }
