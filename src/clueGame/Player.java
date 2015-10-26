@@ -12,7 +12,7 @@ public abstract class Player {
 	protected int column;
 	protected Color color;
 	protected String colorName;
-	protected ArrayList<Card> cards = new ArrayList<Card>();
+	protected ArrayList<Card> hand = new ArrayList<Card>();
 	public static final Map<String, Color> colors;
 	static {
 		colors = new HashMap<String, Color>();
@@ -50,6 +50,14 @@ public abstract class Player {
 	
 	public int getColumn() {
 		return column;
+	}
+	
+	public int getHandSize() {
+		return hand.size();
+	}
+	
+	public ArrayList<Card> getHand() {
+		return hand;
 	}
 	
 	abstract public boolean isHuman();

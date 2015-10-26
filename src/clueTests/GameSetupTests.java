@@ -3,7 +3,8 @@ package clueTests;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
-
+import java.util.Collections;
+import java.lang.Math;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -58,7 +59,6 @@ public class GameSetupTests {
 	
 	@Test
 	public void testLoadCards() {
-		// TODO
 		/* Test that the deck contains the correct number of cards,
 		 * correct number of each type of card, and if names were
 		 * loaded correctly.
@@ -131,10 +131,31 @@ public class GameSetupTests {
 	@Test
 	public void testDealCards() {
 		// TODO
-		/* All cards should be dealt
-		 * All players should have roughly the same number of cards
-		 * The same card should not be given to >1 player
+		/* Test that all cards are dealt, all players have
+		 * roughly the same number of cards, and no two
+		 * players have the same card
 		 */
+		
+		// Test all cards have been dealt from the deck
+		ArrayList<Card> testDeck = board.getDeck();
+		ArrayList<Player> testPlayers = board.getPlayers();
+		int totalCards = 0;
+		assertEquals(testDeck.size(), 0);
+		for (Player p : testPlayers)
+			totalCards += p.getHandSize();
+		assertEquals(totalCards, 20);
+		
+		// Test all players have similar hand sizes
+		for (Player p : testPlayers)
+			for (Player o : testPlayers)
+				if (Math.abs(p.getHandSize() - o.getHandSize()) > 1)
+					fail();    // Fails if any player has >=2 more cards than any other player
+		
+		// Test no two players share a card
+		for (Player p : testPlayers)
+			for (Player o : testPlayers)
+				if (p != o)
+					assertTrue(Collections.disjoint(p.getHand(), o.getHand()));
 	}
 
 }
