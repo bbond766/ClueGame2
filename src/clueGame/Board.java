@@ -359,8 +359,13 @@ public class Board {
 	}
 	
 	public boolean checkAccusation(Solution accusation) {
-		// TODO
-		return (Boolean) null;
+		if (!accusation.room.equals(theAnswer.room))
+			return false;
+		if (!accusation.person.equals(theAnswer.person))
+			return false;
+		if (!accusation.weapon.equals(theAnswer.weapon))
+			return false;
+		return true;
 	}
 	
 	public void dealCards() {
