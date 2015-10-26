@@ -2,20 +2,39 @@ package clueGame;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Player {
-	private String playerName;
-	private int row;
-	private int column;
-	private Color color;
-	private List<Card> cards = new ArrayList<Card>();
+	protected String playerName;
+	protected int row;
+	protected int column;
+	protected Color color;
+	protected ArrayList<Card> cards = new ArrayList<Card>();
+	public static final Map<String, Color> colors;
+	static {
+		colors = new HashMap<String, Color>();
+		colors.put("red", new Color(255, 0, 0));
+		colors.put("green", new Color(0, 255, 0));
+		colors.put("blue", new Color(0, 0, 255));
+		colors.put("yellow", new Color(255, 255, 0));
+		colors.put("white", new Color(255, 255, 255));
+		colors.put("purple", new Color(255, 0, 255));
+	}
 	
-	public Player(String name) {
+	public Player(String name, String color, int row, int col) {
 		this.playerName = name;
+		this.color = colors.get(color);
+		this.row = row;
+		this.column = col;
 	}
 	
 	public Card disproveSuggestion(Solution suggestion) {
 		return null;
+	}
+	
+	public String getName() {
+		return playerName;
 	}
 }

@@ -1,0 +1,12 @@
+Miss Scarlet, Person
+Mrs. Peacock, Person
+Professor Plum, Person
+Colonel Mustard, Person
+Mrs. White, Person
+Mr. Green, Person
+Candlestick, Weapon
+Wrench, Weapon
+Rope, Weapon
+Revolver, Weapon
+Knife, Weapon
+Lead Pipe, Weapon

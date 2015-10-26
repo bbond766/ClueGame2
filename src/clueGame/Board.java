@@ -11,12 +11,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.awt.Color;
 
 public class Board {
 	private int numRows;
 	private int numColumns;
 	private static Map<Character, String> rooms;
-	private Map<BoardCell, LinkedList<BoardCell>> adjMtx;
+	private Map<BoardCell, LinkedList<BoardCell>> adjMtx = new HashMap<BoardCell, LinkedList<BoardCell>>();
 	private Set<BoardCell> targets;
 	private Set<BoardCell> visited;
 	private BoardCell[][] board;
@@ -25,8 +26,8 @@ public class Board {
 	private String playerConfigFile;
 	private String cardConfigFile;
 	private Solution theAnswer;
-	private List<Card> deck = new ArrayList<Card>();
-	private List<Player> players = new ArrayList<Player>();
+	private ArrayList<Card> deck = new ArrayList<Card>();
+	private ArrayList<Player> players = new ArrayList<Player>();
 	
 	public Board() {
 		this("ClueLayout.csv", "ClueLegend.txt", "ClueLayout/Players.txt", "ClueLayout/Cards.txt");
@@ -41,6 +42,15 @@ public class Board {
 			for(int j=0; j < numColumns; j++)
 				board[i][j] = new BoardCell(i, j);
 	}
+	
+	public Board(String layoutFile, String legendFile) {
+		boardConfigFile = layoutFile;
+		roomConfigFile = legendFile;
+		playerConfigFile = "ClueLayout/Players.txt";
+		cardConfigFile = "ClueLayout/Cards.txt";
+
+//		initialize();
+	} 
 	
 	public Board(String layoutFile, String legendFile, String playerFile, String cardFile) {
 		boardConfigFile = layoutFile;
@@ -57,16 +67,29 @@ public class Board {
 		try {
 			loadRoomConfig();
 		} catch (BadConfigFormatException e) {
-
+			e.printStackTrace();
 		}
 
 		try {
 			loadBoardConfig();
 		} catch (BadConfigFormatException e) {
-
+			e.printStackTrace();
+		}
+		
+		try {
+			loadPlayerConfig();
+		} catch (BadConfigFormatException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			loadCardConfig();
+		} catch (BadConfigFormatException e) {
+			e.printStackTrace();
 		}
 
-		adjMtx = new HashMap<BoardCell, LinkedList<BoardCell>>();
+		selectAnswer();
+		dealCards();
 		calcAdjacencies();
 	}
 	
@@ -76,11 +99,14 @@ public class Board {
 			Scanner in = new Scanner(reader);
 
 			while(in.hasNextLine()) {
-				String[] room = in.nextLine().split(",");
+				String[] room = in.nextLine().split(", ");
 				if(room.length != 3)
 					throw new BadConfigFormatException();
 
-				rooms.put(room[0].trim().charAt(0), room[1].trim());
+				rooms.put(room[0].charAt(0), room[1]);
+				
+				if (room[2] == "Card")
+					deck.add(new Card(room[1], CardType.ROOM));
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -149,13 +175,22 @@ public class Board {
 				if (player.length != 2)
 					throw new BadConfigFormatException();
 				
+				if (!Player.colors.containsKey(player[2]))
+					throw new BadConfigFormatException();
+				
+				if (Integer.parseInt(player[3]) >= numRows || Integer.parseInt(player[3]) < 0)
+					throw new BadConfigFormatException();
+				
+				if (Integer.parseInt(player[4]) >= numColumns || Integer.parseInt(player[4]) < 0)
+					throw new BadConfigFormatException();
+				
 				// Add human player to list
 				if (player[1] == "Human")
-					players.add(new HumanPlayer(player[0]));
+					players.add(new HumanPlayer(player[0], player[2], Integer.parseInt(player[3]), Integer.parseInt(player[4])));
 				
 				// Add AI player to list
-				else if (player[2] == "Computer")
-					players.add(new ComputerPlayer(player[0]));
+				else if (player[1] == "Computer")
+					players.add(new ComputerPlayer(player[0], player[2], Integer.parseInt(player[3]), Integer.parseInt(player[4])));
 				else
 					throw new BadConfigFormatException();
 			}
@@ -175,9 +210,7 @@ public class Board {
 					throw new BadConfigFormatException();
 				
 				// Add card to deck
-				if (card[1] == "Room")
-					deck.add(new Card(card[0], CardType.ROOM));
-				else if (card[1] == "Person")
+				if (card[1] == "Person")
 					deck.add(new Card(card[0], CardType.PERSON));
 				else if (card[1] == "Weapon")
 					deck.add(new Card(card[0], CardType.WEAPON));
@@ -360,6 +393,10 @@ public class Board {
 	public int getNumColumns() {
 		// TODO Auto-generated method stub
 		return numColumns;
+	}
+	
+	public ArrayList<Player> getPlayers() {
+		return players;
 	}
 
 }
