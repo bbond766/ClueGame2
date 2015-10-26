@@ -1,0 +1,300 @@
+repo at https://github.com/cotaylor/ClueGame-1
+git log after swap (Conner Taylor, Brennan Fieck, & Kaveman Hayes):
+commit 6138d25f06c88b595939b0cb694a9daf6789de53
+Author: Conner Taylor <cotaylor@mines.edu>
+Date:   Mon Oct 26 15:37:29 2015 -0600
+
+    implemented checkAccusation
+
+
+commit 0c76a1744cf83d4f5a9ef01d0f37205ffbb2c7c7
+Author: Conner Taylor <cotaylor@mines.edu>
+Date:   Mon Oct 26 15:30:27 2015 -0600
+
+    implemented loadPlayers, loadCards, and dealCards
+
+
+commit 09c26bfbda4f98713f75c6ffafc0629f04b9d2a9
+Author: Conner Taylor <cotaylor@mines.edu>
+Date:   Mon Oct 26 14:52:56 2015 -0600
+
+    added failing accusation test
+
+
+commit 17cdea269a62dd83807402cbc611c7914edd0136
+Author: Conner Taylor <cotaylor@mines.edu>
+Date:   Mon Oct 26 14:19:04 2015 -0600
+
+    added failing test for dealCards
+
+
+commit d7cb7ed3299e6c06611232ad052bb4dc4bbc5790
+Author: Conner Taylor <cotaylor@mines.edu>
+Date:   Mon Oct 26 14:00:50 2015 -0600
+
+    added failing tests for loadPlayers and loadCards
+
+
+commit 69617a22ca22fdeae937d1870dc7a27f1a1c7975
+Author: Conner Taylor <cotaylor@mymail.mines.edu>
+Date:   Mon Oct 26 11:11:04 2015 -0600
+
+    bug fixes and config format changes
+
+
+commit ce4edf41b444f95811c324278e9cb6388d7aefa2
+Author: Kaveman <kehayes@mymail.mines.edu>
+Date:   Sun Oct 25 18:17:08 2015 -0600
+
+    this is the text file used to load the cards for the players and the weapons
+
+
+commit 8a488f1a62ef53736c367a35feed49edeeb5a295
+Author: Conner Taylor <cotaylor@mines.edu>
+Date:   Sat Oct 24 16:37:58 2015 -0600
+
+    config format handling
+
+commit c1759051a7b3da5bd7462e99599dde42111e0062
+Author: Conner Taylor <cotaylor@mines.edu>
+Date:   Sat Oct 24 15:44:47 2015 -0600
+
+    added GameSetupTests and GameActionTests
+
+
+commit 329c003cde443f1f02e19bc2a82eb4ea0d86f2f2
+Author: Conner Taylor <cotaylor@mines.edu>
+Date:   Sat Oct 24 14:51:50 2015 -0600
+
+    trying to push again...
+commit 79b401d1b7668ff85947bdd9ab26f632e811c7b0
+Author: Conner Taylor <cotaylor@mines.edu>
+Date:   Thu Oct 22 12:14:58 2015 -0600
+
+    removed extraneous brace thing
+
+
+commit e1c60a32ada4c43244253a0457a0e5527fef45f5
+Author: Conner Taylor <cotaylor@mines.edu>
+Date:   Thu Oct 22 12:14:14 2015 -0600
+
+    added skeleton for CluePlayers pt 1
+
+
+
+git log before swap:
+commit 6a323da566913bda4c3999feb9620125685f9c3c
+Author: Jesse DeMott <jdemott@mines.edu>
+Date:   Wed Oct 14 21:45:04 2015 -0600
+
+    Modified Layout file
+
+
+commit 97635fec3e2921f323c7e912ed928a6190e42ed6
+Author: tashaffin <jostockw@mines.edu>
+Date:   Wed Oct 14 20:11:35 2015 -0600
+
+    All tests complete - all tests succeed
+
+
+commit 69bb92108ce4852b98ad8b70e94cf4df5de1df5d
+Author: tashaffin <jostockw@mines.edu>
+Date:   Tue Oct 13 20:25:38 2015 -0600
+
+    All of CR's tests fixed!
+
+
+commit 96288b1b5e46be5b4a47255ef76feee42cdf41dd
+Author: Jesse DeMott <jdemott@mines.edu>
+Date:   Tue Oct 13 14:54:43 2015 -0600
+
+    renamed grid to board to mathc UML
+
+
+commit b835bf8a76bfc79b3b51cd9a5cd71509d0b499d8
+Author: Joseph Stockwell <jostockw@mines.edu>
+Date:   Tue Oct 13 13:48:51 2015 -0600
+
+    I have no clue.
+
+
+commit 639950e7ec618bfa0ec2f7b07773657165efb19c
+Author: Joseph Stockwell <jostockw@mines.edu>
+Date:   Tue Oct 13 12:46:50 2015 -0600
+
+    Fixed a few tests - only two left.
+
+
+commit 187959e6d0a34ed588fe208185652d737edd61a0
+Author: Joseph Stockwell <jostockw@mines.edu>
+Date:   Tue Oct 13 11:38:46 2015 -0600
+
+    Fixed Part II, yay!
+
+
+commit a53b0185119b2f2ef35beb37ce12a32f90255625
+Author: tashaffin <jostockw@mines.edu>
+Date:   Tue Oct 13 07:57:28 2015 -0600
+
+    I have been unsuccessful debugging why the adjacency matrix does not have a key for the 12,7 room.
+
+
+commit d8bcee89a036e3c4c9e53bf146ca345bc7284a64
+Merge: f02b0ef cca9dbc
+Author: Jesse DeMott <jdemott@mines.edu>
+Date:   Sat Oct 10 08:46:14 2015 -0600
+
+    Merge branch 'ClueGame2.0'
+
+
+commit cca9dbcc6a9b780764e081725e4094132ad56083
+Author: Jesse DeMott <jdemott@mines.edu>
+Date:   Fri Oct 9 23:45:04 2015 -0600
+
+    Started writing jUnit Tests for ClueBoard Part 1
+
+
+commit 6e7616198cf2987fbc62c17fe0238003033430f0
+Author: Jesse DeMott <jdemott@mines.edu>
+Date:   Fri Oct 9 23:12:25 2015 -0600
+
+    implemented Joseph's code for finding a path.
+    
+    implemented Joseph's code for finding a path.
+
+
+commit 27d4a414ba148e08f7caeb1478b4270da39146b1
+Author: Jesse DeMott <jdemott@mines.edu>
+Date:   Fri Oct 9 22:36:38 2015 -0600
+
+    Added JUnit Library to fix errors in new branch
+
+
+commit 604964eb30f7bc048321ac1be4087f82898160e8
+Author: Jesse DeMott <jdemott@mines.edu>
+Date:   Fri Oct 9 22:19:29 2015 -0600
+
+    Created skeleton for ClueGame based on UML in Assignment ClueBoard and created new branch.
+
+
+commit f02b0ef8857946f8230abd4687edc7582fed2531
+Author: Jesse DeMott <jdemott@mines.edu>
+Date:   Fri Oct 9 21:32:45 2015 -0600
+
+    Added layout files
+
+
+commit cd3bacaa1e84601cc458bbc7e17579ff696dddad
+Author: Jesse DeMott <jdemott@mines.edu>
+Date:   Fri Oct 9 21:28:34 2015 -0600
+
+    File Structure Cleanup take 2
+    
+    File Structure Cleanup take 2
+
+
+commit bd961113602a412ea1c0baa72411a3e14fe3e4d7
+Author: Jesse DeMott <jdemott@mines.edu>
+Date:   Fri Oct 9 21:12:50 2015 -0600
+
+    Revert "Paths Part II complete"
+    
+    This reverts commit 710a0158203214ca131ebabdbf1cac6eeeef3a88.
+
+
+commit a493d0dbb8bae9761747202d113b217d0b15c47b
+Author: Jesse DeMott <jdemott@mines.edu>
+Date:   Fri Oct 9 21:12:38 2015 -0600
+
+    Revert "cleaned up file structure"
+    
+    This reverts commit 4662298588eb0e4d3cda3dd3631ba6ea90c29fd5.
+
+
+commit 4662298588eb0e4d3cda3dd3631ba6ea90c29fd5
+Author: Jesse DeMott <jdemott@mines.edu>
+Date:   Fri Oct 9 20:24:40 2015 -0600
+
+    cleaned up file structure
+
+
+commit 710a0158203214ca131ebabdbf1cac6eeeef3a88
+Author: tashaffin <jostockw@mines.edu>
+Date:   Thu Oct 8 23:06:40 2015 -0600
+
+    Paths Part II complete
+
+
+commit 5dcb4e594d4300d8ccd731c8ad7e2c795cebf518
+Author: Joseph Stockwell <jostockw@mines.edu>
+Date:   Thu Oct 8 12:11:03 2015 -0600
+
+    Fail test complete
+
+
+commit 3f06b68166f99fa93dbed839986f886719fdaeea
+Author: Joseph Stockwell <jostockw@mines.edu>
+Date:   Thu Oct 8 11:52:39 2015 -0600
+
+    Initial fail tests
+
+
+commit add6c76d7dbc443cc4163043072fb486701597dd
+Author: Joseph Stockwell <jostockw@mines.edu>
+Date:   Thu Oct 8 11:33:28 2015 -0600
+
+    Deleted empty folder
+
+
+commit e0fcfcdc84c984f5b4f61e3219a9048b7a0ea90a
+Author: unknown <jostockw@MZ022-54.adit.mines.edu>
+Date:   Thu Oct 8 11:18:40 2015 -0600
+
+    Added to skeleton
+
+
+commit 77cbac6a3022b509104f07349ccd9cc36da20ea0
+Author: Kaveman <kehayes@mymail.mines.edu>
+Date:   Tue Oct 6 23:32:28 2015 -0600
+
+    This is the skeleton of Part 1 failing tests.  I added the two board classes
+    and the jUnit class.  I also inserted the required functions or methods and
+    general declarasions of maps and sets,  I need to review data structures for
+    a minute.
+
+
+commit 756944f628ce73b5e34eaf4908e843647a1c4011
+Author: Kaveman <kehayes@mymail.mines.edu>
+Date:   Tue Oct 6 22:58:50 2015 -0600
+
+    I created a java project to put the experiment package in and not effect
+    the cluegame project.  Warning the cluegame project is not a java project
+
+
+commit 17dda85865c2a9e5bffcd174f19a5f65195d16b6
+Merge: 1dd695a 2f4666b
+Author: Kaveman <kehayes@mymail.mines.edu>
+Date:   Tue Oct 6 22:46:35 2015 -0600
+
+    Merge https://github.com/jessefizzo/ClueGame
+
+
+commit 1dd695a4a030baf1092aed1ccda5ed8dd13d0352
+Author: Kaveman <kehayes@mymail.mines.edu>
+Date:   Tue Oct 6 22:44:13 2015 -0600
+
+    just trying to clone
+
+
+commit 2f4666b64bb8ac289af7dfde445970a6a303d179
+Author: Jesse DeMott <jdemott@mymail.mines.edu>
+Date:   Tue Oct 6 22:10:35 2015 -0600
+
+    Update .gitignore
+
+
+commit 8b28dbe03eec49e23fef03746f9d040b1a3ee802
+Author: Jesse DeMott <jdemott@mymail.mines.edu>
+Date:   Tue Oct 6 22:09:38 2015 -0600
+
+    Initial commit
