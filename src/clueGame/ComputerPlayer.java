@@ -4,17 +4,23 @@ import java.awt.Color;
 import java.util.Set;
 
 public class ComputerPlayer extends Player{
+	private String lastVisited;
+	
 	public ComputerPlayer(String name, String color, int row, int column) {
 		super(name, color, row, column);
 		// TODO Auto-generated constructor stub
 	}
-	public void pickLocation(Set<BoardCell> targets) {
+	
+	public BoardCell pickLocation(Set<BoardCell> targets) {
 		/* If the list of targets includes a room, select that
 		 * location unless the player was just in that room.
 		 * If the list does not include a room, or the room was
 		 * just visited, randomly choose from ALL locations.
+		 * 
+		 * 
+		 * Avoid going into a room if the card has been seen
 		 */
-		
+		return null;
 	}
 	
 	public void makeAccusation() {}
@@ -25,6 +31,7 @@ public class ComputerPlayer extends Player{
 	public boolean isHuman() {
 		return false;
 	}
+	
 	@Override
 	public Card disproveSuggestion(Solution suggestion) {
 		for(Card card : hand){
@@ -33,5 +40,9 @@ public class ComputerPlayer extends Player{
 			}
 		}
 		return null;
+	}
+	
+	public void setLastVisited(String last) {
+		this.lastVisited = last;
 	}
 }

@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.awt.Color;
 
 public class Board {
 	private int numRows;
@@ -28,6 +27,7 @@ public class Board {
 	private Solution theAnswer;
 	private ArrayList<Card> deck = new ArrayList<Card>();
 	private ArrayList<Player> players = new ArrayList<Player>();
+	private ArrayList<Card> seenCards =  new ArrayList<Card>();
 	
 	public Board() {
 		this("ClueLayout.csv", "ClueLegend.txt", "ClueLayout/Players.txt", "ClueLayout/Cards.txt");
@@ -94,6 +94,8 @@ public class Board {
 	}
 	
 	public void loadRoomConfig() throws BadConfigFormatException {
+		System.out.println();
+		System.out.println();
 		try {
 			FileReader reader = new FileReader(roomConfigFile);
 			Scanner in = new Scanner(reader);
@@ -101,9 +103,10 @@ public class Board {
 			while(in.hasNextLine()) {
 				String[] room = in.nextLine().split(", ");
 				if(room.length != 3)
-					throw new BadConfigFormatException("Too many fields in room config");
+					throw new BadConfigFormatException("Wrong number of fields in room config");
 
 				rooms.put(room[0].charAt(0), room[1]);
+				System.out.println(room[1]);
 				
 				if (room[2].equals("Card")) 
 					deck.add(new Card(room[1], CardType.ROOM));
@@ -388,10 +391,6 @@ public class Board {
 		return board[row][column];
 	}
 	
-	public static void main(String[] args) {
-		
-	}
-	
 	public int getNumberOfRooms(){
 		return rooms.size();
 	}
@@ -412,6 +411,14 @@ public class Board {
 
 	public ArrayList<Card> getDeck() {
 		return deck;
+	}
+	
+	public ArrayList<Card> getSeenCards(){
+		return seenCards;
+	}
+	
+	public void addSeenCard(Card entry){
+		seenCards.add(entry);
 	}
 
 	public Solution getAnswer() {
@@ -434,4 +441,5 @@ public class Board {
 			
 		theAnswer = new Solution("Canary Room", "Miss Scarlet", "Candlestick");
 	}
+
 }
