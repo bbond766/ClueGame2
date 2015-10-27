@@ -28,6 +28,7 @@ public class Board {
 	private Solution theAnswer;
 	private ArrayList<Card> deck = new ArrayList<Card>();
 	private ArrayList<Player> players = new ArrayList<Player>();
+	private ArrayList<Card> seenCards =  new ArrayList<Card>();
 	
 	public Board() {
 		this("ClueLayout.csv", "ClueLegend.txt", "ClueLayout/Players.txt", "ClueLayout/Cards.txt");
@@ -408,6 +409,14 @@ public class Board {
 
 	public ArrayList<Card> getDeck() {
 		return deck;
+	}
+	
+	public ArrayList<Card> getSeenCards(){
+		return seenCards;
+	}
+	
+	public void addSeenCard(Card entry){
+		seenCards.add(entry);
 	}
 
 	public Solution getAnswer() {

@@ -162,6 +162,10 @@ public class GameActionTests {
 
 	@Test
 	public void makeSuggestion() {
+		ComputerPlayer testPlayer =  new ComputerPlayer("Miss Scarlet", "blue", 13,3);
+		
+		
+		
 		// TODO
 		/* Suggestion should not include any cards that are not
 		 * in the player's hand or that have been seen.
