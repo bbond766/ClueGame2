@@ -18,8 +18,19 @@ public class ComputerPlayer extends Player{
 		 * just visited, randomly choose from ALL locations.
 		 * 
 		 * 
-		 * Avoid going into a room if the card has been seen
+		 * Avoid going into a room if the card has been seen.
+		 * Always pick a room if you can get to it UNLESS that
+		 * room was just visited.
+		 * Otherwise pick randomly from targets.
+		 * Call makeSuggestion?
 		 */
+		
+		for (BoardCell bc : targets)
+			// If target is a room that was not the last visited room
+			if (bc.isRoom() && Board.getRooms().get(bc.getInitial()) != lastVisited)
+				return bc;
+		
+		
 		return null;
 	}
 	
