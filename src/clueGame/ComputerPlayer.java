@@ -8,8 +8,17 @@ public class ComputerPlayer extends Player{
 		super(name, color, row, column);
 		// TODO Auto-generated constructor stub
 	}
-	public void pickLocation(Set<BoardCell> targets) {}
+	public void pickLocation(Set<BoardCell> targets) {
+		/* If the list of targets includes a room, select that
+		 * location unless the player was just in that room.
+		 * If the list does not include a room, or the room was
+		 * just visited, randomly choose from ALL locations.
+		 */
+		
+	}
+	
 	public void makeAccusation() {}
+	
 	public void makeSuggestion(Board board, BoardCell location) {}
 	
 	@Override

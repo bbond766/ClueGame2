@@ -62,9 +62,7 @@ public class GameActionTests {
 		assertFalse(newBoard.checkAccusation(new Solution("Canary Room", "Miss Scarlet", "Lead Pipe")));		
 	}
 	
-	/*
-	 * The following tests will be implemented for part 2
-	 * 
+
 	@Test
 	public void selectTargetLocation() {
 		// TODO
@@ -82,6 +80,9 @@ public class GameActionTests {
 		 * Also need to test that a room is always chosen
 		 * -Run the method multiple times, ensure that only
 		 *  that behavior is seen.
+		 * ---------------------------------------------------
+		 *  
+		 */
 
 	}
 	
@@ -112,6 +113,7 @@ public class GameActionTests {
 		 * 
 		 * How do we know which player is the accusing player?
 		 * Test ideas in powerpoint
+		 */
 
 	}
 	
@@ -121,7 +123,7 @@ public class GameActionTests {
 		/* Suggestion should not include any cards that are not
 		 * in the player's hand or that have been seen.
 		 * Suggestion should choose randomly from the unseen cards.
+		 */
 
 	}
-	*/
 }
