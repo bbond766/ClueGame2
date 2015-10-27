@@ -21,11 +21,17 @@ public class BoardCell {
 	}
 
 	public boolean isWalkway(){
-		return false;
+		if(initial == 'W')
+			return true;
+		else
+			return false;
 	}
 	
 	public boolean isRoom(){
-		return false;
+		if(initial != 'W')
+			return true;
+		else
+			return false;
 	}
 	
 	public void setDoorDirection(DoorDirection direction) {
