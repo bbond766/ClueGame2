@@ -63,7 +63,6 @@ public class Board {
 	
 	public void initialize() {
 		rooms = new HashMap<Character, String>();
-		
 		try {
 			loadRoomConfig();
 		} catch (BadConfigFormatException e) {
@@ -167,7 +166,6 @@ public class Board {
 		try {
 			FileReader reader = new FileReader(playerConfigFile);
 			Scanner in = new Scanner(reader);
-			
 			while (in.hasNextLine()) {
 				String[] player = in.nextLine().split(", ");
 				if (player.length != 5)
@@ -354,7 +352,14 @@ public class Board {
 	}
 	
 	public Card handleSuggestion(Solution suggestion, String accusingPlayer, BoardCell clicked) {
-		// TODO
+		if(this.checkAccusation(suggestion)){
+			return null;
+		}
+		for(Player player : this.players){
+			if(player.disproveSuggestion(suggestion)!=null){
+				return player.disproveSuggestion(suggestion);
+			}
+		}
 		return null;
 	}
 	

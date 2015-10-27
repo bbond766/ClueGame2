@@ -16,4 +16,13 @@ public class ComputerPlayer extends Player{
 	public boolean isHuman() {
 		return false;
 	}
+	@Override
+	public Card disproveSuggestion(Solution suggestion) {
+		for(Card card : hand){
+			if(card.getName().equals(suggestion.person)||card.getName().equals(suggestion.room)||card.getName().equals(suggestion.weapon)){
+				return card;
+			}
+		}
+		return null;
+	}
 }
