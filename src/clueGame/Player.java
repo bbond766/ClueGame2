@@ -32,9 +32,7 @@ public abstract class Player {
 		this.column = col;
 	}
 	
-	public Card disproveSuggestion(Solution suggestion) {
-		return null;
-	}
+	abstract public Card disproveSuggestion(Solution suggestion);
 	
 	public void giveCard(Card c) {
 		hand.add(c);

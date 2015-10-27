@@ -14,4 +14,10 @@ public class HumanPlayer extends Player {
 		return true;
 	}
 
+	@Override
+	public Card disproveSuggestion(Solution suggestion) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

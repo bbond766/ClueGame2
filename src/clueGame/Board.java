@@ -19,7 +19,7 @@ public class Board {
 	private static Map<Character, String> rooms;
 	private Map<BoardCell, LinkedList<BoardCell>> adjMtx = new HashMap<BoardCell, LinkedList<BoardCell>>();
 	private Set<BoardCell> targets;
-	private Set<BoardCell> visited;
+	private Set<BoardCell> visited = new HashSet<BoardCell>();
 	private BoardCell[][] board;
 	private String boardConfigFile;
 	private String roomConfigFile;
@@ -235,7 +235,6 @@ public class Board {
 	}
 	
 	public void calcTargets(BoardCell boardCell, int distance){
-		visited = new HashSet<BoardCell>();
 		targets = findAllTargets(boardCell, visited, distance);
 	}
 	

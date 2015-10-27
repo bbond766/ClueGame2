@@ -8,7 +8,10 @@ import org.junit.Test;
 import clueGame.BadConfigFormatException;
 import clueGame.Board;
 import clueGame.Solution;
-
+import clueGame.ComputerPlayer;
+import clueGame.Card;
+import clueGame.CardType;
+import clueGame.BoardCell;
 public class GameActionTests {
 	
 	private static Board board;
@@ -85,9 +88,10 @@ public class GameActionTests {
 		 */
 
 	}
-	
+
 	@Test
 	public void disproveSuggestion() {
+
 		// TODO
 		/* If a player has a card that's suggested, that card
 		 * is shown (i.e., returned).
@@ -115,8 +119,47 @@ public class GameActionTests {
 		 * Test ideas in powerpoint
 		 */
 
+
+		Board newBoard=new Board();  //Create new Board but don't deal cards.
+		newBoard.setAnswer();    // Debugging method sets answer to Miss Scarlet, Canary Room, Candlestick
+		
+		ComputerPlayer testAI=new ComputerPlayer("Miss Scarlet","red",0,0); //Invalid Location, but irrelevant to this test.
+		
+		//Sanity Check
+		assertTrue(newBoard.checkAccusation(new Solution("Canary Room", "Miss Scarlet", "Candlestick")));
+		
+		//Generate an incorrect solution
+		Solution testSolution=new Solution("Ballroom","Colonel Mustard","Knife");
+		
+		
+		//Give the test player Colonel Mustard.
+		Card testPerson=new Card("Colonel Mustard",CardType.PERSON);
+		testAI.giveCard(testPerson);
+		
+		//Test the disproveSuggestion method
+		assertTrue(testAI.disproveSuggestion(testSolution)==testPerson);
+		
+		//Give the test player the Ballroom
+		Card testroom=new Card("Ballroom",CardType.ROOM);
+		testAI.giveCard(testroom);
+		
+		//Test the disproveSuggestion method when the test player has two cards to disprove the suggestion with
+		assertTrue(testAI.disproveSuggestion(testSolution)!=null); //The disproveSuggestion method only returns null if it can't find a card to disprove the suggestion with
+		
+		
+		//Now we test players in order
+		//Because the solution is known to not be testSolution, this should return a different card each time, but never null 
+		for(int i=0;i<100;++i){
+			System.out.println(i);
+			Board testBoard=new Board();
+			testBoard.initialize();//start again with a clean slate
+			testBoard.setAnswer();//set the test answer
+			testBoard.dealCards();//populate player hands
+			assertTrue(testBoard.handleSuggestion(testSolution, "Miss Scarlet", new BoardCell(0,0))!=null);//test
+		}
+
 	}
-	
+
 	@Test
 	public void makeSuggestion() {
 		// TODO
