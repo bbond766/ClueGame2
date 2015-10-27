@@ -79,12 +79,13 @@ public class GameActionTests {
 			BoardCell targetCell = testPlayer.pickLocation(board.getTargets());
 			if (targetCell == board.getCellAt(0, 8))
 				loc_0_8++;
-			else if (targetCell == board.getCellAt(1, 7))
+			else if (targetCell == board.getCellAt(1, 9))
 				loc_1_7++;
 			else if (targetCell == board.getCellAt(2,  10))
 				loc_2_10++;
-			else
-				fail("Invalid target selected");
+			else {
+				fail("Invalid target selected, cell " + targetCell + " is not a valid target");
+			}
 		}
 		// Make sure we selected 100 times
 		assertEquals(100, loc_0_8 + loc_1_7 + loc_2_10);
@@ -100,6 +101,7 @@ public class GameActionTests {
 		 * when targets includes a room that was just visited.
 		 */
 		ComputerPlayer testPlayer = new ComputerPlayer("Mrs. Peacock", "blue", 8, 3);
+		testPlayer.setLastVisited("Kave Room");
 		board.calcTargets(8, 3, 1);
 		int loc_7_3 = 0;
 		int loc_8_2 = 0;
@@ -117,7 +119,7 @@ public class GameActionTests {
 			else if (targetCell == board.getCellAt(9, 3))
 				loc_9_3++;
 			else
-				fail("Invalid target selected");
+				fail("Invalid target selected, cell " + targetCell + " is not a valid target");
 		}
 		// Make sure we selected 100 times
 		assertEquals(100, loc_7_3 + loc_8_2 + loc_8_4 + loc_9_3);
@@ -204,7 +206,7 @@ public class GameActionTests {
 		//Now we test players in order
 		//Because the solution is known to not be testSolution, this should return a different card each time, but never null 
 		for(int i=0;i<100;++i){
-			System.out.println(i);
+			//System.out.println(i);
 			Board testBoard=new Board();
 			
 			//start again with a clean slate

@@ -94,8 +94,6 @@ public class Board {
 	}
 	
 	public void loadRoomConfig() throws BadConfigFormatException {
-		System.out.println();
-		System.out.println();
 		try {
 			FileReader reader = new FileReader(roomConfigFile);
 			Scanner in = new Scanner(reader);
@@ -106,7 +104,6 @@ public class Board {
 					throw new BadConfigFormatException("Wrong number of fields in room config");
 
 				rooms.put(room[0].charAt(0), room[1]);
-				System.out.println(room[1]);
 				
 				if (room[2].equals("Card")) 
 					deck.add(new Card(room[1], CardType.ROOM));

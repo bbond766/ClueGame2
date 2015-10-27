@@ -1,6 +1,7 @@
 package clueGame;
 
 import java.awt.Color;
+import java.util.Random;
 import java.util.Set;
 
 public class ComputerPlayer extends Player{
@@ -24,14 +25,23 @@ public class ComputerPlayer extends Player{
 		 * Otherwise pick randomly from targets.
 		 * Call makeSuggestion?
 		 */
-		
+
 		for (BoardCell bc : targets)
 			// If target is a room that was not the last visited room
-			if (bc.isRoom() && Board.getRooms().get(bc.getInitial()) != lastVisited)
+			if (bc.isRoom() && !Board.getRooms().get(bc.getInitial()).equals(lastVisited))
 				return bc;
 		
+		// If no suitable room found, pick target randomly
+		int size = targets.size();
+		int item = new Random().nextInt(size);
+		int i = 0;
+		for (BoardCell bc : targets) {
+			if (i == item)
+				return bc;
+			i += 1;
+		}
 		
-		return null;
+		return null;    // SOMETHING WENT WRONG
 	}
 	
 	public void makeAccusation() {}

@@ -63,4 +63,8 @@ public class BoardCell {
 		// TODO Auto-generated method stub
 		return initial;
 	}
+	
+	public String toString() {
+		return "(" + row + ", " + column + ")";
+	}
 }
