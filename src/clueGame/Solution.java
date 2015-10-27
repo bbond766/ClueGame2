@@ -10,4 +10,8 @@ public class Solution {
 		this.person = person;
 		this.weapon = weapon;
 	}
+	
+	public String toString(){
+		return person+", "+room+", "+weapon;
+	}
 }

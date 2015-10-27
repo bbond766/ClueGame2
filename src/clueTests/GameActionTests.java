@@ -121,6 +121,7 @@ public class GameActionTests {
 
 
 		Board newBoard=new Board();  //Create new Board but don't deal cards.
+		newBoard.initialize();
 		newBoard.setAnswer();    // Debugging method sets answer to Miss Scarlet, Canary Room, Candlestick
 		
 		ComputerPlayer testAI=new ComputerPlayer("Miss Scarlet","red",0,0); //Invalid Location, but irrelevant to this test.
@@ -152,10 +153,32 @@ public class GameActionTests {
 		for(int i=0;i<100;++i){
 			System.out.println(i);
 			Board testBoard=new Board();
-			testBoard.initialize();//start again with a clean slate
+			
+			//start again with a clean slate
+			try {
+				testBoard.loadBoardConfig();
+			} catch (BadConfigFormatException e) {
+				e.printStackTrace();
+			}
+			try {
+				testBoard.loadCardConfig();
+			} catch (BadConfigFormatException e) {
+				e.printStackTrace();
+			}
+			try {
+				testBoard.loadPlayerConfig();
+			} catch (BadConfigFormatException e) {
+				e.printStackTrace();
+			}
+			try {
+				testBoard.loadRoomConfig();
+			} catch (BadConfigFormatException e) {
+				e.printStackTrace();
+			}
+			
 			testBoard.setAnswer();//set the test answer
 			testBoard.dealCards();//populate player hands
-			assertTrue(testBoard.handleSuggestion(testSolution, "Miss Scarlet", new BoardCell(0,0))!=null);//test
+			assertTrue(testBoard.handleSuggestion(testSolution, "Professor Plum", new BoardCell(0,0))!=null);//test
 		}
 
 	}

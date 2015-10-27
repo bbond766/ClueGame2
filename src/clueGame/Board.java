@@ -353,7 +353,11 @@ public class Board {
 	}
 	
 	public Card handleSuggestion(Solution suggestion, String accusingPlayer, BoardCell clicked) {
-		// TODO
+		for(Player player : players){
+			if(player.disproveSuggestion(suggestion)!=null){
+				return player.disproveSuggestion(suggestion);
+			}
+		}
 		return null;
 	}
 	
