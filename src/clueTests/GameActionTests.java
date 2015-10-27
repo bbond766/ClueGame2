@@ -99,8 +99,47 @@ public class GameActionTests {
 		/* Test that the computer randomly picks from all locations
 		 * when targets includes a room that was just visited.
 		 */
-		
-		
+		ComputerPlayer testPlayer = new ComputerPlayer("Mrs. Peacock", "blue", 8, 3);
+		board.calcTargets(8, 3, 1);
+		int loc_7_3 = 0;
+		int loc_8_2 = 0;
+		int loc_8_4 = 0;
+		int loc_9_3 = 0;
+		// Test 100 times
+		for (int i=0; i<100; i++) {
+			BoardCell targetCell = testPlayer.pickLocation(board.getTargets());
+			if (targetCell == board.getCellAt(7, 3))
+				loc_7_3++;
+			else if (targetCell == board.getCellAt(8, 2))
+				loc_8_2++;
+			else if (targetCell == board.getCellAt(8, 4))
+				loc_8_4++;
+			else if (targetCell == board.getCellAt(9, 3))
+				loc_9_3++;
+			else
+				fail("Invalid target selected");
+		}
+		// Make sure we selected 100 times
+		assertEquals(100, loc_7_3 + loc_8_2 + loc_8_4 + loc_9_3);
+		// Make sure each target was selected more than once
+		assertTrue(loc_7_3 > 8);
+		assertTrue(loc_8_2 > 8);
+		assertTrue(loc_8_4 > 8);
+		assertTrue(loc_9_3 > 8);
+	}
+	
+	@Test 
+	public void selectRoom() {
+		/* Test that the computer will always pick a room if it is
+		 * in the targets set and wasn't just visited.
+		 */
+		ComputerPlayer testPlayer = new ComputerPlayer("Mrs. Peacock", "blue", 8, 3);
+		board.calcTargets(8, 3, 1);
+		// Test 100 times
+		for (int i=0; i<100; i++) {
+			BoardCell targetCell = testPlayer.pickLocation(board.getTargets());
+			assertEquals(targetCell, board.getCellAt(9, 3));
+		}
 	}
 
 	@Test
