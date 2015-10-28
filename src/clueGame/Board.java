@@ -51,7 +51,7 @@ public class Board {
 
 //		initialize();
 	} 
-	
+
 	public Board(String layoutFile, String legendFile, String playerFile, String cardFile) {
 		boardConfigFile = layoutFile;
 		roomConfigFile = legendFile;
@@ -88,7 +88,8 @@ public class Board {
 			e.printStackTrace();
 		}
 
-		selectAnswer();
+		//selectAnswer();
+		setAnswer();
 		dealCards();
 		calcAdjacencies();
 	}
@@ -352,7 +353,11 @@ public class Board {
 		theAnswer = new Solution(room, person, weapon);
 	}
 	
-	public Card handleSuggestion(Solution suggestion, String accusingPlayer, BoardCell clicked) {
+	public boolean makeSuggestion(){
+		return false;
+	}
+		
+ 	public Card handleSuggestion(Solution suggestion, String accusingPlayer, BoardCell clicked) {
 		for(Player player : players){
 			if(player.disproveSuggestion(suggestion)!=null){
 				return player.disproveSuggestion(suggestion);
@@ -373,6 +378,7 @@ public class Board {
 	
 	public void dealCards() {
 		int counter = 0;
+		shuffleDeck();
 		while (!deck.isEmpty()) {                          // while the deck has cards
 			players.get(counter).giveCard(deck.get(0));    // give the top card in the deck to the current player
 			deck.remove(0);                                // remove the top card from the deck
@@ -438,5 +444,26 @@ public class Board {
 			
 		theAnswer = new Solution("Canary Room", "Miss Scarlet", "Candlestick");
 	}
+	
+	public void dealOnePlayer(){
+		//for debugging makeSuggestion.
+		for (int i=0; i<deck.size(); i++) {
+			if (deck.get(i).getName() == "Mr. Green")
+				deck.remove(i);
+			if (deck.get(i).getName() == "Hall")
+				deck.remove(i);
+			if (deck.get(i).getName() == "Wrench")
+				deck.remove(i);
+		}
+	}
 
+	public void fillSeenCards(){
+		//for debugging makeSelection.
+		int counter = 0;
+		while (!deck.isEmpty()) {
+			addSeenCard(deck.get(0));
+			deck.remove(0);
+			counter = (counter + 1);
+		}
+	}
 }

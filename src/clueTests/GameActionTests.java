@@ -240,9 +240,35 @@ public class GameActionTests {
 
 	@Test
 	public void makeSuggestion() {
-		ComputerPlayer testPlayer =  new ComputerPlayer("Miss Scarlet", "blue", 13,3);
 		
+		//ComputerPlayer testPlayer =  new ComputerPlayer("Mr Green", "blue", 13,3);
+		Board testBoard = new Board();
+		try {
+			testBoard.loadBoardConfig();
+		} catch (BadConfigFormatException e) {
+			e.printStackTrace();
+		}
+		try {
+			testBoard.loadCardConfig();
+		} catch (BadConfigFormatException e) {
+			e.printStackTrace();
+		}
+		try {
+			testBoard.loadPlayerConfig();
+		} catch (BadConfigFormatException e) {
+			e.printStackTrace();
+		}
+		try {
+			testBoard.loadRoomConfig();
+		} catch (BadConfigFormatException e) {
+			e.printStackTrace();
+		}
+		testBoard.setAnswer();
+		testBoard.dealOnePlayer();
+		testBoard.fillSeenCards();
 		
+		assertTrue(testBoard.makeSuggestion());
+			
 		
 		// TODO
 		/* Suggestion should not include any cards that are not
