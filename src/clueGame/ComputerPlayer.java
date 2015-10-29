@@ -47,7 +47,6 @@ public class ComputerPlayer extends Player{
 	public void makeAccusation() {}
 
 	public Solution makeSuggestion(Board board) {
-		System.out.println(row + " " + column);
 		String name = null;
 		String weapon = null;
 		while(name == null || weapon == null){
@@ -61,7 +60,7 @@ public class ComputerPlayer extends Player{
 			}
 		}
 		String room = board.getRooms().get(board.getCellAt(row, column).getInitial());
-		System.out.println(board.getCellAt(row, column).getInitial());
+
 		return new Solution(room, name, weapon);
 	}
 

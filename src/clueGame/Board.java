@@ -89,8 +89,7 @@ public class Board {
 			e.printStackTrace();
 		}
 
-		//selectAnswer();
-		setAnswer();
+		selectAnswer();
 		dealCards();
 		calcAdjacencies();
 	}

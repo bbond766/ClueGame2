@@ -2,6 +2,10 @@ package clueTests;
 
 import static org.junit.Assert.*;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -252,40 +256,57 @@ public class GameActionTests {
 		ComputerPlayer testPlayer =  new ComputerPlayer("Mr Green", "blue", 13,3);
 		int MrsWhite = 0;
 		int MrsPeacock = 0;
+		int MissScarlet = 0;
 		int leadPipe = 0;
 		int revolver = 0;
-		Board testBoard2 = new Board("ClueLayout/Layout.csv", "ClueLayout/Legend.txt", "ClueLayout/Players.txt", "ClueLayout/Cards.txt");
+		int candlestick = 0;
+		Board testBoard = new Board("ClueLayout/Layout.csv", "ClueLayout/Legend.txt", "ClueLayout/Players.txt", "ClueLayout/Cards.txt");
 		try {
-			testBoard2.loadBoardConfig();
+			testBoard.loadBoardConfig();
 		} catch (BadConfigFormatException e) {
 			e.printStackTrace();
 		}
 		try {
-			testBoard2.loadCardConfig();
+			testBoard.loadCardConfig();
 		} catch (BadConfigFormatException e) {
 			e.printStackTrace();
 		}
 		try {
-			testBoard2.loadPlayerConfig();
+			testBoard.loadPlayerConfig();
 		} catch (BadConfigFormatException e) {
 			e.printStackTrace();
 		}
 		try {
-			testBoard2.loadRoomConfig();
+			testBoard.loadRoomConfig();
 		} catch (BadConfigFormatException e) {
 			e.printStackTrace();
 		}
+		
+		testBoard.setAnswer();
+		Set<String> unseen = new HashSet<String>(Arrays.asList("Miss Scarlet", "Mrs. Peacock", "Mrs. White", "Lead Pipe", "Revolver", "Candlestick"));
+		
+		for (Card c : testBoard.getChoices())
+			if (!unseen.contains(c.getName()))
+				testBoard.addSeenCard(c);
+		
+		Solution testSolution = null;
+		
 		for (int i=0; i<100;++i){
-			Solution testSolution = testPlayer.makeSuggestion(testBoard2);
+			testSolution = testPlayer.makeSuggestion(testBoard);
 			if(testSolution.person.equals("Mrs. Peacock"))
 				MrsPeacock++;
 			else if(testSolution.person.equals("Mrs. White"))
 				MrsWhite++;
-			else if(testSolution.weapon.equals("Lead Pipe"))
+			else if(testSolution.person.equals("Miss Scarlet"))
+				MissScarlet++;
+			if(testSolution.weapon.equals("Lead Pipe")) 
 				leadPipe++;
-			else if(testSolution.weapon.equals("Revolver"))
+			if(testSolution.weapon.equals("Revolver"))
 				revolver++;
+			if(testSolution.weapon.equals("Candlestick"))
+				candlestick++;
 		}
+
 		assertTrue(MrsWhite > 8);
 		assertTrue(MrsPeacock > 8);
 		assertTrue(leadPipe > 8);
@@ -325,8 +346,7 @@ public class GameActionTests {
 		testBoard.setAnswer();
 		testBoard.dealOnePlayer();//this function is in Board class for testing only
 		testBoard.fillSeenCards();//this function is in Board class for testing only
-		for(Card c : testBoard.getSeenCards())
-			System.out.println(c.getName());
+
 		Solution testSolution = testPlayer.makeSuggestion(testBoard);
 		assertEquals(testSolution.person, testBoard.getAnswer().person);
 		assertEquals(testSolution.weapon, testBoard.getAnswer().weapon);

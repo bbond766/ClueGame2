@@ -135,14 +135,19 @@ public class GameSetupTests {
 		 * roughly the same number of cards, and no two
 		 * players have the same card
 		 */
-		
 		// Test all cards have been dealt from the deck
 		ArrayList<Card> testDeck = board.getDeck();
 		ArrayList<Player> testPlayers = board.getPlayers();
 		int totalCards = 0;
 		assertEquals(testDeck.size(), 0);
-		for (Player p : testPlayers)
+		for (Player p : testPlayers){
+			System.out.println("NAME: " + p.getName());
+			System.out.println("CARDS:");
+			for (Card c : p.getHand())
+				System.out.println("    " + c.getName());
+			System.out.println();
 			totalCards += p.getHandSize();
+		}
 		assertEquals(totalCards, 17);    // 3 cards are stored as the answer, so 17 cards are dealt
 		
 		// Test all players have similar hand sizes
