@@ -13,6 +13,7 @@ import clueGame.BadConfigFormatException;
 import clueGame.Board;
 import clueGame.Solution;
 import clueGame.ComputerPlayer;
+import clueGame.HumanPlayer;
 import clueGame.Card;
 import clueGame.CardType;
 import clueGame.BoardCell;
@@ -150,7 +151,7 @@ public class GameActionTests {
 
 	@Test
 	public void disproveSuggestion() {
-		Board newBoard=new Board();  //Create new Board but don't deal cards.
+		Board newBoard=new Board("ClueLayout/Layout.csv", "ClueLayout/Legend.txt", "ClueLayout/Players.txt", "ClueLayout/Cards.txt");  //Create new Board but don't deal cards.
 		newBoard.setAnswer();    // Debugging method sets answer to Miss Scarlet, Canary Room, Candlestick
 		
 		ComputerPlayer testAI=new ComputerPlayer("Miss Scarlet","red",0,0); //Invalid Location, but irrelevant to this test.
@@ -181,7 +182,7 @@ public class GameActionTests {
 		//Because the solution is known to not be testSolution, this should return a different card each time, but never null 
 		for(int i=0;i<100;++i){
 			//set up the board for a new random distribution of cards each iteration
-			Board testBoard=new Board();
+			Board testBoard=new Board("ClueLayout/Layout.csv", "ClueLayout/Legend.txt", "ClueLayout/Players.txt", "ClueLayout/Cards.txt");
 			
 			//add only computer players: human interaction is not being tested here
 			//and anyway, no one wants to interact 100 times just to test
