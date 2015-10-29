@@ -352,10 +352,6 @@ public class Board {
 		
 		theAnswer = new Solution(room, person, weapon);
 	}
-	
-	public boolean makeSuggestion(){
-		return false;
-	}
 		
  	public Card handleSuggestion(Solution suggestion, String accusingPlayer, BoardCell clicked) {
 		for(Player player : players){

@@ -46,7 +46,7 @@ public class ComputerPlayer extends Player{
 	
 	public void makeAccusation() {}
 	
-	public void makeSuggestion(Board board, BoardCell location) {}
+	public void makeSuggestion(Board board) {}
 	
 	@Override
 	public boolean isHuman() {
