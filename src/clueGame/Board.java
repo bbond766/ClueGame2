@@ -214,8 +214,10 @@ public class Board {
 					deck.add(new Card(card[0], CardType.PERSON));
 					choices.add(new Card(card[0], CardType.PERSON));
 				}
-				else if (card[1].equals("Weapon"))
+				else if (card[1].equals("Weapon")){
 					deck.add(new Card(card[0], CardType.WEAPON));
+					choices.add(new Card(card[0], CardType.WEAPON));
+				}
 				else
 					throw new BadConfigFormatException("Invalid type: " + card[1]);
 			}
@@ -465,4 +467,9 @@ public class Board {
 			counter = (counter + 1);
 		}
 	}
+	
+	public ArrayList<Card> getChoices(){
+		return choices;
+	}
+	
 }

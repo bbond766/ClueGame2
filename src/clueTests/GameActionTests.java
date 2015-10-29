@@ -306,8 +306,8 @@ public class GameActionTests {
 			e.printStackTrace();
 		}
 		testBoard.setAnswer();
-		testBoard.dealOnePlayer();
-		testBoard.fillSeenCards();
+		testBoard.dealOnePlayer();//this function is in Board class for testing only
+		testBoard.fillSeenCards();//this function is in Board class for testing only
 
 		Solution testSolution = testPlayer.makeSuggestion(testBoard);
 		assertEquals(testSolution.person, testBoard.getAnswer().person);
