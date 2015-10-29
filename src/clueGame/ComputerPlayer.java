@@ -45,19 +45,23 @@ public class ComputerPlayer extends Player{
 	}
 	
 	public void makeAccusation() {}
-	
+
 	public Solution makeSuggestion(Board board) {
+		System.out.println(row + " " + column);
 		String name = null;
 		String weapon = null;
 		while(name == null || weapon == null){
 			int choice = new Random().nextInt(board.getChoices().size());
 			Card testCard = board.getChoices().get(choice);
-			if(testCard.getType()==CardType.PERSON && !board.getSeenCards().contains(testCard) && !hand.contains(testCard))
+			if(testCard.getType()== CardType.PERSON && !board.getSeenCards().contains(testCard) && !hand.contains(testCard)){
 				name = testCard.getName();
-			if(testCard.getType()==CardType.WEAPON && !board.getSeenCards().contains(testCard) && !hand.contains(testCard))
+			}
+			if(testCard.getType()== CardType.WEAPON && !board.getSeenCards().contains(testCard) && !hand.contains(testCard)){
 				weapon = testCard.getName();
+			}
 		}
 		String room = board.getRooms().get(board.getCellAt(row, column).getInitial());
+		System.out.println(board.getCellAt(row, column).getInitial());
 		return new Solution(room, name, weapon);
 	}
 

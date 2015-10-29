@@ -254,10 +254,27 @@ public class GameActionTests {
 		int MrsPeacock = 0;
 		int leadPipe = 0;
 		int revolver = 0;
-		Board testBoard2 = new Board();
-		testBoard2.setAnswer();
-		testBoard2.dealOnePlayer();
-		testBoard2.fillSeenCards();
+		Board testBoard2 = new Board("ClueLayout/Layout.csv", "ClueLayout/Legend.txt", "ClueLayout/Players.txt", "ClueLayout/Cards.txt");
+		try {
+			testBoard2.loadBoardConfig();
+		} catch (BadConfigFormatException e) {
+			e.printStackTrace();
+		}
+		try {
+			testBoard2.loadCardConfig();
+		} catch (BadConfigFormatException e) {
+			e.printStackTrace();
+		}
+		try {
+			testBoard2.loadPlayerConfig();
+		} catch (BadConfigFormatException e) {
+			e.printStackTrace();
+		}
+		try {
+			testBoard2.loadRoomConfig();
+		} catch (BadConfigFormatException e) {
+			e.printStackTrace();
+		}
 		for (int i=0; i<100;++i){
 			Solution testSolution = testPlayer.makeSuggestion(testBoard2);
 			if(testSolution.person.equals("Mrs. Peacock"))
@@ -283,8 +300,8 @@ public class GameActionTests {
 				//solution because that is the only choices left to make.
 		
 		
-		ComputerPlayer testPlayer =  new ComputerPlayer("Mr Green", "blue", 13,3);
-		Board testBoard = new Board();
+		ComputerPlayer testPlayer =  new ComputerPlayer("Mr Green", "blue", 5,6);
+		Board testBoard = new Board("ClueLayout/Layout.csv", "ClueLayout/Legend.txt", "ClueLayout/Players.txt", "ClueLayout/Cards.txt");
 		try {
 			testBoard.loadBoardConfig();
 		} catch (BadConfigFormatException e) {
@@ -308,7 +325,8 @@ public class GameActionTests {
 		testBoard.setAnswer();
 		testBoard.dealOnePlayer();//this function is in Board class for testing only
 		testBoard.fillSeenCards();//this function is in Board class for testing only
-
+		for(Card c : testBoard.getSeenCards())
+			System.out.println(c.getName());
 		Solution testSolution = testPlayer.makeSuggestion(testBoard);
 		assertEquals(testSolution.person, testBoard.getAnswer().person);
 		assertEquals(testSolution.weapon, testBoard.getAnswer().weapon);

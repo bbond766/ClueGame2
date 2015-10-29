@@ -461,10 +461,9 @@ public class Board {
 	public void fillSeenCards(){
 		//for debugging makeSelection.
 		int counter = 0;
-		while (!deck.isEmpty()) {
-			addSeenCard(deck.get(0));
-			deck.remove(0);
-			counter = (counter + 1);
+		for(int i=0; i<choices.size();++i) {
+			if(!choices.get(i).getName().equals("Miss Scarlet") && !choices.get(i).getName().equals("Candlestick"))
+			addSeenCard(choices.get(i));
 		}
 	}
 	
