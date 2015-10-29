@@ -135,7 +135,6 @@ public class GameSetupTests {
 		 * roughly the same number of cards, and no two
 		 * players have the same card
 		 */
-		
 		// Test all cards have been dealt from the deck
 		ArrayList<Card> testDeck = board.getDeck();
 		ArrayList<Player> testPlayers = board.getPlayers();
