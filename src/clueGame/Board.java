@@ -26,6 +26,7 @@ public class Board {
 	private String cardConfigFile;
 	private Solution theAnswer;
 	private ArrayList<Card> deck = new ArrayList<Card>();
+	private ArrayList<Card> choices = new ArrayList<Card>();
 	private ArrayList<Player> players = new ArrayList<Player>();
 	private ArrayList<Card> seenCards =  new ArrayList<Card>();
 	
@@ -209,8 +210,10 @@ public class Board {
 					throw new BadConfigFormatException("Too many fields in card config file");
 				
 				// Add card to deck
-				if (card[1].equals("Person"))
+				if (card[1].equals("Person")){
 					deck.add(new Card(card[0], CardType.PERSON));
+					choices.add(new Card(card[0], CardType.PERSON));
+				}
 				else if (card[1].equals("Weapon"))
 					deck.add(new Card(card[0], CardType.WEAPON));
 				else

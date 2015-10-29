@@ -239,31 +239,51 @@ public class GameActionTests {
 	}
 
 	@Test
-	public void makeSuggestion() {
-		//this test has two parts. the first will call the makeSuggestion function
+	public void makeSuggestionRandom() {
+		// the first test will call the makeSuggestion function
 		//100 times and keep track of two players and one weapon.  each time through
 		//the loop it will verify that it hasn't called any cards that the player
 		//holds. Each time through the loop it will also verify that the room 
 		//choice is the room the player is in and no other. 
 		//After the loops it will verify that it has called the players and 
 		//the weapon an appropriate number of times.
-		//the second test will put three cards in the answer and deal the player
-		//three cards, and put the rest of the cards in the cardSeen array.
-		//then when the makeSuggestion function is called, it should pick the 
-		//solution because that is the only choices left to make.
 		
+
 		ComputerPlayer testPlayer =  new ComputerPlayer("Mr Green", "blue", 13,3);
 		int MrsWhite = 0;
 		int MrsPeacock = 0;
 		int leadPipe = 0;
+		int revolver = 0;
 		Board testBoard2 = new Board();
 		testBoard2.setAnswer();
 		testBoard2.dealOnePlayer();
 		testBoard2.fillSeenCards();
 		for (int i=0; i<100;++i){
-			testPlayer.makeSuggestion(testBoard2);
-			
+			Solution testSolution = testPlayer.makeSuggestion(testBoard2);
+			if(testSolution.person.equals("Mrs. Peacock"))
+				MrsPeacock++;
+			else if(testSolution.person.equals("Mrs. White"))
+				MrsWhite++;
+			else if(testSolution.weapon.equals("Lead Pipe"))
+				leadPipe++;
+			else if(testSolution.weapon.equals("Revolver"))
+				revolver++;
 		}
+		assertTrue(MrsWhite > 8);
+		assertTrue(MrsPeacock > 8);
+		assertTrue(leadPipe > 8);
+		assertTrue(revolver> 8);
+	}
+
+	@Test
+	public void makeSuggestionSolution(){
+		//the second test will put three cards in the answer and deal the player
+				//three cards, and put the rest of the cards in the cardSeen array.
+				//then when the makeSuggestion function is called, it should pick the 
+				//solution because that is the only choices left to make.
+		
+		
+		ComputerPlayer testPlayer =  new ComputerPlayer("Mr Green", "blue", 13,3);
 		Board testBoard = new Board();
 		try {
 			testBoard.loadBoardConfig();
@@ -288,10 +308,14 @@ public class GameActionTests {
 		testBoard.setAnswer();
 		testBoard.dealOnePlayer();
 		testBoard.fillSeenCards();
+
+		Solution testSolution = testPlayer.makeSuggestion(testBoard);
+		assertEquals(testSolution.person, testBoard.getAnswer().person);
+		assertEquals(testSolution.weapon, testBoard.getAnswer().weapon);
+		assertEquals(testSolution.room, testBoard.getAnswer().room);
 		
-		assertTrue(testPlayer.makeSuggestion(testBoard));
-			
-		
+
+
 		// TODO
 		/* Suggestion should not include any cards that are not
 		 * in the player's hand or that have been seen.
