@@ -140,14 +140,8 @@ public class GameSetupTests {
 		ArrayList<Player> testPlayers = board.getPlayers();
 		int totalCards = 0;
 		assertEquals(testDeck.size(), 0);
-		for (Player p : testPlayers){
-			System.out.println("NAME: " + p.getName());
-			System.out.println("CARDS:");
-			for (Card c : p.getHand())
-				System.out.println("    " + c.getName());
-			System.out.println();
+		for (Player p : testPlayers)
 			totalCards += p.getHandSize();
-		}
 		assertEquals(totalCards, 17);    // 3 cards are stored as the answer, so 17 cards are dealt
 		
 		// Test all players have similar hand sizes
