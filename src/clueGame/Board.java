@@ -227,6 +227,17 @@ public class Board {
 	public static Map<Character, String> getRooms() {
 		return rooms;
 	}
+
+
+	////////////////////////////////////////////
+	//            Testing Method              //
+	////////////////////////////////////////////
+	
+	public void addPlayer(Player player){
+		players.add(player);
+	}
+	
+
 	
 	public void calcAdjacencies(){
 		for(int i=0; i < numRows; i++)
@@ -357,7 +368,10 @@ public class Board {
 	}
 		
  	public Card handleSuggestion(Solution suggestion, String accusingPlayer, BoardCell clicked) {
-		for(Player player : players){
+		if(this.checkAccusation(suggestion)){
+			return null;
+		}
+		for(Player player : this.players){
 			if(player.disproveSuggestion(suggestion)!=null){
 				return player.disproveSuggestion(suggestion);
 			}

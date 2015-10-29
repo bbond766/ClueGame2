@@ -146,37 +146,7 @@ public class GameActionTests {
 
 	@Test
 	public void disproveSuggestion() {
-
-		// TODO
-		/* If a player has a card that's suggested, that card
-		 * is shown (i.e., returned).
-		 * If the player has multiple cards that match, the
-		 * card to be returned is selected randomly.
-		 * Once a player has shown a card, no other players
-		 * are queried.
-		 * If none of the other players has any relevant cards,
-		 * the error value null is returned.
-		 * 
-		 * If a player has a matching card, return it.
-		 * -Create a player with known cards, call the disprove
-		 *  method, ensure desired card is returned.
-		 *  
-		 * If the player has multiple cards that match, return
-		 * should be random.
-		 * -Set up a player, use a loop, ensure that all
-		 *  matching cards are returned some number of times.
-		 *   
-		 * Player class searches its list of cards.
-		 * Deciding which player to query can be handled by the
-		 * board.
-		 * 
-		 * How do we know which player is the accusing player?
-		 * Test ideas in powerpoint
-		 */
-
-
 		Board newBoard=new Board();  //Create new Board but don't deal cards.
-		newBoard.initialize();
 		newBoard.setAnswer();    // Debugging method sets answer to Miss Scarlet, Canary Room, Candlestick
 		
 		ComputerPlayer testAI=new ComputerPlayer("Miss Scarlet","red",0,0); //Invalid Location, but irrelevant to this test.
@@ -206,36 +176,38 @@ public class GameActionTests {
 		//Now we test players in order
 		//Because the solution is known to not be testSolution, this should return a different card each time, but never null 
 		for(int i=0;i<100;++i){
-			//System.out.println(i);
+			//set up the board for a new random distribution of cards each iteration
 			Board testBoard=new Board();
 			
-			//start again with a clean slate
-			try {
+			//add only computer players: human interaction is not being tested here
+			//and anyway, no one wants to interact 100 times just to test
+			testBoard.addPlayer(new ComputerPlayer("Miss Scarlet","red",0,0));
+			testBoard.addPlayer(new ComputerPlayer("Colonel Mustard","yellow",0,0));
+			testBoard.addPlayer(new ComputerPlayer("Mr. Green","green",0,0));
+			testBoard.addPlayer(new ComputerPlayer("Professor Plum","purple",0,0));
+			testBoard.addPlayer(new ComputerPlayer("Mrs. White","white",0,0));
+			
+			//load the configs, except the players
+			try{
 				testBoard.loadBoardConfig();
-			} catch (BadConfigFormatException e) {
-				e.printStackTrace();
-			}
-			try {
 				testBoard.loadCardConfig();
-			} catch (BadConfigFormatException e) {
-				e.printStackTrace();
-			}
-			try {
-				testBoard.loadPlayerConfig();
-			} catch (BadConfigFormatException e) {
-				e.printStackTrace();
-			}
-			try {
 				testBoard.loadRoomConfig();
-			} catch (BadConfigFormatException e) {
+			}
+			catch(BadConfigFormatException e){
 				e.printStackTrace();
 			}
 			
 			testBoard.setAnswer();//set the test answer
+			
 			testBoard.dealCards();//populate player hands
-			assertTrue(testBoard.handleSuggestion(testSolution, "Professor Plum", new BoardCell(0,0))!=null);//test
+			
+			assertTrue(testBoard.handleSuggestion(testSolution, "Miss Scarlet", new BoardCell(0,0))!=null);//test
 		}
-
+		
+		//now to test human interaction
+		HumanPlayer testhuman=new HumanPlayer("Mrs. Peacock","blue",0,0);
+		testhuman.giveCard(new Card("Miss Scarlet",CardType.PERSON));
+		testhuman.giveCard(new Card("Candlestick",CardType.WEAPON));
 	}
 
 	@Test
