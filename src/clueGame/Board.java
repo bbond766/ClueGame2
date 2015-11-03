@@ -5,6 +5,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -12,7 +19,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 
-public class Board {
+public class Board extends JPanel{
 	private int numRows;
 	private int numColumns;
 	private static Map<Character, String> rooms;
@@ -484,4 +491,13 @@ public class Board {
 		return choices;
 	}
 	
+	
+	
+	
+	public void paintComponent(Graphics g) {
+		super.paintComponents(g);
+		g.setColor(Color.BLUE);
+		
+	}
+
 }
