@@ -88,7 +88,6 @@ public class Board {
 		} catch (BadConfigFormatException e) {
 			e.printStackTrace();
 		}
-
 		selectAnswer();
 		dealCards();
 		calcAdjacencies();
