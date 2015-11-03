@@ -95,7 +95,6 @@ public class Board extends JPanel{
 		} catch (BadConfigFormatException e) {
 			e.printStackTrace();
 		}
-
 		selectAnswer();
 		dealCards();
 		calcAdjacencies();
