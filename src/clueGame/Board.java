@@ -495,7 +495,9 @@ public class Board extends JPanel{
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponents(g);
-		g.setColor(Color.BLUE);
-		
 	}
+<<<<<<< HEAD
+=======
+	
+>>>>>>> 75eb072b0287a90251351a4ba5f11b37a0876c30
 }
