@@ -66,7 +66,8 @@ public class Board extends JPanel{
 		playerConfigFile = playerFile;
 		cardConfigFile = cardFile;
 
-//		initialize();
+//		initialize();\
+		
 	} 
 	
 	public void initialize() {
@@ -495,9 +496,11 @@ public class Board extends JPanel{
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponents(g);
+		for(int i=0;i<numRows;++i){
+			for(int j=0;j<numColumns;++j){
+				board[i][j].draw(g);
+			}
+		}
 	}
-<<<<<<< HEAD
-=======
-	
->>>>>>> 75eb072b0287a90251351a4ba5f11b37a0876c30
+
 }

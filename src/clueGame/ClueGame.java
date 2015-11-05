@@ -17,13 +17,13 @@ public class ClueGame extends JFrame {
 		setSize(1000, 950);	
 		gameBoardPanel  = new Board("ClueLayout/Layout.csv", "ClueLayout/Legend.txt", "ClueLayout/Players.txt", "ClueLayout/Cards.txt");
 		add(gameBoardPanel, BorderLayout.CENTER);
+		
 	}
 
 
 	public static void main(String[] args) {
-		
-		Board  = new Board("ClueLayout/Layout.csv", "ClueLayout/Legend.txt", "ClueLayout/Players.txt", "ClueLayout/Cards.txt");
-		
+		ClueGame cg = new ClueGame();
+		cg.setVisible(true);
 		
 		
 

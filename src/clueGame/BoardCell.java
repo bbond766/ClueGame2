@@ -1,5 +1,7 @@
 package clueGame;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.util.ArrayList;
 
 public class BoardCell {
@@ -79,5 +81,10 @@ public class BoardCell {
 	
 	public String toString() {
 		return "(" + row + ", " + column + ")";
+	}
+	
+	public void draw(Graphics g) {
+		g.setColor(Color.BLUE);
+		g.drawRect(20,20,20,20);
 	}
 }
