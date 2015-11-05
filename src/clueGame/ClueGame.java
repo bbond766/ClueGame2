@@ -16,6 +16,7 @@ public class ClueGame extends JFrame {
 		setTitle("Clue Game");
 		setSize(1000, 950);	
 		gameBoardPanel  = new Board("ClueLayout/Layout.csv", "ClueLayout/Legend.txt", "ClueLayout/Players.txt", "ClueLayout/Cards.txt");
+		gameBoardPanel.initialize();
 		add(gameBoardPanel, BorderLayout.CENTER);
 		
 	}
