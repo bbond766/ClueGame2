@@ -46,6 +46,7 @@ public class DetectiveNotes extends JFrame{
 		JPanel p = new JPanel();
 		JComboBox<String> personGuess = new JComboBox<String>();
 		p.setBorder(new TitledBorder(new EtchedBorder(), "Person Guess"));
+		personGuess.addItem("Unsure");
 		
 		for (Card c : board.getChoices()) 
 			if (c.getType().equals(CardType.PERSON)) 
@@ -70,6 +71,7 @@ public class DetectiveNotes extends JFrame{
 		JPanel p = new JPanel();
 		JComboBox<String> roomGuess = new JComboBox<String>();
 		p.setBorder(new TitledBorder(new EtchedBorder(), "Room Guess"));
+		roomGuess.addItem("Unsure");
 		
 		for (Map.Entry<Character, String> entry : board.getRooms().entrySet())
 			roomGuess.addItem(entry.getValue());
@@ -95,6 +97,7 @@ public class DetectiveNotes extends JFrame{
 		JPanel p = new JPanel();
 		JComboBox<String> weaponGuess = new JComboBox<String>();
 		p.setBorder(new TitledBorder(new EtchedBorder(), "Weapon Guess"));
+		weaponGuess.addItem("Unsure");
 		
 		for (Card c : board.getChoices()) {
 			if (c.getType().equals(CardType.WEAPON))

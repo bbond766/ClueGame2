@@ -34,7 +34,7 @@ public class Board extends JPanel{
 	private Solution theAnswer;
 	private ArrayList<Card> deck = new ArrayList<Card>();
 	private ArrayList<Card> choices = new ArrayList<Card>();
-	private ArrayList<Player> players = new ArrayList<Player>();
+	private static ArrayList<Player> players = new ArrayList<Player>();
 	private ArrayList<Card> seenCards =  new ArrayList<Card>();
 	
 	public Board() {
@@ -428,7 +428,7 @@ public class Board extends JPanel{
 		return numColumns;
 	}
 	
-	public ArrayList<Player> getPlayers() {
+	public static ArrayList<Player> getPlayers() {
 		return players;
 	}
 
@@ -498,5 +498,4 @@ public class Board extends JPanel{
 		g.setColor(Color.BLUE);
 		
 	}
-
 }

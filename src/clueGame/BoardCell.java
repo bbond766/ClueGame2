@@ -1,9 +1,12 @@
 package clueGame;
 
+import java.util.ArrayList;
+
 public class BoardCell {
 	private int row, column;
 	private char initial;
 	private DoorDirection doorDirection;
+	private ArrayList<Player> players;
 	
 	public BoardCell() {
 		
@@ -18,6 +21,16 @@ public class BoardCell {
 		this.row = row;
 		this.column = column;
 		this.initial = initial;
+	}
+	
+	public void updateCell() {
+		for (Player p : Board.getPlayers()) {
+			if (p.getRow() == row && p.getColumn() == column)
+				players.add(p);
+			else
+				if (players.contains(p))
+					players.remove(p);
+		}
 	}
 
 	public boolean isWalkway(){
