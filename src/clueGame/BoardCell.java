@@ -97,7 +97,7 @@ public class BoardCell {
 		int y = size * row;
 		
 		if (isWalkway()) {
-			g.setColor(Color.YELLOW);
+			g.setColor(Color.LIGHT_GRAY);
 			g.fillRect(x, y, size, size);
 			g.setColor(Color.BLACK);
 			g.drawRect(x, y, size, size);
@@ -110,7 +110,7 @@ public class BoardCell {
 				}
 		}
 		else {
-			g.setColor(Color.GRAY);
+			g.setColor(Color.DARK_GRAY);
 			g.fillRect(x, y, size, size);
 			if (isDoorway()) {
 				g.setColor(Color.BLUE);
@@ -128,14 +128,12 @@ public class BoardCell {
 					g.fillRect(x, y, 5, size);
 					break;
 				default:
-					System.out.println("TERRIBLE THINGS");
+					System.out.println("Encountered door with no direction");
 				}
 			}
 		}
-		System.out.println(name);
 		if (!name.equals("")) {
-			System.out.println(name);
-			g.setColor(Color.BLACK);
+			g.setColor(Color.WHITE);
 			g.drawString(name, x, y);
 		}
 		

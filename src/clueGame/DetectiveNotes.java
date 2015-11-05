@@ -7,20 +7,21 @@ import java.util.Map;
 
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-public class DetectiveNotes extends JFrame{
+public class DetectiveNotes extends JDialog{
 	private Board board;
 	
 	public DetectiveNotes(Board board) {
 		this.board = board;
 		setSize(new Dimension(500, 650));
 		setTitle("Detective Notes");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setLayout(new GridLayout(3, 2));
 		add(createPeople(), BorderLayout.CENTER);
 		add(createPersonGuess(), BorderLayout.CENTER);
@@ -109,10 +110,4 @@ public class DetectiveNotes extends JFrame{
 		return p;		
 	}
 	
-	public static void main(String[] args) {
-		Board b = new Board("ClueLayout/Layout.csv", "ClueLayout/Legend.txt", "ClueLayout/Players.txt", "ClueLayout/Cards.txt");
-		b.initialize();
-		DetectiveNotes dn = new DetectiveNotes(b);
-		dn.setVisible(true);
-	}
 }
