@@ -3,12 +3,14 @@ package clueGame;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.List;
 
 public class BoardCell {
 	private int row, column;
 	private char initial;
 	private DoorDirection doorDirection;
-	private ArrayList<Player> players;
+	private List<Player> players = new ArrayList<Player>();
+	private String name;
 	
 	public BoardCell() {
 		
@@ -17,12 +19,14 @@ public class BoardCell {
 	public BoardCell(int row, int column) {
 		this.row = row;
 		this.column = column;
+		this.name = "";
 	}
 
 	public BoardCell(int row, int column, char initial) {
 		this.row = row;
 		this.column = column;
 		this.initial = initial;
+		this.name = "";
 	}
 	
 	public void updateCell() {
@@ -33,6 +37,10 @@ public class BoardCell {
 				if (players.contains(p))
 					players.remove(p);
 		}
+	}
+	
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public boolean isWalkway(){
@@ -84,9 +92,53 @@ public class BoardCell {
 	}
 	
 	public void draw(Graphics g) {
-		g.setColor(Color.YELLOW);
-		g.fillRect(35*row, 35*column, 35, 35);
-		g.setColor(Color.BLACK);
-		g.drawRect(35*row,35*column,35,35);
+		int size = 35;
+		int x = size * column;
+		int y = size * row;
+		
+		if (isWalkway()) {
+			g.setColor(Color.YELLOW);
+			g.fillRect(x, y, size, size);
+			g.setColor(Color.BLACK);
+			g.drawRect(x, y, size, size);
+			if (!players.isEmpty())
+				for (Player p : players) {
+					g.setColor(p.getColor());
+					g.fillOval(x, y, size, size);
+					g.setColor(Color.BLACK);
+					g.drawOval(x, y, size, size);
+				}
+		}
+		else {
+			g.setColor(Color.GRAY);
+			g.fillRect(x, y, size, size);
+			if (isDoorway()) {
+				g.setColor(Color.BLUE);
+				switch (doorDirection) {
+				case UP: 
+					g.fillRect(x, y, size, 5);
+					break;
+				case RIGHT:
+					g.fillRect(x+30, y, 5, size);
+					break;
+				case DOWN:
+					g.fillRect(x, y+30, size, 5);
+					break;
+				case LEFT:
+					g.fillRect(x, y, 5, size);
+					break;
+				default:
+					System.out.println("TERRIBLE THINGS");
+				}
+			}
+		}
+		System.out.println(name);
+		if (!name.equals("")) {
+			System.out.println(name);
+			g.setColor(Color.BLACK);
+			g.drawString(name, x, y);
+		}
+		
+		
 	}
 }

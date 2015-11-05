@@ -62,5 +62,9 @@ public abstract class Player {
 		return hand;
 	}
 	
+	public Color getColor() {
+		return color;
+	}
+	
 	abstract public boolean isHuman();
 }

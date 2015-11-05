@@ -99,6 +99,7 @@ public class Board extends JPanel{
 		selectAnswer();
 		dealCards();
 		calcAdjacencies();
+		updateBoard();
 	}
 	
 	public void loadRoomConfig() throws BadConfigFormatException {
@@ -156,6 +157,10 @@ public class Board extends JPanel{
 							break;
 						case 'R':
 							board[numRows][i].setDoorDirection(DoorDirection.RIGHT);
+							break;
+						case 'N':
+							String cellName = rooms.get(row[i].charAt(0));
+							board[numRows][i].setName(cellName);
 							break;
 						}
 					}
@@ -501,6 +506,12 @@ public class Board extends JPanel{
 				board[i][j].draw(g);
 			}
 		}
+	}
+	
+	public void updateBoard() {
+		for (int i=0; i<numRows; i++)
+			for (int j=0; j<numColumns; j++)
+				board[i][j].updateCell();
 	}
 
 }
