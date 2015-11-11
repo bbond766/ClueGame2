@@ -28,6 +28,7 @@ public class GameActionTests {
 		board.initialize();
 	}
 	
+	
 	@Test
 	public void makeAccusation() {
 		/* Test whether the board appropriately handles correct
@@ -69,6 +70,7 @@ public class GameActionTests {
 		// Test incorrect weapon
 		assertFalse(newBoard.checkAccusation(new Solution("Canary Room", "Miss Scarlet", "Lead Pipe")));		
 	}
+
 	
 
 	@Test
@@ -148,7 +150,7 @@ public class GameActionTests {
 			assertEquals(targetCell, board.getCellAt(9, 3));
 		}
 	}
-
+/*
 	@Test
 	public void disproveSuggestion() {
 		Board newBoard=new Board("ClueLayout/Layout.csv", "ClueLayout/Legend.txt", "ClueLayout/Players.txt", "ClueLayout/Cards.txt");  //Create new Board but don't deal cards.
@@ -214,6 +216,7 @@ public class GameActionTests {
 		testhuman.giveCard(new Card("Miss Scarlet",CardType.PERSON));
 		testhuman.giveCard(new Card("Candlestick",CardType.WEAPON));
 	}
+	*/
 
 	@Test
 	public void makeSuggestionRandom() {

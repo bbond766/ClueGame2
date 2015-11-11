@@ -29,8 +29,8 @@ public class BoardCell {
 		this.name = "";
 	}
 	
-	public void updateCell() {
-		for (Player p : Board.getPlayers()) {
+	public void updateCell(ArrayList<Player> boardPlayers) {
+		for (Player p : boardPlayers) {
 			if (p.getRow() == row && p.getColumn() == column)
 				players.add(p);
 			else

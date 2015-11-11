@@ -34,7 +34,7 @@ public class Board extends JPanel{
 	private Solution theAnswer;
 	private ArrayList<Card> deck = new ArrayList<Card>();
 	private ArrayList<Card> choices = new ArrayList<Card>();
-	private static ArrayList<Player> players = new ArrayList<Player>();
+	private ArrayList<Player> players = new ArrayList<Player>();
 	private ArrayList<Card> seenCards =  new ArrayList<Card>();
 	
 	public Board() {
@@ -434,7 +434,8 @@ public class Board extends JPanel{
 		return numColumns;
 	}
 	
-	public static ArrayList<Player> getPlayers() {
+	public ArrayList<Player> getPlayers() {
+		System.out.println("Size: "+ players.size());
 		return players;
 	}
 
@@ -511,7 +512,7 @@ public class Board extends JPanel{
 	public void updateBoard() {
 		for (int i=0; i<numRows; i++)
 			for (int j=0; j<numColumns; j++)
-				board[i][j].updateCell();
+				board[i][j].updateCell(players);
 	}
 
 }
