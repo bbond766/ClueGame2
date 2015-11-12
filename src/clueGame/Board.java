@@ -435,7 +435,6 @@ public class Board extends JPanel{
 	}
 	
 	public ArrayList<Player> getPlayers() {
-		System.out.println("Size: "+ players.size());
 		return players;
 	}
 

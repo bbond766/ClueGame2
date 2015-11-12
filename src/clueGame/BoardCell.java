@@ -92,7 +92,7 @@ public class BoardCell {
 	}
 	
 	public void draw(Graphics g) {
-		int size = 35;
+		int size = 25;
 		int x = size * column;
 		int y = size * row;
 		
