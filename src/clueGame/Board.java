@@ -70,6 +70,62 @@ public class Board extends JPanel{
 		
 	} 
 	
+	public BoardCell getCell(int row, int column) {
+		return board[row][column];
+	}
+	
+	public int getNumberOfRooms(){
+		return rooms.size();
+	}
+
+	public int getNumRows() {
+		return numRows;
+	}
+
+	public int getNumColumns() {
+		return numColumns;
+	}
+	
+	public ArrayList<Player> getPlayers() {
+		return players;
+	}
+
+	public ArrayList<Card> getDeck() {
+		return deck;
+	}
+	
+	public ArrayList<Card> getSeenCards(){
+		return seenCards;
+	}
+	
+	public void addSeenCard(Card entry){
+		seenCards.add(entry);
+	}
+
+	public Solution getAnswer() {
+		return theAnswer;
+	}
+	
+	public ArrayList<Card> getChoices(){
+		return choices;
+	}
+	
+	public BoardCell getCellAt(int row, int column){
+		return board[row][column];
+	}
+	
+	public Set<BoardCell> getTargets(){
+		return targets;
+	}
+	
+	public LinkedList<BoardCell> getAdjList(int row, int column) {
+		return getAdjList(board[row][column]);
+	}
+	
+	public static Map<Character, String> getRooms() {
+		return rooms;
+	}
+	
 	public void initialize() {
 		rooms = new HashMap<Character, String>();
 		
@@ -237,21 +293,6 @@ public class Board extends JPanel{
 		}
 	}
 	
-	public static Map<Character, String> getRooms() {
-		return rooms;
-	}
-
-
-	////////////////////////////////////////////
-	//            Testing Method              //
-	////////////////////////////////////////////
-	
-	public void addPlayer(Player player){
-		players.add(player);
-	}
-	
-
-	
 	public void calcAdjacencies(){
 		for(int i=0; i < numRows; i++)
 			for(int j=0; j < numColumns; j++)
@@ -290,18 +331,6 @@ public class Board extends JPanel{
 		}
 		
 		return targets;
-	}
-	
-	public BoardCell getCellAt(int row, int column){
-		return board[row][column];
-	}
-	
-	public Set<BoardCell> getTargets(){
-		return targets;
-	}
-	
-	public LinkedList<BoardCell> getAdjList(int row, int column) {
-		return getAdjList(board[row][column]);
 	}
 	
 	public LinkedList<BoardCell> getAdjList(BoardCell boardCell){
@@ -349,6 +378,10 @@ public class Board extends JPanel{
 		return list;
 	}
 	
+	public void shuffleDeck() {
+		Collections.shuffle(deck);
+	}
+	
 	public void selectAnswer() {
 		// Selects answer from first room, person, and weapon in
 		// the deck after shuffling
@@ -380,6 +413,16 @@ public class Board extends JPanel{
 		theAnswer = new Solution(room, person, weapon);
 	}
 		
+	public void dealCards() {
+		int counter = 0;
+		shuffleDeck();
+		while (!deck.isEmpty()) {                          // while the deck has cards
+			players.get(counter).giveCard(deck.get(0));    // give the top card in the deck to the current player
+			deck.remove(0);                                // remove the top card from the deck
+			counter = (counter + 1) % players.size();      // look at the next player
+		}
+	}
+	
  	public Card handleSuggestion(Solution suggestion, String accusingPlayer, BoardCell clicked) {
 		if(this.checkAccusation(suggestion)){
 			return null;
@@ -402,56 +445,27 @@ public class Board extends JPanel{
 		return true;
 	}
 	
-	public void dealCards() {
-		int counter = 0;
-		shuffleDeck();
-		while (!deck.isEmpty()) {                          // while the deck has cards
-			players.get(counter).giveCard(deck.get(0));    // give the top card in the deck to the current player
-			deck.remove(0);                                // remove the top card from the deck
-			counter = (counter + 1) % players.size();      // look at the next player
+	public void paintComponent(Graphics g) {
+		super.paintComponents(g);
+		for(int i=0;i<numRows;++i){
+			for(int j=0;j<numColumns;++j){
+				board[i][j].draw(g);
+			}
 		}
 	}
 	
-	public void shuffleDeck() {
-		Collections.shuffle(deck);
+	public void updateBoard() {
+		for (int i=0; i<numRows; i++)
+			for (int j=0; j<numColumns; j++)
+				board[i][j].updateCell(players);
 	}
 	
-	public BoardCell getCell(int row, int column) {
-		return board[row][column];
-	}
+	////////////////////////////////////////////
+	//            Testing Method              //
+	////////////////////////////////////////////
 	
-	public int getNumberOfRooms(){
-		return rooms.size();
-	}
-
-	public int getNumRows() {
-		// TODO Auto-generated method stub
-		return numRows;
-	}
-
-	public int getNumColumns() {
-		// TODO Auto-generated method stub
-		return numColumns;
-	}
-	
-	public ArrayList<Player> getPlayers() {
-		return players;
-	}
-
-	public ArrayList<Card> getDeck() {
-		return deck;
-	}
-	
-	public ArrayList<Card> getSeenCards(){
-		return seenCards;
-	}
-	
-	public void addSeenCard(Card entry){
-		seenCards.add(entry);
-	}
-
-	public Solution getAnswer() {
-		return theAnswer;
+	public void addPlayer(Player player){
+		players.add(player);
 	}
 
 	public void setAnswer() {
@@ -490,28 +504,5 @@ public class Board extends JPanel{
 			if(!choices.get(i).getName().equals("Miss Scarlet") && !choices.get(i).getName().equals("Candlestick"))
 			addSeenCard(choices.get(i));
 		}
-	}
-	
-	public ArrayList<Card> getChoices(){
-		return choices;
-	}
-	
-	
-	
-	
-	public void paintComponent(Graphics g) {
-		super.paintComponents(g);
-		for(int i=0;i<numRows;++i){
-			for(int j=0;j<numColumns;++j){
-				board[i][j].draw(g);
-			}
-		}
-	}
-	
-	public void updateBoard() {
-		for (int i=0; i<numRows; i++)
-			for (int j=0; j<numColumns; j++)
-				board[i][j].updateCell(players);
-	}
-
+	}	
 }
