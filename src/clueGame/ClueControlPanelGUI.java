@@ -13,14 +13,12 @@ import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-public class ClueControlPanelGUI extends  JFrame{
+public class ClueControlPanelGUI extends  JPanel{
 	private JTextField currentPlayer, diceRoll, guessResult;
 	private JComboBox<String> guess;
 	
 	public ClueControlPanelGUI(){
-		setSize(new Dimension(1000,300));
-		setTitle("Clue Game Control Panel");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setSize(new Dimension(821, 256));
 		add(createCurrentPlayer(), BorderLayout.CENTER);
 		add(createDiceRoll(), BorderLayout.WEST);
 		add(createButtons(), BorderLayout.NORTH);
@@ -29,13 +27,14 @@ public class ClueControlPanelGUI extends  JFrame{
 	}
 	private JPanel createCurrentPlayer() {
 		JPanel panel1 = new JPanel();
-		JLabel whosTurn = new JLabel("CURRENT PLAYER---------------------->");;
-		currentPlayer = new JTextField(25);
+		JLabel whosTurn = new JLabel("CURRENT PLAYER:");
+		currentPlayer = new JTextField(16);
 		currentPlayer.setEditable(false);
 		panel1.setLayout(new GridLayout(1,1));
 		panel1.add(whosTurn);
 		panel1.add(currentPlayer);
 		panel1.setBorder(new TitledBorder(new EtchedBorder(), "Who's turn is it anyway?"));
+		panel1.setSize(new Dimension(100, 10));
 		return panel1;
 	}
 	private JPanel createDiceRoll(){
@@ -46,6 +45,7 @@ public class ClueControlPanelGUI extends  JFrame{
 		panel4.setLayout(new GridLayout(1,1));
 		panel4.add(diceRollLabel);
 		panel4.add(diceRoll);
+		panel4.setSize(new Dimension(100, 10));
 		panel4.setBorder(new TitledBorder(new EtchedBorder(), "Your move"));
 		return panel4;
 	}

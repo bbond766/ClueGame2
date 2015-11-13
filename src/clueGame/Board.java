@@ -14,6 +14,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -242,9 +243,6 @@ public class Board extends JPanel{
 				if (player.length != 5)
 					throw new BadConfigFormatException("Too many fields in player config file");
 				
-				if (!Player.colors.containsKey(player[2]))
-					throw new BadConfigFormatException("Color " + player[2] + " is not valid");
-				
 				if (Integer.parseInt(player[3]) >= numRows || Integer.parseInt(player[3]) < 0)
 					throw new BadConfigFormatException("row value is " + player[3] + ", must be between 0 and " + numRows);
 				
@@ -253,11 +251,11 @@ public class Board extends JPanel{
 				
 				// Add human player to list
 				if (player[1].equals("Human"))
-					players.add(new HumanPlayer(player[0], player[2], Integer.parseInt(player[3]), Integer.parseInt(player[4])));
+					players.add(new HumanPlayer(player[0], convertColor(player[2]), Integer.parseInt(player[3]), Integer.parseInt(player[4])));
 				
 				// Add AI player to list
 				else if (player[1].equals("Computer"))
-					players.add(new ComputerPlayer(player[0], player[2], Integer.parseInt(player[3]), Integer.parseInt(player[4])));
+					players.add(new ComputerPlayer(player[0], convertColor(player[2]), Integer.parseInt(player[3]), Integer.parseInt(player[4])));
 				else
 					throw new BadConfigFormatException("Player must be either Human or Computer controlled, field says: " + player[1]);
 			}
@@ -292,6 +290,19 @@ public class Board extends JPanel{
 			e.printStackTrace();
 		}
 	}
+	
+	// Be sure to trim the color, we don't want spaces around the name
+		public Color convertColor(String strColor) {
+			Color color; 
+			try {     
+				// We can use reflection to convert the string to a color
+				Field field = Class.forName("java.awt.Color").getField(strColor.trim());     
+				color = (Color)field.get(null); } 
+			catch (Exception e) {  
+				color = null; // Not defined } 
+			}
+			return color;
+		}
 	
 	public void calcAdjacencies(){
 		for(int i=0; i < numRows; i++)

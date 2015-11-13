@@ -7,7 +7,7 @@ import java.util.Set;
 public class ComputerPlayer extends Player{
 	private String lastVisited;
 	
-	public ComputerPlayer(String name, String color, int row, int column) {
+	public ComputerPlayer(String name, Color color, int row, int column) {
 		super(name, color, row, column);
 		// TODO Auto-generated constructor stub
 	}

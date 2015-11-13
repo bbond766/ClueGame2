@@ -2,6 +2,7 @@ package clueTests;
 
 import static org.junit.Assert.*;
 
+import java.awt.Color;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -76,7 +77,7 @@ public class GameActionTests {
 	@Test
 	public void selectRandomTargetLocation() {	
 		// Test no rooms in targets, choose target randomly
-		ComputerPlayer testPlayer = new ComputerPlayer("Mrs. Peacock", "blue", 6, 10);
+		ComputerPlayer testPlayer = new ComputerPlayer("Mrs. Peacock", Color.BLUE, 6, 10);
 		board.calcTargets(0,  10, 2);
 		int loc_0_8 = 0;
 		int loc_1_7 = 0;
@@ -107,7 +108,7 @@ public class GameActionTests {
 		/* Test that the computer randomly picks from all locations
 		 * when targets includes a room that was just visited.
 		 */
-		ComputerPlayer testPlayer = new ComputerPlayer("Mrs. Peacock", "blue", 8, 3);
+		ComputerPlayer testPlayer = new ComputerPlayer("Mrs. Peacock", Color.BLUE, 8, 3);
 		testPlayer.setLastVisited("Kave Room");
 		board.calcTargets(8, 3, 1);
 		int loc_7_3 = 0;
@@ -142,7 +143,7 @@ public class GameActionTests {
 		/* Test that the computer will always pick a room if it is
 		 * in the targets set and wasn't just visited.
 		 */
-		ComputerPlayer testPlayer = new ComputerPlayer("Mrs. Peacock", "blue", 8, 3);
+		ComputerPlayer testPlayer = new ComputerPlayer("Mrs. Peacock", Color.BLUE, 8, 3);
 		board.calcTargets(8, 3, 1);
 		// Test 100 times
 		for (int i=0; i<100; i++) {
@@ -229,7 +230,7 @@ public class GameActionTests {
 		//the weapon an appropriate number of times.
 		
 
-		ComputerPlayer testPlayer =  new ComputerPlayer("Mr Green", "blue", 13,3);
+		ComputerPlayer testPlayer =  new ComputerPlayer("Mr Green", Color.BLUE, 13,3);
 		int MrsWhite = 0;
 		int MrsPeacock = 0;
 		int MissScarlet = 0;
@@ -297,7 +298,7 @@ public class GameActionTests {
 				//solution because that is the only choices left to make.
 		
 		
-		ComputerPlayer testPlayer =  new ComputerPlayer("Mr Green", "blue", 5,6);
+		ComputerPlayer testPlayer =  new ComputerPlayer("Mr Green", Color.BLUE, 5,6);
 		Board testBoard = new Board("ClueLayout/Layout.csv", "ClueLayout/Legend.txt", "ClueLayout/Players.txt", "ClueLayout/Cards.txt");
 		try {
 			testBoard.loadBoardConfig();

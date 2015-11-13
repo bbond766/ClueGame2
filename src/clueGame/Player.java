@@ -13,21 +13,10 @@ public abstract class Player {
 	protected Color color;
 	protected String colorName;
 	protected ArrayList<Card> hand = new ArrayList<Card>();
-	public static final Map<String, Color> colors;
-	static {
-		colors = new HashMap<String, Color>();
-		colors.put("red", new Color(255, 0, 0));
-		colors.put("green", new Color(0, 255, 0));
-		colors.put("blue", new Color(0, 0, 255));
-		colors.put("yellow", new Color(255, 255, 0));
-		colors.put("white", new Color(255, 255, 255));
-		colors.put("purple", new Color(255, 0, 255));
-	}
 	
-	public Player(String name, String color, int row, int col) {
+	public Player(String name, Color color, int row, int col) {
 		this.playerName = name;
-		this.colorName = color;
-		this.color = colors.get(colorName);
+		this.color = color;
 		this.row = row;
 		this.column = col;
 	}

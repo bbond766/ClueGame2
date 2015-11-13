@@ -8,6 +8,8 @@ import java.lang.Math;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.sun.prism.paint.Color;
+
 import clueGame.BadConfigFormatException;
 import clueGame.Board;
 import clueGame.Card;
@@ -38,21 +40,21 @@ public class GameSetupTests {
 		// Test the human player
 		assertEquals(testList.get(0).getName(), "Miss Scarlet");
 		assertTrue(testList.get(0).isHuman());
-		assertEquals(testList.get(0).getColorName(), "red");
+		assertEquals(testList.get(0).getColor().getRed(),255 );
 		assertEquals(testList.get(0).getRow(), 6);
 		assertEquals(testList.get(0).getColumn(), 0);
 		
 		// Test the first computer player
 		assertEquals(testList.get(1).getName(), "Mrs. Peacock");
 		assertFalse(testList.get(1).isHuman());
-		assertEquals(testList.get(1).getColorName(), "blue");
+		assertEquals(testList.get(1).getColor().getBlue(), 255);
 		assertEquals(testList.get(1).getRow(), 15);
 		assertEquals(testList.get(1).getColumn(), 0);
 
 		// Test the last computer player
 		assertEquals(testList.get(5).getName(), "Mr. Green");
 		assertFalse(testList.get(5).isHuman());
-		assertEquals(testList.get(5).getColorName(), "green");
+		assertEquals(testList.get(5).getColor().getGreen(), 255);
 		assertEquals(testList.get(5).getRow(), 21);
 		assertEquals(testList.get(5).getColumn(), 9);
 	}
