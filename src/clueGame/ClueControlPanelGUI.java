@@ -25,43 +25,43 @@ public class ClueControlPanelGUI extends  JPanel{
 
 	}
 	private JPanel createCurrentPlayer() {
-		JPanel panel1 = new JPanel();
+		JPanel currentPlayerPanel = new JPanel();
 		JLabel whosTurn = new JLabel("CURRENT PLAYER:");
 		currentPlayer = new JTextField(16);
 		currentPlayer.setEditable(false);
-		panel1.setLayout(new GridLayout(1,1));
-		panel1.add(whosTurn);
-		panel1.add(currentPlayer);
-		panel1.setBorder(new TitledBorder(new EtchedBorder(), "Who's turn is it anyway?"));
-		panel1.setSize(new Dimension(100, 10));
-		return panel1;
+		currentPlayerPanel.setLayout(new GridLayout(1,1));
+		currentPlayerPanel.add(whosTurn);
+		currentPlayerPanel.add(currentPlayer);
+		currentPlayerPanel.setBorder(new TitledBorder(new EtchedBorder(), "Who's turn is it anyway?"));
+		currentPlayerPanel.setSize(new Dimension(100, 10));
+		return currentPlayerPanel;
 	}
 	private JPanel createDiceRoll(){
-		JPanel panel4 = new JPanel();
+		JPanel diceRollPanel = new JPanel();
 		diceRoll = new JTextField();
 		diceRoll.setEditable(false);
 		JLabel diceRollLabel = new JLabel("Dice Roll");
-		panel4.setLayout(new GridLayout(1,1));
-		panel4.add(diceRollLabel);
-		panel4.add(diceRoll);
-		panel4.setSize(new Dimension(100, 10));
-		panel4.setBorder(new TitledBorder(new EtchedBorder(), "Your move"));
-		return panel4;
+		diceRollPanel.setLayout(new GridLayout(1,1));
+		diceRollPanel.add(diceRollLabel);
+		diceRollPanel.add(diceRoll);
+		diceRollPanel.setSize(new Dimension(100, 10));
+		diceRollPanel.setBorder(new TitledBorder(new EtchedBorder(), "Your move"));
+		return diceRollPanel;
 	}
 	private JPanel createGuessDisplays(){
-		JPanel panel2 = new JPanel();
-		panel2.setLayout(new GridLayout(1,1));
+		JPanel guessPanel = new JPanel();
+		guessPanel.setLayout(new GridLayout(1,1));
 		JLabel guessLabel = new JLabel("Make a guess");
 		JLabel guessResultLabel = new JLabel("The result of your guess");
 		guessResult =  new JTextField();
 		guessResult.setEditable(false);
 		guess = setUpComboBoxes();
-		panel2.add(guessLabel);
-		panel2.add(guess);
-		panel2.add(guessResultLabel);
-		panel2.add(guessResult);
-		panel2.setBorder(new TitledBorder(new EtchedBorder(), "Go for the WIN"));
-		return panel2;
+		guessPanel.add(guessLabel);
+		guessPanel.add(guess);
+		guessPanel.add(guessResultLabel);
+		guessPanel.add(guessResult);
+		guessPanel.setBorder(new TitledBorder(new EtchedBorder(), "Go for the WIN"));
+		return guessPanel;
 	}
 	private JComboBox<String> setUpComboBoxes(){
 		JComboBox<String> combo = new JComboBox<String>();
@@ -82,12 +82,12 @@ public class ClueControlPanelGUI extends  JPanel{
 	private JPanel createButtons(){
 		JButton nextPlayer = new JButton("Next Player");
 		JButton makeAccu = new JButton("Make an Accusation");
-		JPanel panel3 = new JPanel();
-		panel3.setLayout(new GridLayout(1,2));
-		panel3.add(nextPlayer);
-		panel3.add(makeAccu);
-		panel3.setBorder(new TitledBorder(new EtchedBorder(), "Take Action!"));
-		return panel3;
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setLayout(new GridLayout(1,2));
+		buttonPanel.add(nextPlayer);
+		buttonPanel.add(makeAccu);
+		buttonPanel.setBorder(new TitledBorder(new EtchedBorder(), "Take Action!"));
+		return buttonPanel;
 	}
 
 

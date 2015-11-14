@@ -472,7 +472,7 @@ public class Board extends JPanel{
 	}
 	
 	////////////////////////////////////////////
-	//            Testing Method              //
+	//            Testing Methods              //
 	////////////////////////////////////////////
 	
 	public void addPlayer(Player player){

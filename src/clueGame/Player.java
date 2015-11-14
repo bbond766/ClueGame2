@@ -11,7 +11,6 @@ public abstract class Player {
 	protected int row;
 	protected int column;
 	protected Color color;
-	protected String colorName;
 	protected ArrayList<Card> hand = new ArrayList<Card>();
 	
 	public Player(String name, Color color, int row, int col) {
@@ -29,10 +28,6 @@ public abstract class Player {
 	
 	public String getName() {
 		return playerName;
-	}
-	
-	public String getColorName() {
-		return colorName;
 	}
 	
 	public int getRow() {
