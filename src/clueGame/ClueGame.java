@@ -1,6 +1,9 @@
 package clueGame;
 
 import java.awt.BorderLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -27,7 +30,7 @@ public class ClueGame extends JFrame {
 	public ClueGame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Clue Game");
-		setSize(821, 831);	
+		setSize(1000, 831);	
 		gameBoardPanel  = new Board("ClueLayout/Layout.csv", "ClueLayout/Legend.txt", "ClueLayout/Players.txt", "ClueLayout/Cards.txt");
 		gameBoardPanel.initialize();
 
@@ -37,13 +40,34 @@ public class ClueGame extends JFrame {
 		
 		// For now, humanPlayers will only contain one Player
 		cardPanel = new CardPanel(humanPlayers.get(0).getHand());
-		add(gameBoardPanel, BorderLayout.CENTER);
-		add(cardPanel, BorderLayout.EAST);
+//		JPanel panel = new JPanel();
+		GridBagLayout layout = new GridBagLayout();
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 0;
+		c.ipadx = 950;
+		c.ipady = 600;
+		setLayout(layout);
+		add(gameBoardPanel, c);
+		c.fill = GridBagConstraints.VERTICAL;
+		c.gridx = 1;
+		c.ipadx = 90;
+		c.ipady = 100;
+		
+		c.gridheight = 2;
+		add(cardPanel, c);
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		menuBar.add(createFileMenu());	
 		ClueControlPanelGUI display = new ClueControlPanelGUI();
-		add(display, BorderLayout.SOUTH);
+		c.gridx = 0;
+		c.gridy = 1;
+		c.gridwidth = 2;
+		c.anchor = GridBagConstraints.LINE_START;
+		c.ipady = 150;
+		c.ipadx = 450;
+//		add(panel);
+		add(display, c);
 	}
 
 	private JMenu createFileMenu() {

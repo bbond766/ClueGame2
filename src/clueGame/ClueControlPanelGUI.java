@@ -18,7 +18,6 @@ public class ClueControlPanelGUI extends  JPanel{
 	private JComboBox<String> guess;
 	
 	public ClueControlPanelGUI(){
-		setSize(new Dimension(821, 256));
 		add(createCurrentPlayer(), BorderLayout.CENTER);
 		add(createDiceRoll(), BorderLayout.WEST);
 		add(createButtons(), BorderLayout.NORTH);
