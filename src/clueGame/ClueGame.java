@@ -19,8 +19,6 @@ import javax.swing.JPanel;
 
 import experiment.MyDialog;
 
-
-
 public class ClueGame extends JFrame {
 	private static Board gameBoardPanel;
 	private DetectiveNotes dialog;
@@ -28,6 +26,8 @@ public class ClueGame extends JFrame {
 	private List<Player> humanPlayers = new ArrayList<Player>();
 
 	public ClueGame() {
+		// Displays the board, control panel, and card panel
+		// Also creates a File menu with Show Notes and Exit options
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Clue Game");
 		setSize(1000, 831);	
@@ -102,6 +102,7 @@ public class ClueGame extends JFrame {
 	
 
 	public static void main(String[] args) {
+		// Displays the JFrame as well as a splash message to the player
 		ClueGame cg = new ClueGame();
 		cg.setVisible(true);
 		String name = "";

@@ -12,18 +12,8 @@ public class ComputerPlayer extends Player{
 	}
 	
 	public BoardCell pickLocation(Set<BoardCell> targets) {
-		/* If the list of targets includes a room, select that
-		 * location unless the player was just in that room.
-		 * If the list does not include a room, or the room was
-		 * just visited, randomly choose from ALL locations.
-		 * 
-		 * 
-		 * Avoid going into a room if the card has been seen.
-		 * Always pick a room if you can get to it UNLESS that
-		 * room was just visited.
-		 * Otherwise pick randomly from targets.
-		 * Call makeSuggestion?
-		 */
+		// If the AI's targets list contains a room, the AI will always choose to visit the room
+		// unless it was just visited. Otherwise, the AI will choose a target at random.
 
 		for (BoardCell bc : targets)
 			// If target is a room that was not the last visited room
@@ -40,14 +30,20 @@ public class ComputerPlayer extends Player{
 			i += 1;
 		}
 		
-		return null;    // SOMETHING WENT WRONG
+		return null;
 	}
 	
-	public void makeAccusation() {}
+	public void makeAccusation() {
+		// TODO: this should have been done already??
+	}
 
 	public Solution makeSuggestion(Board board) {
+		// Called when an AI enters a room. The AI makes a suggestion from the current room and
+		// the person and weapon cards are chosen at random.
 		String name = null;
 		String weapon = null;
+		
+		// Pick a person and weapon card
 		while(name == null || weapon == null){
 			int choice = new Random().nextInt(board.getChoices().size());
 			Card testCard = board.getChoices().get(choice);
@@ -58,6 +54,8 @@ public class ComputerPlayer extends Player{
 				weapon = testCard.getName();
 			}
 		}
+		
+		// Suggestion must contain the current room
 		String room = board.getRooms().get(board.getCellAt(row, column).getInitial());
 
 		return new Solution(room, name, weapon);
@@ -70,6 +68,12 @@ public class ComputerPlayer extends Player{
 	
 	@Override
 	public Card disproveSuggestion(Solution suggestion) {
+		/* If the AI has a card to disprove the suggestion, return it.
+		 * This method always returns the same card each time it is called with the same suggestion
+		 * to prevent players from making the same suggestion repeatedly and getting new information
+		 * each time.
+         */
+
 		for(Card card : hand){
 			if(card.getName().equals(suggestion.person)||card.getName().equals(suggestion.room)||card.getName().equals(suggestion.weapon)){
 				return card;

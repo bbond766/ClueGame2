@@ -12,17 +12,15 @@ public class BoardCell {
 	private List<Player> players = new ArrayList<Player>();
 	private String name;
 	
-	public BoardCell() {
-		
-	}
-	
 	public BoardCell(int row, int column) {
+		// Constructor that doesn't take an initial used only for testing
 		this.row = row;
 		this.column = column;
 		this.name = "";
 	}
 
 	public BoardCell(int row, int column, char initial) {
+		// Parameterized constructor
 		this.row = row;
 		this.column = column;
 		this.initial = initial;
@@ -30,6 +28,7 @@ public class BoardCell {
 	}
 	
 	public void updateCell(ArrayList<Player> boardPlayers) {
+		// Checks if any players are on the cell
 		for (Player p : boardPlayers) {
 			if (p.getRow() == row && p.getColumn() == column)
 				players.add(p);
@@ -90,6 +89,8 @@ public class BoardCell {
 	}
 	
 	public void draw(Graphics g) {
+		// Draws the cell based on the type of cell and whether or not
+		// any players are currently on the cell
 		int size = 25;
 		int x = size * column;
 		int y = size * row;

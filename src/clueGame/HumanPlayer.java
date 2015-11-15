@@ -17,6 +17,8 @@ public class HumanPlayer extends Player {
 
 	@Override
 	public Card disproveSuggestion(Solution suggestion) {
+		// TODO: this method needs to be more player-friendly
+		// The player might not understand "enter the index of the card"
 		ArrayList<Card> disprovers=new ArrayList<Card>();
 		for(Card card : hand){
 			if(card.getName().equals(suggestion.person)||card.getName().equals(suggestion.room)||card.getName().equals(suggestion.weapon)){
