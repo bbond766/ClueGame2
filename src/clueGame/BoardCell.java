@@ -16,7 +16,6 @@ public class BoardCell {
 		// Constructor that doesn't take an initial used only for testing
 		this.row = row;
 		this.column = column;
-		this.name = "";
 	}
 
 	public BoardCell(int row, int column, char initial) {
@@ -25,6 +24,7 @@ public class BoardCell {
 		this.column = column;
 		this.initial = initial;
 		this.name = "";
+		this.players = new ArrayList<Player>();
 	}
 	
 	public void updateCell(ArrayList<Player> boardPlayers) {

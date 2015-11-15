@@ -11,13 +11,14 @@ public abstract class Player {
 	protected int row;
 	protected int column;
 	protected Color color;
-	protected ArrayList<Card> hand = new ArrayList<Card>();
+	protected ArrayList<Card> hand;
 	
 	public Player(String name, Color color, int row, int col) {
 		this.playerName = name;
 		this.color = color;
 		this.row = row;
 		this.column = col;
+		this.hand = new ArrayList<Card>();
 	}
 	
 	abstract public Card disproveSuggestion(Solution suggestion);

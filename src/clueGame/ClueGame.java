@@ -23,7 +23,7 @@ public class ClueGame extends JFrame {
 	private static Board gameBoardPanel;
 	private DetectiveNotes dialog;
 	private CardPanel cardPanel;
-	private List<Player> humanPlayers = new ArrayList<Player>();
+	private List<Player> humanPlayers;
 
 	public ClueGame() {
 		// Displays the board, control panel, and card panel
@@ -33,6 +33,7 @@ public class ClueGame extends JFrame {
 		setSize(1000, 831);	
 		gameBoardPanel  = new Board("ClueLayout/Layout.csv", "ClueLayout/Legend.txt", "ClueLayout/Players.txt", "ClueLayout/Cards.txt");
 		gameBoardPanel.initialize();
+		humanPlayers = new ArrayList<Player>();
 
 		for (Player p : gameBoardPanel.getPlayers())
 			if (p.isHuman())

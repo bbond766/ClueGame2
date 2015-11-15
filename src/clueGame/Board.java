@@ -26,19 +26,19 @@ public class Board extends JPanel{
 	private int numRows;
 	private int numColumns;
 	private static Map<Character, String> rooms;
-	private Map<BoardCell, LinkedList<BoardCell>> adjMtx = new HashMap<BoardCell, LinkedList<BoardCell>>();
+	private Map<BoardCell, LinkedList<BoardCell>> adjMtx;
 	private Set<BoardCell> targets;
-	private Set<BoardCell> visited = new HashSet<BoardCell>();
+	private Set<BoardCell> visited;
 	private BoardCell[][] board;
 	private String boardConfigFile;
 	private String roomConfigFile;
 	private String playerConfigFile;
 	private String cardConfigFile;
 	private Solution theAnswer;
-	private ArrayList<Card> deck = new ArrayList<Card>();
-	private ArrayList<Card> choices = new ArrayList<Card>();
-	private ArrayList<Player> players = new ArrayList<Player>();
-	private ArrayList<Card> seenCards =  new ArrayList<Card>();
+	private ArrayList<Card> deck;
+	private ArrayList<Card> choices;
+	private ArrayList<Player> players;
+	private ArrayList<Card> seenCards;
 	
 	public Board() {
 		// Default constructor creates a new board using Cyndi Rader's config files
@@ -166,6 +166,7 @@ public class Board extends JPanel{
 	
 	public void loadRoomConfig() throws BadConfigFormatException {
 		// Fills the rooms Map and the deck with cards found in the card config file
+		deck = new ArrayList<Card>();
 		try {
 			FileReader reader = new FileReader(roomConfigFile);
 			Scanner in = new Scanner(reader);
@@ -238,6 +239,7 @@ public class Board extends JPanel{
 	
 	public void loadPlayerConfig() throws BadConfigFormatException {
 		// Loads player information from the player config file
+		players = new ArrayList<Player>();
 		try {
 			FileReader reader = new FileReader(playerConfigFile);
 			Scanner in = new Scanner(reader);
@@ -273,6 +275,7 @@ public class Board extends JPanel{
 	
 	public void loadCardConfig() throws BadConfigFormatException {
 		// Loads each card in the card config file into the deck
+		choices = new ArrayList<Card>();
 		try {
 			FileReader reader = new FileReader(cardConfigFile);
 			Scanner in = new Scanner(reader);
@@ -315,6 +318,7 @@ public class Board extends JPanel{
 
 	public void calcAdjacencies(){
 		// Calculates the adjacency list for each cell in the board
+		adjMtx = new HashMap<BoardCell, LinkedList<BoardCell>>();
 		for(int i=0; i < numRows; i++)
 			for(int j=0; j < numColumns; j++)
 				adjMtx.put(board[i][j], getAdjList(board[i][j]));
@@ -332,7 +336,7 @@ public class Board extends JPanel{
 	
 	private Set<BoardCell> findAllTargets(BoardCell boardCell, Set<BoardCell> oldVisited, int distance) {
 		// Recursively calculates all targets the player can reach after rolling the die
-		HashSet<BoardCell> visited = new HashSet<BoardCell>(oldVisited);
+		visited = new HashSet<BoardCell>(oldVisited);
 		visited.add(boardCell);
 
 		HashSet<BoardCell> targets = new HashSet<BoardCell>();
@@ -529,6 +533,7 @@ public class Board extends JPanel{
 
 	public void fillSeenCards(){
 		//for debugging makeSelection.
+		seenCards = new ArrayList<Card>();
 		int counter = 0;
 		for(int i=0; i<choices.size();++i) {
 			if(!choices.get(i).getName().equals("Miss Scarlet") && !choices.get(i).getName().equals("Candlestick"))
