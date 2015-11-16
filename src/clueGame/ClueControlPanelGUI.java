@@ -15,9 +15,11 @@ import javax.swing.border.TitledBorder;
 
 public class ClueControlPanelGUI extends  JPanel{
 	private JTextField currentPlayer, diceRoll, guessResult;
-	private JComboBox<String> guess;
+	private JComboBox<String> person, weapon;
+	private Board board;
 	
-	public ClueControlPanelGUI(){
+	public ClueControlPanelGUI(Board board){
+		this.board = board;
 		add(createCurrentPlayer(), BorderLayout.CENTER);
 		add(createDiceRoll(), BorderLayout.WEST);
 		add(createButtons(), BorderLayout.NORTH);
@@ -55,29 +57,30 @@ public class ClueControlPanelGUI extends  JPanel{
 		JLabel guessResultLabel = new JLabel("The result of your guess");
 		guessResult =  new JTextField();
 		guessResult.setEditable(false);
-		guess = setUpComboBoxes();
+		person = setUpPersonBox();
+		weapon = setUpWeaponBox();
 		guessPanel.add(guessLabel);
-		guessPanel.add(guess);
+		guessPanel.add(person);
+		guessPanel.add(weapon);
 		guessPanel.add(guessResultLabel);
 		guessPanel.add(guessResult);
 		guessPanel.setBorder(new TitledBorder(new EtchedBorder(), "Go for the WIN"));
 		return guessPanel;
 	}
-	private JComboBox<String> setUpComboBoxes(){
-		JComboBox<String> combo = new JComboBox<String>();
-		combo.addItem("Miss Scarlet");
-		combo.addItem("Mrs. Peacock");
-		combo.addItem("Professor Plum");
-		combo.addItem("Colonel Mustard");
-		combo.addItem("Mrs. White");
-		combo.addItem("Mr. Green");
-		combo.addItem("Candlestick");
-		combo.addItem("Wrench");
-		combo.addItem("Rope");
-		combo.addItem("Revolver");
-		combo.addItem("Knife");
-		combo.addItem("Lead Pipe");
-		return combo;
+	private JComboBox<String> setUpPersonBox(){
+		JComboBox<String> jcb = new JComboBox<String>();
+		for (Card c : board.getChoices())
+			if (c.getType().equals(CardType.PERSON))
+				jcb.addItem(c.getName());
+		return jcb;
+	}
+	
+	private JComboBox<String> setUpWeaponBox() {
+		JComboBox<String> jcb = new JComboBox<String>();
+		for (Card c : board.getChoices())
+			if (c.getType().equals(CardType.WEAPON))
+				jcb.addItem(c.getName());
+		return jcb;
 	}
 	private JPanel createButtons(){
 		JButton nextPlayer = new JButton("Next Player");
@@ -91,9 +94,9 @@ public class ClueControlPanelGUI extends  JPanel{
 	}
 
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		ClueControlPanelGUI display = new ClueControlPanelGUI();
 		display.setVisible(true);
 		
-	}
+	}*/
 }

@@ -60,7 +60,7 @@ public class ClueGame extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		menuBar.add(createFileMenu());	
-		ClueControlPanelGUI display = new ClueControlPanelGUI();
+		ClueControlPanelGUI display = new ClueControlPanelGUI(gameBoardPanel);
 		c.gridx = 0;
 		c.gridy = 1;
 		c.gridwidth = 2;
