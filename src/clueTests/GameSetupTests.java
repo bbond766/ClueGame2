@@ -138,10 +138,9 @@ public class GameSetupTests {
 		 * players have the same card
 		 */
 		// Test all cards have been dealt from the deck
-		ArrayList<Card> testDeck = board.getDeck();
+		
 		ArrayList<Player> testPlayers = board.getPlayers();
 		int totalCards = 0;
-		assertEquals(testDeck.size(), 0);
 		for (Player p : testPlayers)
 			totalCards += p.getHandSize();
 		assertEquals(totalCards, 17);    // 3 cards are stored as the answer, so 17 cards are dealt
