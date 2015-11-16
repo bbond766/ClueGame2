@@ -8,8 +8,6 @@ import java.lang.Math;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.sun.prism.paint.Color;
-
 import clueGame.BadConfigFormatException;
 import clueGame.Board;
 import clueGame.Card;

@@ -14,9 +14,7 @@ import clueGame.BadConfigFormatException;
 import clueGame.Board;
 import clueGame.Solution;
 import clueGame.ComputerPlayer;
-import clueGame.HumanPlayer;
 import clueGame.Card;
-import clueGame.CardType;
 import clueGame.BoardCell;
 public class GameActionTests {
 	
@@ -233,10 +231,8 @@ public class GameActionTests {
 		ComputerPlayer testPlayer =  new ComputerPlayer("Mr Green", Color.BLUE, 13,3);
 		int MrsWhite = 0;
 		int MrsPeacock = 0;
-		int MissScarlet = 0;
 		int leadPipe = 0;
 		int revolver = 0;
-		int candlestick = 0;
 		Board testBoard = new Board("ClueLayout/Layout.csv", "ClueLayout/Legend.txt", "ClueLayout/Players.txt", "ClueLayout/Cards.txt");
 		try {
 			testBoard.loadBoardConfig();
@@ -274,14 +270,14 @@ public class GameActionTests {
 				MrsPeacock++;
 			else if(testSolution.person.equals("Mrs. White"))
 				MrsWhite++;
-			else if(testSolution.person.equals("Miss Scarlet"))
-				MissScarlet++;
+			else if(testSolution.person.equals("Miss Scarlet")) {
+			}
 			if(testSolution.weapon.equals("Lead Pipe")) 
 				leadPipe++;
 			if(testSolution.weapon.equals("Revolver"))
 				revolver++;
-			if(testSolution.weapon.equals("Candlestick"))
-				candlestick++;
+			if(testSolution.weapon.equals("Candlestick")) {
+			}
 		}
 
 		assertTrue(MrsWhite > 8);

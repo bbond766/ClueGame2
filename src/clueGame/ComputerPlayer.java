@@ -56,7 +56,7 @@ public class ComputerPlayer extends Player{
 		}
 		
 		// Suggestion must contain the current room
-		String room = board.getRooms().get(board.getCellAt(row, column).getInitial());
+		String room = Board.getRooms().get(board.getCellAt(row, column).getInitial());
 
 		return new Solution(room, name, weapon);
 	}

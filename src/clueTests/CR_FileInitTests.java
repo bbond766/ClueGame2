@@ -14,7 +14,6 @@ import org.junit.Test;
 import clueGame.BadConfigFormatException;
 import clueGame.Board;
 import clueGame.BoardCell;
-import clueGame.ClueGame;
 import clueGame.DoorDirection;
 
 public class CR_FileInitTests {

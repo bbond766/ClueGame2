@@ -1,15 +1,12 @@
 package clueGame;
 
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.io.FileNotFoundException;
@@ -182,7 +179,10 @@ public class Board extends JPanel{
 				if (room[2].equals("Card")) 
 					deck.add(new Card(room[1], CardType.ROOM));
 			}
-		} catch (FileNotFoundException e) {
+			
+			in.close();
+		}
+		catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
@@ -533,8 +533,6 @@ public class Board extends JPanel{
 	}
 
 	public void fillSeenCards(){
-		//for debugging makeSelection.
-		int counter = 0;
 		for(int i=0; i<suggestionChoices.size();++i) {
 			if(!suggestionChoices.get(i).getName().equals("Miss Scarlet") && !suggestionChoices.get(i).getName().equals("Candlestick"))
 			addSeenCard(suggestionChoices.get(i));

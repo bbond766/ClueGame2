@@ -58,6 +58,10 @@ public class HumanPlayer extends Player {
 					System.out.println("Please enter a valid index");
 					continue;
 				}
+				finally {
+					if (scan != null)
+						scan.close();
+				}
 			}
 		}
 		return null;

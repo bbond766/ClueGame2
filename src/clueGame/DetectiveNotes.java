@@ -8,8 +8,6 @@ import java.util.Map;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
@@ -62,7 +60,7 @@ public class DetectiveNotes extends JDialog{
 		p.setLayout(new GridLayout(5, 2));
 		p.setBorder(new TitledBorder(new EtchedBorder(), "Rooms"));
 		
-		for (Map.Entry<Character, String> entry : board.getRooms().entrySet())
+		for (Map.Entry<Character, String> entry : Board.getRooms().entrySet())
 			p.add(new JCheckBox(entry.getValue()), BorderLayout.CENTER);
 		
 		return p;
@@ -74,7 +72,7 @@ public class DetectiveNotes extends JDialog{
 		p.setBorder(new TitledBorder(new EtchedBorder(), "Room Guess"));
 		roomGuess.addItem("Unsure");
 		
-		for (Map.Entry<Character, String> entry : board.getRooms().entrySet())
+		for (Map.Entry<Character, String> entry : Board.getRooms().entrySet())
 			roomGuess.addItem(entry.getValue());
 		
 		p.add(roomGuess);
