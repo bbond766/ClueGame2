@@ -1,0 +1,84 @@
+commit 700145f046aa8ef2e48aee7c3bca3e4254b709be
+
+Author: Conner Taylor <cotaylor@mines.edu>
+
+Date:   Mon Nov 16 14:52:18 2015 -0700
+
+
+    removed unused imports and variables, closed resource leaks where possible
+
+
+
+commit d7398012ece43dba84ae20c14b4e5220c685e3e1
+
+Author: Conner Taylor <cotaylor@mines.edu>
+Date:   Mon Nov 16 14:41:32 2015 -0700
+
+
+    made control panel logic more DRY and added second combo box for suggestion
+
+
+
+commit 5c4f70bd351dcbae32971cf31a3c1dfdc8c14ecd
+
+Author: Conner Taylor <cotaylor@mines.edu>
+
+Date:   Mon Nov 16 14:32:58 2015 -0700
+
+
+    changed dealCards to keep all cards in deck when dealing, and renamed choices array to suggestionChoices to avoid confusion
+
+
+
+commit e04d7275d1ea9dce90b616c8260f4785893eff77
+
+Author: Conner Taylor <cotaylor@mymail.mines.edu>
+
+Date:   Sun Nov 15 12:46:54 2015 -0700
+
+
+    Added comments to non-self-explanatory methods
+
+
+
+commit aca6094f0204b78ab82ec973fb78bd5ae7ecc119
+
+Author: bbond766 <bradleybond766@gmail.com>
+
+Date:   Sat Nov 14 15:48:40 2015 -0700
+
+
+    Renamed some of the panels in the clue control gui so that they were more transparent of what they were.
+
+
+
+commit b201180ad7638627456ab1f3ab54a72171230cc2
+
+Author: bbond766 <bradleybond766@gmail.com>
+
+Date:   Sat Nov 14 15:23:40 2015 -0700
+
+
+    Fixed the control display gui and the clue game files so that the clue control gui will fit in the display
+
+
+
+commit 4003948c2b413417d06299b87833c48290151fbd
+
+Author: bbond766 <bradleybond766@gmail.com>
+
+Date:   Fri Nov 13 12:41:13 2015 -0700
+
+
+    Fixed the way that the player color is set using the hint given to us by professor Rader. Also fixed all methods and tests to do with players and colors
+
+
+
+commit 804b4f282aed57c5c4b4ef5cac362429ee90ed01
+
+Author: bbond766 <bradleybond766@gmail.com>
+
+Date:   Fri Nov 13 11:37:33 2015 -0700
+
+
+    Reorganized the Board class so that all getter and setter functions are at the top, the functions for the JUnit tests are at the bottom, and that all the other funtions are grouped together based off of what they accomplish

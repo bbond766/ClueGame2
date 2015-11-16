@@ -1,0 +1,34 @@
+/* BEFORE */
+private JComboBox<String> setUpComboBoxes(){
+	JComboBox<String> combo = new JComboBox<String>();
+	combo.addItem("Miss Scarlet");
+	combo.addItem("Mrs. Peacock");
+	combo.addItem("Professor Plum");
+	combo.addItem("Colonel Mustard");
+	combo.addItem("Mrs. White");
+	combo.addItem("Mr. Green");
+	combo.addItem("Candlestick");
+	combo.addItem("Wrench");
+	combo.addItem("Rope");
+	combo.addItem("Revolver");
+	combo.addItem("Knife");
+	combo.addItem("Lead Pipe");
+	return combo;
+}
+
+/* AFTER */
+private JComboBox<String> setUpPersonBox(){
+	JComboBox<String> jcb = new JComboBox<String>();
+	for (Card c : board.getChoices())
+		if (c.getType().equals(CardType.PERSON))
+			jcb.addItem(c.getName());
+	return jcb;
+}
+
+private JComboBox<String> setUpWeaponBox() {
+	JComboBox<String> jcb = new JComboBox<String>();
+	for (Card c : board.getChoices())
+		if (c.getType().equals(CardType.WEAPON))
+			jcb.addItem(c.getName());
+	return jcb;
+}
