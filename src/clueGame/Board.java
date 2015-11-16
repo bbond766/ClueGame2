@@ -1,4 +1,4 @@
-package clueGame;
+ package clueGame;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -36,7 +36,7 @@ public class Board extends JPanel{
 	private String cardConfigFile;
 	private Solution theAnswer;
 	private ArrayList<Card> deck;
-	private ArrayList<Card> choices;
+	private ArrayList<Card> suggestionChoices;
 	private ArrayList<Player> players;
 	private ArrayList<Card> seenCards;
 	
@@ -109,7 +109,7 @@ public class Board extends JPanel{
 	}
 	
 	public ArrayList<Card> getChoices(){
-		return choices;
+		return suggestionChoices;
 	}
 	
 	public BoardCell getCellAt(int row, int column){
@@ -275,7 +275,7 @@ public class Board extends JPanel{
 	
 	public void loadCardConfig() throws BadConfigFormatException {
 		// Loads each card in the card config file into the deck
-		choices = new ArrayList<Card>();
+		suggestionChoices = new ArrayList<Card>();
 		try {
 			FileReader reader = new FileReader(cardConfigFile);
 			Scanner in = new Scanner(reader);
@@ -289,11 +289,11 @@ public class Board extends JPanel{
 				// Add card to deck
 				if (card[1].equals("Person")){
 					deck.add(new Card(card[0], CardType.PERSON));
-					choices.add(new Card(card[0], CardType.PERSON));
+					suggestionChoices.add(new Card(card[0], CardType.PERSON));
 				}
 				else if (card[1].equals("Weapon")){
 					deck.add(new Card(card[0], CardType.WEAPON));
-					choices.add(new Card(card[0], CardType.WEAPON));
+					suggestionChoices.add(new Card(card[0], CardType.WEAPON));
 				}
 				else
 					throw new BadConfigFormatException("Invalid type: " + card[1]);
@@ -446,11 +446,16 @@ public class Board extends JPanel{
 	}
 		
 	public void dealCards() {
-		int counter = 0;
 		shuffleDeck();
-		while (!deck.isEmpty()) {                          // while the deck has cards
-			players.get(counter).giveCard(deck.get(0));    // give the top card in the deck to the current player
-			deck.remove(0);                                // remove the top card from the deck
+		
+		ArrayList<Card> clone = new ArrayList<Card>();
+		for (Card c : deck)
+			clone.add(c.clone());
+		
+		int counter = 0;
+		while (!clone.isEmpty()) {                          // while the deck has cards
+			players.get(counter).giveCard(clone.get(0));    // give the top card in the deck to the current player
+			clone.remove(0);                                // remove the top card from the deck
 			counter = (counter + 1) % players.size();      // look at the next player
 		}
 	}
@@ -535,9 +540,9 @@ public class Board extends JPanel{
 		//for debugging makeSelection.
 		seenCards = new ArrayList<Card>();
 		int counter = 0;
-		for(int i=0; i<choices.size();++i) {
-			if(!choices.get(i).getName().equals("Miss Scarlet") && !choices.get(i).getName().equals("Candlestick"))
-			addSeenCard(choices.get(i));
+		for(int i=0; i<suggestionChoices.size();++i) {
+			if(!suggestionChoices.get(i).getName().equals("Miss Scarlet") && !suggestionChoices.get(i).getName().equals("Candlestick"))
+			addSeenCard(suggestionChoices.get(i));
 		}
 	}	
 }

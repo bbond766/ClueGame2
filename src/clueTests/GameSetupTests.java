@@ -8,8 +8,6 @@ import java.lang.Math;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.sun.prism.paint.Color;
-
 import clueGame.BadConfigFormatException;
 import clueGame.Board;
 import clueGame.Card;
@@ -133,15 +131,8 @@ public class GameSetupTests {
 	
 	@Test
 	public void testDealCards() {
-		/* Test that all cards are dealt, all players have
-		 * roughly the same number of cards, and no two
-		 * players have the same card
-		 */
-		// Test all cards have been dealt from the deck
-		ArrayList<Card> testDeck = board.getDeck();
 		ArrayList<Player> testPlayers = board.getPlayers();
 		int totalCards = 0;
-		assertEquals(testDeck.size(), 0);
 		for (Player p : testPlayers)
 			totalCards += p.getHandSize();
 		assertEquals(totalCards, 17);    // 3 cards are stored as the answer, so 17 cards are dealt
