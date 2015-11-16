@@ -46,7 +46,7 @@ public class ClueGame extends JFrame {
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridx = 0;
 		c.gridy = 0;
-		c.ipadx = 0;
+		c.ipadx = 950;
 		c.ipady = 600;
 		setLayout(layout);
 		add(gameBoardPanel, c);
