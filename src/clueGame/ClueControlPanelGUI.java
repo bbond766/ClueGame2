@@ -16,6 +16,8 @@ public class ClueControlPanelGUI extends  JPanel{
 	private JTextField currentPlayer, diceRoll, guessResult;
 	private JComboBox<String> person, weapon;
 	private Board board;
+	private boolean humanFinished = false;
+	private Player current;
 	
 	public ClueControlPanelGUI(Board board){
 		this.board = board;
@@ -92,7 +94,14 @@ public class ClueControlPanelGUI extends  JPanel{
 		return buttonPanel;
 	}
 
-
+	public void move(){
+		board.calcTargets(current.getRow(), current.getColumn(), getDiceRoll());
+		current.makeMove(board.getTargets());
+		repaint();
+	}
+	public int getDiceRoll(){
+		return (int) Math.floor(Math.random())%6;
+	}
 	/*public static void main(String[] args) {
 		ClueControlPanelGUI display = new ClueControlPanelGUI();
 		display.setVisible(true);

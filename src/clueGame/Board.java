@@ -489,6 +489,13 @@ public class Board extends JPanel{
 		}
 	}
 	
+	public void highlightTargets(Graphics g){
+		for(BoardCell bc : targets){
+			bc.highlight(g);
+			repaint();
+		}
+	}
+
 	public void updateBoard() {
 		for (int i=0; i<numRows; i++)
 			for (int j=0; j<numColumns; j++)

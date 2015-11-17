@@ -2,6 +2,7 @@ package clueGame;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Set;
 
 public abstract class Player {
 	protected String playerName;
@@ -48,5 +49,9 @@ public abstract class Player {
 		return color;
 	}
 	
+	abstract public void makeMove(Set<BoardCell> targets);
+	
 	abstract public boolean isHuman();
+
+	abstract public void makeMove(Set<BoardCell> targets, Board board);
 }

@@ -85,4 +85,12 @@ public class ComputerPlayer extends Player{
 	public void setLastVisited(String last) {
 		this.lastVisited = last;
 	}
+
+	@Override
+	public void makeMove(Set<BoardCell> targets){
+		BoardCell newLocation = pickLocation(targets);
+		row = newLocation.getRow();
+		column = newLocation.getColumn();
+
+	}
 }

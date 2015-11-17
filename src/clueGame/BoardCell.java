@@ -138,4 +138,14 @@ public class BoardCell {
 		
 		
 	}
+
+	public void highlight(Graphics g) {
+		int size = 25;
+		int x = size * column;
+		int y = size * row;
+		g.setColor(Color.GREEN);
+		g.fillRect(x, y, size, size);
+		g.setColor(Color.BLACK);
+		g.drawRect(x, y, size, size);
+	}
 }

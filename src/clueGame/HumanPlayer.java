@@ -1,8 +1,10 @@
 package clueGame;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Set;
 
 public class HumanPlayer extends Player {
 
@@ -65,6 +67,13 @@ public class HumanPlayer extends Player {
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public void makeMove(Set<BoardCell> targets, Board board) {
+		Graphics g = new Graphics();
+		board.highlightTargets(g);
+		
 	}
 
 }
