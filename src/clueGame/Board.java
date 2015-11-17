@@ -502,6 +502,7 @@ public class Board extends JPanel{
 			bc.toggleHighlight();
 		
 		repaint();
+		revalidate();
 		
 		addMouseListener(new CellListener());
 	}

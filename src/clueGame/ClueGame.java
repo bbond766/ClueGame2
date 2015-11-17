@@ -89,16 +89,18 @@ public class ClueGame extends JFrame {
 		return item;
 	}
 	
-	public void paintComponent(Graphics g) {
-		super.paintComponents(g);
+	class UpdateDisplay extends TimerTask {
+		public void run() {
+			repaint();
+		}
 	}
-	
 
 	public static void main(String[] args) {
 		// Displays the JFrame as well as a splash message to the player
 		ClueGame cg = new ClueGame();
 		cg.setVisible(true);
 		String name = "";
+		Timer timer = new Timer();
 		
 		for (Player p : gameBoardPanel.getPlayers())
 			if (p.isHuman()) {
@@ -107,5 +109,6 @@ public class ClueGame extends JFrame {
 			}
 		
 		JOptionPane.showMessageDialog(cg, "You are " + name + ", press Next Player to begin play", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
+		timer.schedule(cg.new UpdateDisplay(),  0, 5);
 	}
 }
