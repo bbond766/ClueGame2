@@ -519,6 +519,7 @@ public class Board extends JPanel{
 		
 		@Override
 		public void mouseClicked(MouseEvent e) {
+			System.out.println("Y: " + e.getPoint().y);
 			bc = getCellAt(e.getPoint().y%size, e.getPoint().x%size);
 			checkIsValid();
 		}

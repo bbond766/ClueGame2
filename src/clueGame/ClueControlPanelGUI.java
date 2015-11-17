@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -134,7 +135,8 @@ public class ClueControlPanelGUI extends  JPanel{
 	}
 	
 	public void rollDie(){
-		roll = (int) Math.floor(Math.random())%5 + 1;
+		Random r = new Random();
+		roll= r.nextInt(6)+1;
 	}
 
 //	public static void main(String[] args) {
