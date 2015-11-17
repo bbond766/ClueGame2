@@ -133,11 +133,6 @@ public class ClueControlPanelGUI extends  JPanel{
 		repaint();
 	}
 	
-	public void paint(Graphics g) {
-		for (BoardCell bc : board.getTargets())
-			repaint();
-	}
-	
 	public void rollDie(){
 		roll = (int) Math.floor(Math.random())%5 + 1;
 	}
