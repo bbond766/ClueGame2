@@ -118,10 +118,12 @@ public class BoardCell {
 					g.fillRect(x, y, size, 5);
 					break;
 				case RIGHT:
-					g.fillRect(x+30, y, 5, size);
+					System.out.println("FOUND A RIGHT AT " + this);
+					g.fillRect(x+size-5, y, 5, size);
 					break;
 				case DOWN:
-					g.fillRect(x, y+30, size, 5);
+					System.out.println("FOUND A DOWN AT " + this);
+					g.fillRect(x, y+size-5, size, 5);
 					break;
 				case LEFT:
 					g.fillRect(x, y, 5, size);
