@@ -1,7 +1,10 @@
 package clueGame;
 
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -17,12 +20,14 @@ public class ClueGame extends JFrame {
 	private static Board gameBoardPanel;
 	private DetectiveNotes dialog;
 	private CardPanel cardPanel;
+	private ClueControlPanelGUI controlPanel;
 	private List<Player> humanPlayers;
 
 	public ClueGame() {
 		// Displays the board, control panel, and card panel
 		// Also creates a File menu with Show Notes and Exit options
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLayout(new GridBagLayout());
 		setTitle("Clue Game");
 		setSize(1000, 831);	
 		gameBoardPanel  = new Board("ClueLayout/Layout.csv", "ClueLayout/Legend.txt", "ClueLayout/Players.txt", "ClueLayout/Cards.txt");
@@ -35,33 +40,32 @@ public class ClueGame extends JFrame {
 		
 		// For now, humanPlayers will only contain one Player
 		cardPanel = new CardPanel(humanPlayers.get(0).getHand());
-//		JPanel panel = new JPanel();
-		GridBagLayout layout = new GridBagLayout();
-		GridBagConstraints c = new GridBagConstraints();
-		c.gridx = 0;
-		c.gridy = 0;
-		c.ipadx = 950;
-		c.ipady = 600;
-		setLayout(layout);
-		add(gameBoardPanel, c);
-		c.fill = GridBagConstraints.VERTICAL;
-		c.gridx = 1;
-		c.ipadx = 90;
-		c.ipady = 100;
+		controlPanel = new ClueControlPanelGUI(gameBoardPanel);
+
+		GridBagConstraints b = new GridBagConstraints();
+		b.weightx = 1.0;
+		b.weighty = 1.0;
+		b.gridx = 0;
+		b.gridy = 0;
+		b.fill = GridBagConstraints.BOTH;
+		add(gameBoardPanel, b);
 		
-		c.gridheight = 2;
-		add(cardPanel, c);
-		JMenuBar menuBar = new JMenuBar();
-		setJMenuBar(menuBar);
-		menuBar.add(createFileMenu());	
-		ClueControlPanelGUI display = new ClueControlPanelGUI(gameBoardPanel);
-		c.gridx = 0;
-		c.gridy = 1;
-		c.gridwidth = 2;
-		c.anchor = GridBagConstraints.LINE_START;
-		c.ipady = 150;
-		c.ipadx = 450;
-		//add(display, c);
+		GridBagConstraints c = new GridBagConstraints();
+		c.weightx = 0.2;
+		c.weighty = 0.2;
+		c.gridx = GridBagConstraints.RELATIVE;
+		c.gridy = GridBagConstraints.RELATIVE;
+		c.gridwidth = GridBagConstraints.REMAINDER;
+		//c.fill = GridBagConstraints.VERTICAL;
+		add(cardPanel,c);
+		
+		GridBagConstraints cp = new GridBagConstraints();
+		cp.weightx = 0.2;
+		cp.weighty = 0.8;
+		cp.gridy = 400;
+		cp.fill = GridBagConstraints.HORIZONTAL;
+		add(controlPanel, cp);
+
 	}
 
 	private JMenu createFileMenu() {

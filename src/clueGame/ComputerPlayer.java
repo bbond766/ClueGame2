@@ -93,4 +93,10 @@ public class ComputerPlayer extends Player{
 		column = newLocation.getColumn();
 
 	}
+
+	@Override
+	public void makeMove(Set<BoardCell> targets, Board board) {
+		// TODO Auto-generated method stub
+		
+	}
 }
