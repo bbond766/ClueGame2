@@ -50,7 +50,7 @@ public class ClueGame extends JFrame {
 		c.ipady = 100;
 		
 		c.gridheight = 2;
-		add(cardPanel, c);
+		//add(cardPanel, c);
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		menuBar.add(createFileMenu());	
@@ -61,8 +61,7 @@ public class ClueGame extends JFrame {
 		c.anchor = GridBagConstraints.LINE_START;
 		c.ipady = 150;
 		c.ipadx = 450;
-//		add(panel);
-		add(display, c);
+		//add(display, c);
 	}
 
 	private JMenu createFileMenu() {
