@@ -3,9 +3,13 @@ package clueGame;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -17,10 +21,15 @@ public class ClueControlPanelGUI extends  JPanel{
 	private JComboBox<String> person, weapon;
 	private Board board;
 	private boolean humanFinished = false;
+	private ArrayList<Player> players;
 	private Player current;
+	private int currentPlayerIndex = 0;
+	private int roll = 0;
 	
 	public ClueControlPanelGUI(Board board){
 		this.board = board;
+		this.players = board.getPlayers();
+		current = players.get(currentPlayerIndex);
 		add(createCurrentPlayer(), BorderLayout.CENTER);
 		add(createDiceRoll(), BorderLayout.WEST);
 		add(createButtons(), BorderLayout.NORTH);
@@ -41,7 +50,7 @@ public class ClueControlPanelGUI extends  JPanel{
 	}
 	private JPanel createDiceRoll(){
 		JPanel diceRollPanel = new JPanel();
-		diceRoll = new JTextField();
+		diceRoll = new JTextField(roll);
 		diceRoll.setEditable(false);
 		JLabel diceRollLabel = new JLabel("Dice Roll");
 		diceRollPanel.setLayout(new GridLayout(1,1));
@@ -86,6 +95,8 @@ public class ClueControlPanelGUI extends  JPanel{
 	private JPanel createButtons(){
 		JButton nextPlayer = new JButton("Next Player");
 		JButton makeAccu = new JButton("Make an Accusation");
+		nextPlayer.addActionListener(new ButtonListener());
+		makeAccu.addActionListener(new ButtonListener());
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new GridLayout(1,2));
 		buttonPanel.add(nextPlayer);
@@ -94,17 +105,42 @@ public class ClueControlPanelGUI extends  JPanel{
 		return buttonPanel;
 	}
 
+	private class ButtonListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			move();
+			if(humanFinished){
+				current = players.get(currentPlayerIndex+1);
+				currentPlayer.setText(current.getName());
+			}
+		}
+		
+	}
+	
 	public void move(){
-		board.calcTargets(current.getRow(), current.getColumn(), getDiceRoll());
-		current.makeMove(board.getTargets());
+		rollDie();
+		String die = roll + "";
+		diceRoll.setText(die);
+		board.calcTargets(current.getRow(), current.getColumn(), roll);
+		current.makeMove(board.getTargets(), board);
+		humanFinished = true;
 		repaint();
 	}
-	public int getDiceRoll(){
-		return (int) Math.floor(Math.random())%6;
+	
+	public void rollDie(){
+		roll = (int) Math.floor(Math.random())%6;
 	}
-	/*public static void main(String[] args) {
-		ClueControlPanelGUI display = new ClueControlPanelGUI();
-		display.setVisible(true);
-		
-	}*/
+
+//	public static void main(String[] args) {
+//		Board board = new Board();
+//		board.initialize();
+//		ClueControlPanelGUI display = new ClueControlPanelGUI(board);
+//		JFrame frame = new JFrame();
+//		frame.add(display);
+//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		frame.setSize(700, 300);
+//		frame.setVisible(true);
+//		
+//	}
 }
