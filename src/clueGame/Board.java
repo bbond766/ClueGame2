@@ -9,6 +9,8 @@ import javax.swing.JPanel;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.lang.reflect.Field;
@@ -32,6 +34,8 @@ public class Board extends JPanel{
 	private String playerConfigFile;
 	private String cardConfigFile;
 	private Solution theAnswer;
+	private BoardCell validCell;
+	private Graphics g;
 	private ArrayList<Card> deck = new ArrayList<Card>();
 	private ArrayList<Card> suggestionChoices = new ArrayList<Card>();
 	private ArrayList<Player> players = new ArrayList<Player>();
@@ -40,12 +44,14 @@ public class Board extends JPanel{
 	public Board() {
 		// Default constructor creates a new board using Cyndi Rader's config files
 		this("ClueLayout.csv", "ClueLegend.txt", "ClueLayout/Players.txt", "ClueLayout/Cards.txt");
+		addMouseListener(new CellListener());
 	}
 
 	public Board(int rows, int columns) {
 		// Constructor used to test 4x4 board, not used in actual game
 		numRows = rows;
 		numColumns = columns;
+		addMouseListener(new CellListener());
 		
 		board = new BoardCell[numRows][numColumns];
 		for(int i=0; i < numRows; i++)
@@ -59,6 +65,7 @@ public class Board extends JPanel{
 		roomConfigFile = legendFile;
 		playerConfigFile = "ClueLayout/Players.txt";
 		cardConfigFile = "ClueLayout/Cards.txt";
+		addMouseListener(new CellListener());
 	} 
 
 	public Board(String layoutFile, String legendFile, String playerFile, String cardFile) {
@@ -67,6 +74,7 @@ public class Board extends JPanel{
 		roomConfigFile = legendFile;
 		playerConfigFile = playerFile;
 		cardConfigFile = cardFile;
+		addMouseListener(new CellListener());
 	} 
 	
 	public BoardCell getCell(int row, int column) {
@@ -123,6 +131,10 @@ public class Board extends JPanel{
 	
 	public static Map<Character, String> getRooms() {
 		return rooms;
+	}
+	
+	public BoardCell getValidCell(){
+		return validCell;
 	}
 	
 	public void initialize() {
@@ -489,7 +501,7 @@ public class Board extends JPanel{
 		}
 	}
 	
-	public void highlightTargets(Graphics g){
+	public void highlightTargets(){
 		for(BoardCell bc : targets){
 			bc.highlight(g);
 			repaint();
@@ -500,6 +512,45 @@ public class Board extends JPanel{
 		for (int i=0; i<numRows; i++)
 			for (int j=0; j<numColumns; j++)
 				board[i][j].updateCell(players);
+	}
+	
+	public class CellListener implements MouseListener{
+
+		BoardCell bc;
+		
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			bc = getCellAt(e.getPoint().y%25, e.getPoint().x%25);
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			
+		}
+	
+		public void checkIsValid(){
+			for(BoardCell b : targets){
+				if(b == bc){
+					validCell = bc;
+				}
+			}
+		}
+	
 	}
 	
 	////////////////////////////////////////////

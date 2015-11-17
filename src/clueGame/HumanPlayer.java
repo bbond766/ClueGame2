@@ -71,15 +71,9 @@ public class HumanPlayer extends Player {
 
 	@Override
 	public void makeMove(Set<BoardCell> targets, Board board) {
-		//Graphics g = new Graphics();
-		//board.highlightTargets(g);
-		
-	}
-
-	@Override
-	public void makeMove(Set<BoardCell> targets) {
-		// TODO Auto-generated method stub
-		
+		board.highlightTargets();
+		column = board.getValidCell().getColumn();
+		row = board.getValidCell().getRow();
 	}
 
 }

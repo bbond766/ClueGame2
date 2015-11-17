@@ -87,16 +87,10 @@ public class ComputerPlayer extends Player{
 	}
 
 	@Override
-	public void makeMove(Set<BoardCell> targets){
+	public void makeMove(Set<BoardCell> targets, Board board){
 		BoardCell newLocation = pickLocation(targets);
 		row = newLocation.getRow();
 		column = newLocation.getColumn();
-
 	}
 
-	@Override
-	public void makeMove(Set<BoardCell> targets, Board board) {
-		// TODO Auto-generated method stub
-		
-	}
 }
