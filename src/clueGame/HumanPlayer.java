@@ -71,8 +71,7 @@ public class HumanPlayer extends Player {
 
 	@Override
 	public void makeMove(Set<BoardCell> targets, Board board) {
-		Graphics g = null;
-		board.highlightTargets(g);
+		board.highlightTargets();
 		column = board.getValidCell().getColumn();
 		row = board.getValidCell().getRow();
 	}

@@ -35,6 +35,7 @@ public class Board extends JPanel{
 	private String cardConfigFile;
 	private Solution theAnswer;
 	private BoardCell validCell;
+	private Graphics g;
 	private ArrayList<Card> deck = new ArrayList<Card>();
 	private ArrayList<Card> suggestionChoices = new ArrayList<Card>();
 	private ArrayList<Player> players = new ArrayList<Player>();
@@ -500,7 +501,7 @@ public class Board extends JPanel{
 		}
 	}
 	
-	public void highlightTargets(Graphics g){
+	public void highlightTargets(){
 		for(BoardCell bc : targets){
 			bc.highlight(g);
 			repaint();
