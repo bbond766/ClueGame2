@@ -1,21 +1,24 @@
 package clueGame;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BoardCell {
+public class BoardCell extends Component {
 	private int row, column;
 	private char initial;
 	private DoorDirection doorDirection;
 	private List<Player> players = new ArrayList<Player>();
 	private String name;
+	private boolean highlighted;
 	
 	public BoardCell(int row, int column) {
 		// Constructor that doesn't take an initial used only for testing
 		this.row = row;
 		this.column = column;
+		this.highlighted = false;
 	}
 
 	public BoardCell(int row, int column, char initial) {
@@ -25,6 +28,7 @@ public class BoardCell {
 		this.initial = initial;
 		this.name = "";
 		this.players = new ArrayList<Player>();
+		this.highlighted = false;
 	}
 	
 	public void updateCell(ArrayList<Player> boardPlayers) {
@@ -96,7 +100,11 @@ public class BoardCell {
 		int y = size * row;
 		
 		if (isWalkway()) {
-			g.setColor(Color.LIGHT_GRAY);
+			if (highlighted)
+				g.setColor(Color.GREEN);
+			else
+				g.setColor(Color.LIGHT_GRAY);
+			
 			g.fillRect(x, y, size, size);
 			g.setColor(Color.BLACK);
 			g.drawRect(x, y, size, size);
@@ -112,7 +120,11 @@ public class BoardCell {
 			g.setColor(Color.DARK_GRAY);
 			g.fillRect(x, y, size, size);
 			if (isDoorway()) {
-				g.setColor(Color.BLUE);
+				if (highlighted)
+					g.setColor(Color.GREEN);
+				else
+					g.setColor(Color.BLUE);
+				
 				switch (doorDirection) {
 				case UP: 
 					g.fillRect(x, y, size, 5);
@@ -135,17 +147,10 @@ public class BoardCell {
 			g.setColor(Color.WHITE);
 			g.drawString(name, x, y);
 		}
-		
-		
 	}
 
-	public void highlight(Graphics g) {
-		int size = 25;
-		int x = size * column;
-		int y = size * row;
-		g.setColor(Color.GREEN);
-		g.fillRect(x, y, size, size);
-		g.setColor(Color.BLACK);
-		g.drawRect(x, y, size, size);
+	public void paint(Graphics g) {
+		highlighted = true;
+		draw(g);
 	}
 }

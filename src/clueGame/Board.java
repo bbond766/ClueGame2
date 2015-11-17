@@ -35,7 +35,6 @@ public class Board extends JPanel{
 	private String cardConfigFile;
 	private Solution theAnswer;
 	private BoardCell validCell;
-	private Graphics g;
 	private ArrayList<Card> deck = new ArrayList<Card>();
 	private ArrayList<Card> suggestionChoices = new ArrayList<Card>();
 	private ArrayList<Player> players = new ArrayList<Player>();
@@ -503,8 +502,7 @@ public class Board extends JPanel{
 	
 	public void highlightTargets(){
 		for(BoardCell bc : targets){
-			bc.highlight(g);
-			repaint();
+			bc.repaint();
 		}
 	}
 
@@ -517,10 +515,12 @@ public class Board extends JPanel{
 	public class CellListener implements MouseListener{
 
 		BoardCell bc;
+		int size = 25;
 		
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			bc = getCellAt(e.getPoint().y%25, e.getPoint().x%25);
+			bc = getCellAt(e.getPoint().y%size, e.getPoint().x%size);
+			
 		}
 
 		@Override

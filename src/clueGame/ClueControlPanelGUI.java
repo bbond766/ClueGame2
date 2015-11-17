@@ -45,7 +45,7 @@ public class ClueControlPanelGUI extends  JPanel{
 		currentPlayerPanel.setLayout(new GridLayout(1,1));
 		currentPlayerPanel.add(whosTurn);
 		currentPlayerPanel.add(currentPlayer);
-		currentPlayerPanel.setBorder(new TitledBorder(new EtchedBorder(), "Who's turn is it anyway?"));
+		currentPlayerPanel.setBorder(new TitledBorder(new EtchedBorder(), "Whose turn is it anyway?"));
 		currentPlayerPanel.setSize(new Dimension(100, 10));
 		return currentPlayerPanel;
 	}
