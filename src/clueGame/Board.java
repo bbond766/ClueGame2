@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.FileNotFoundException;
@@ -26,7 +27,7 @@ public class Board extends JPanel{
 	private int numColumns;
 	private static Map<Character, String> rooms;
 	private Map<BoardCell, LinkedList<BoardCell>> adjMtx = new HashMap<BoardCell, LinkedList<BoardCell>>();
-	private Set<BoardCell> targets;
+	private Set<BoardCell> targets = new HashSet<BoardCell>();
 	private Set<BoardCell> visited = new HashSet<BoardCell>();
 	private BoardCell[][] board;
 	private String boardConfigFile;
@@ -43,14 +44,12 @@ public class Board extends JPanel{
 	public Board() {
 		// Default constructor creates a new board using Cyndi Rader's config files
 		this("ClueLayout.csv", "ClueLegend.txt", "ClueLayout/Players.txt", "ClueLayout/Cards.txt");
-		addMouseListener(new CellListener());
 	}
 
 	public Board(int rows, int columns) {
 		// Constructor used to test 4x4 board, not used in actual game
 		numRows = rows;
 		numColumns = columns;
-		addMouseListener(new CellListener());
 		
 		board = new BoardCell[numRows][numColumns];
 		for(int i=0; i < numRows; i++)
@@ -64,7 +63,6 @@ public class Board extends JPanel{
 		roomConfigFile = legendFile;
 		playerConfigFile = "ClueLayout/Players.txt";
 		cardConfigFile = "ClueLayout/Cards.txt";
-		addMouseListener(new CellListener());
 	} 
 
 	public Board(String layoutFile, String legendFile, String playerFile, String cardFile) {
@@ -73,7 +71,6 @@ public class Board extends JPanel{
 		roomConfigFile = legendFile;
 		playerConfigFile = playerFile;
 		cardConfigFile = cardFile;
-		addMouseListener(new CellListener());
 	} 
 	
 	public BoardCell getCell(int row, int column) {
@@ -501,9 +498,12 @@ public class Board extends JPanel{
 	}
 	
 	public void highlightTargets(){
-		for(BoardCell bc : targets){
-			bc.repaint();
-		}
+		for (BoardCell bc : targets)
+			bc.toggleHighlight();
+		
+		repaint();
+		
+		addMouseListener(new CellListener());
 	}
 
 	public void updateBoard() {
@@ -520,7 +520,7 @@ public class Board extends JPanel{
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			bc = getCellAt(e.getPoint().y%size, e.getPoint().x%size);
-			
+			checkIsValid();
 		}
 
 		@Override

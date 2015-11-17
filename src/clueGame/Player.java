@@ -51,5 +51,5 @@ public abstract class Player {
 	
 	abstract public boolean isHuman();
 
-	abstract public void makeMove(Set<BoardCell> targets, Board board);
+	abstract public void makeMove(Board board);
 }

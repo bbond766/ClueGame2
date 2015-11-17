@@ -148,9 +148,8 @@ public class BoardCell extends Component {
 			g.drawString(name, x, y);
 		}
 	}
-
-	public void paint(Graphics g) {
-		highlighted = true;
-		draw(g);
+	
+	public void toggleHighlight() {
+		highlighted = !highlighted;
 	}
 }

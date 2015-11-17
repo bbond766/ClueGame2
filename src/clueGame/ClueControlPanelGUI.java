@@ -2,6 +2,7 @@ package clueGame;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,6 +36,7 @@ public class ClueControlPanelGUI extends  JPanel{
 		add(createDiceRoll(), BorderLayout.WEST);
 		add(createButtons(), BorderLayout.NORTH);
 		add(createGuessDisplays(), BorderLayout.SOUTH);
+		System.out.println("current player: " + current);
 
 	}
 	private JPanel createCurrentPlayer() {
@@ -97,7 +99,7 @@ public class ClueControlPanelGUI extends  JPanel{
 		JButton nextPlayer = new JButton("Next Player");
 		JButton makeAccu = new JButton("Make an Accusation");
 		nextPlayer.addActionListener(new ButtonListener());
-		makeAccu.addActionListener(new ButtonListener());
+		//makeAccu.addActionListener(new ButtonListener());
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new GridLayout(1,2));
 		buttonPanel.add(nextPlayer);
@@ -120,17 +122,24 @@ public class ClueControlPanelGUI extends  JPanel{
 	}
 	
 	public void move(){
+		System.out.println("current player: " + current);
 		rollDie();
+		System.out.println("die roll: " + roll);
 		String die = roll + "";
 		diceRoll.setText(die);
 		board.calcTargets(current.getRow(), current.getColumn(), roll);
-		current.makeMove(board.getTargets(), board);
+		current.makeMove(board);
 		humanFinished = true;
 		repaint();
 	}
 	
+	public void paint(Graphics g) {
+		for (BoardCell bc : board.getTargets())
+			repaint();
+	}
+	
 	public void rollDie(){
-		roll = (int) Math.floor(Math.random())%6;
+		roll = (int) Math.floor(Math.random())%5 + 1;
 	}
 
 //	public static void main(String[] args) {

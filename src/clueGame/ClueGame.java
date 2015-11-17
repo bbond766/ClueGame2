@@ -2,6 +2,7 @@ package clueGame;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -9,6 +10,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -86,6 +89,10 @@ public class ClueGame extends JFrame {
 		return item;
 	}
 	
+	public void paintComponent(Graphics g) {
+		super.paintComponents(g);
+	}
+	
 
 	public static void main(String[] args) {
 		// Displays the JFrame as well as a splash message to the player
@@ -100,8 +107,5 @@ public class ClueGame extends JFrame {
 			}
 		
 		JOptionPane.showMessageDialog(cg, "You are " + name + ", press Next Player to begin play", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
-		
-
 	}
-
 }

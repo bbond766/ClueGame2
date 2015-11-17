@@ -87,8 +87,8 @@ public class ComputerPlayer extends Player{
 	}
 
 	@Override
-	public void makeMove(Set<BoardCell> targets, Board board){
-		BoardCell newLocation = pickLocation(targets);
+	public void makeMove(Board board){
+		BoardCell newLocation = pickLocation(board.getTargets());
 		row = newLocation.getRow();
 		column = newLocation.getColumn();
 	}
