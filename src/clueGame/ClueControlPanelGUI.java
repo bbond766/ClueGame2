@@ -30,6 +30,7 @@ public class ClueControlPanelGUI extends  JPanel{
 		this.board = board;
 		this.players = board.getPlayers();
 		current = players.get(currentPlayerIndex);
+		setLayout(new BorderLayout());
 		add(createCurrentPlayer(), BorderLayout.CENTER);
 		add(createDiceRoll(), BorderLayout.WEST);
 		add(createButtons(), BorderLayout.NORTH);

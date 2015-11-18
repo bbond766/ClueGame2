@@ -1,5 +1,6 @@
 package clueGame;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,9 @@ public class CardPanel extends JPanel {
 		add(createPeople());
 		add(createRooms());
 		add(createWeapons());
+		Dimension size = getPreferredSize();
+		size.height = 250;
+		setPreferredSize(size);
 	}
 	
 	private JPanel createPeople() {

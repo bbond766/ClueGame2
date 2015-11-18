@@ -15,6 +15,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 public class ClueGame extends JFrame {
 	private static Board gameBoardPanel;
@@ -27,13 +28,14 @@ public class ClueGame extends JFrame {
 		// Displays the board, control panel, and card panel
 		// Also creates a File menu with Show Notes and Exit options
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setLayout(new GridBagLayout());
+		setLayout(new BorderLayout());
 		setTitle("Clue Game");
-		setSize(1000, 831);	
+		setSize(850, 775);	
+		
 		gameBoardPanel  = new Board("ClueLayout/Layout.csv", "ClueLayout/Legend.txt", "ClueLayout/Players.txt", "ClueLayout/Cards.txt");
 		gameBoardPanel.initialize();
+		
 		humanPlayers = new ArrayList<Player>();
-
 		for (Player p : gameBoardPanel.getPlayers())
 			if (p.isHuman())
 				humanPlayers.add(p);
@@ -41,31 +43,17 @@ public class ClueGame extends JFrame {
 		// For now, humanPlayers will only contain one Player
 		cardPanel = new CardPanel(humanPlayers.get(0).getHand());
 		controlPanel = new ClueControlPanelGUI(gameBoardPanel);
-
-		GridBagConstraints b = new GridBagConstraints();
-		b.weightx = 1.0;
-		b.weighty = 1.0;
-		b.gridx = 0;
-		b.gridy = 0;
-		b.fill = GridBagConstraints.BOTH;
-		add(gameBoardPanel, b);
 		
-		GridBagConstraints c = new GridBagConstraints();
-		c.weightx = 0.2;
-		c.weighty = 0.2;
-		c.gridx = GridBagConstraints.RELATIVE;
-		c.gridy = GridBagConstraints.RELATIVE;
-		c.gridwidth = GridBagConstraints.REMAINDER;
-		//c.fill = GridBagConstraints.VERTICAL;
-		add(cardPanel,c);
+		JPanel top = new JPanel();
+		top.setLayout(new BorderLayout());
+		top.add(gameBoardPanel, BorderLayout.CENTER);
+		top.add(cardPanel, BorderLayout.EAST);
+		add(top, BorderLayout.CENTER);
+		add(controlPanel, BorderLayout.SOUTH);
 		
-		GridBagConstraints cp = new GridBagConstraints();
-		cp.weightx = 0.2;
-		cp.weighty = 0.8;
-		cp.gridy = 400;
-		cp.fill = GridBagConstraints.HORIZONTAL;
-		add(controlPanel, cp);
-
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		menuBar.add(createFileMenu());
 	}
 
 	private JMenu createFileMenu() {
