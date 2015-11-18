@@ -3,6 +3,8 @@ package clueGame;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +15,7 @@ public class BoardCell extends Component {
 	private List<Player> players = new ArrayList<Player>();
 	private String name;
 	private boolean highlighted;
+	int size = 25;
 	
 	public BoardCell(int row, int column) {
 		// Constructor that doesn't take an initial used only for testing
@@ -95,7 +98,6 @@ public class BoardCell extends Component {
 	public void draw(Graphics g) {
 		// Draws the cell based on the type of cell and whether or not
 		// any players are currently on the cell
-		int size = 25;
 		int x = size * column;
 		int y = size * row;
 		
@@ -151,5 +153,13 @@ public class BoardCell extends Component {
 	
 	public void toggleHighlight() {
 		highlighted = !highlighted;
+	}
+
+	public boolean containsClick(int mouseX, int mouseY) {
+		Rectangle rect = new Rectangle(column, row, size, size);
+		if(rect.contains(new Point(mouseX, mouseY))){
+			return true;
+		}
+		return false;
 	}
 }

@@ -167,6 +167,7 @@ public class Board extends JPanel{
 		dealCards();
 		calcAdjacencies();
 		updateBoard();
+		validCell = getCell(players.get(0).getRow(), players.get(0).getColumn());
 	}
 	
 	public void loadRoomConfig() throws BadConfigFormatException {
@@ -520,9 +521,13 @@ public class Board extends JPanel{
 		
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			System.out.println("Y: " + e.getPoint().y);
-			bc = getCellAt(e.getPoint().y%size, e.getPoint().x%size);
-			checkIsValid();
+			System.out.println("Y: " + e.getY());
+			for(int i = 0; i<MAX_COLS; i++)
+				for(int j = 0; i<MAX_ROWS; i++){
+					if (getCellAt(i,j).containsClick(e.getX(), e.getY())){
+						bc = getCellAt(i,j);
+					}
+				}
 		}
 
 		@Override
