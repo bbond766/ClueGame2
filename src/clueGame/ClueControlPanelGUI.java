@@ -18,15 +18,16 @@ import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-public class ClueControlPanelGUI extends  JPanel{
+public class ClueControlPanelGUI extends JPanel{
 	private JTextField currentPlayer, diceRoll, guessResult;
 	private JComboBox<String> person, weapon;
 	private Board board;
-	private boolean humanFinished = false;
+	private static boolean humanFinished = false;
 	private ArrayList<Player> players;
 	private Player current;
 	private int currentPlayerIndex = 0;
 	private int roll = 0;
+	public static boolean first = true;  // Flag indicates this is the first move
 	
 	public ClueControlPanelGUI(Board board){
 		this.board = board;
@@ -37,8 +38,7 @@ public class ClueControlPanelGUI extends  JPanel{
 		add(createDiceRoll(), BorderLayout.WEST);
 		add(createButtons(), BorderLayout.NORTH);
 		add(createGuessDisplays(), BorderLayout.SOUTH);
-		System.out.println("current player: " + current);
-
+		currentPlayer.setText(current.getName());
 	}
 	private JPanel createCurrentPlayer() {
 		JPanel currentPlayerPanel = new JPanel();
@@ -110,44 +110,41 @@ public class ClueControlPanelGUI extends  JPanel{
 	}
 
 	private class ButtonListener implements ActionListener{
-
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			move();
-			if(humanFinished){
-				current = players.get(currentPlayerIndex+1);
+			for (int i=0; i<board.getNumRows(); i++)
+				for (int j=0; j<board.getNumColumns(); j++) {
+					if (board.getCellAt(i, j).players.size() != 0)
+						System.out.println("");
+						//System.out.println(board.getCellAt(i, j) + " has " + board.getCellAt(i, j).players.size() + " players");
+				}
+			if (first) {
+				move();
+				first = false;
+			}
+			else if (humanFinished){
+				current = players.get(++currentPlayerIndex%(players.size()));
 				currentPlayer.setText(current.getName());
+				move();
 			}
 		}
-		
 	}
 	
 	public void move(){
-		System.out.println("current player: " + current);
 		rollDie();
-		System.out.println("die roll: " + roll);
 		String die = roll + "";
 		diceRoll.setText(die);
 		board.calcTargets(current.getRow(), current.getColumn(), roll);
 		current.makeMove(board);
-		humanFinished = true;
 		repaint();
+	}
+	
+	public static void toggleFinished() {
+		humanFinished = !humanFinished;
 	}
 	
 	public void rollDie(){
 		Random r = new Random();
 		roll= r.nextInt(6)+1;
 	}
-
-//	public static void main(String[] args) {
-//		Board board = new Board();
-//		board.initialize();
-//		ClueControlPanelGUI display = new ClueControlPanelGUI(board);
-//		JFrame frame = new JFrame();
-//		frame.add(display);
-//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		frame.setSize(700, 300);
-//		frame.setVisible(true);
-//		
-//	}
 }

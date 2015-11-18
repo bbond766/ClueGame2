@@ -2,14 +2,21 @@ package clueGame;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Set;
 
-public class HumanPlayer extends Player {
+public class HumanPlayer extends Player implements MouseListener {
+	private boolean finished = false;
+	private boolean highlighted = false;
+	private Board b;
 
 	public HumanPlayer(String name, Color color, int row, int column) {
 		super(name, color, row, column);
+		addMouseListener(this);
 	}
 
 	@Override
@@ -71,9 +78,57 @@ public class HumanPlayer extends Player {
 
 	@Override
 	public void makeMove(Board board) {
+		if (!ClueControlPanelGUI.first)
+			ClueControlPanelGUI.toggleFinished();
 		board.highlightTargets();
-		//column = board.getValidCell().getColumn();
-		//row = board.getValidCell().getRow();
+		finished = false;		
+		highlighted = true;
+		b = board;
+	}
+
+	@Override
+	public boolean isFinished() {
+		return finished;
+	}
+	
+	public void changePosition(int row, int col) {
+		this.row = row;
+		this.column = col;
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+
+	}
+	
+	public boolean checkIsValid(BoardCell bc, Board b) {
+		if (b.getTargets().contains(bc))
+			return true;
+		return false;
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

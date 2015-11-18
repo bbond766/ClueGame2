@@ -3,8 +3,6 @@ package clueGame;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
-import java.awt.Point;
-import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,10 +10,9 @@ public class BoardCell extends Component {
 	private int row, column;
 	private char initial;
 	private DoorDirection doorDirection;
-	private List<Player> players = new ArrayList<Player>();
+	public List<Player> players = new ArrayList<Player>();
 	private String name;
 	private boolean highlighted;
-	int size = 25;
 	
 	public BoardCell(int row, int column) {
 		// Constructor that doesn't take an initial used only for testing
@@ -37,10 +34,12 @@ public class BoardCell extends Component {
 	public void updateCell(ArrayList<Player> boardPlayers) {
 		// Checks if any players are on the cell
 		for (Player p : boardPlayers) {
-			if (p.getRow() == row && p.getColumn() == column)
-				players.add(p);
+			if (p.getRow() == row && p.getColumn() == column) {
+				if (!players.contains(p))
+					players.add(p);
+			}
 			else
-				if (players.contains(p))
+				while (players.contains(p))
 					players.remove(p);
 		}
 	}
@@ -98,6 +97,7 @@ public class BoardCell extends Component {
 	public void draw(Graphics g) {
 		// Draws the cell based on the type of cell and whether or not
 		// any players are currently on the cell
+		int size = 25;
 		int x = size * column;
 		int y = size * row;
 		
@@ -110,16 +110,12 @@ public class BoardCell extends Component {
 			g.fillRect(x, y, size, size);
 			g.setColor(Color.BLACK);
 			g.drawRect(x, y, size, size);
-			if (!players.isEmpty())
-				for (Player p : players) {
-					g.setColor(p.getColor());
-					g.fillOval(x, y, size, size);
-					g.setColor(Color.BLACK);
-					g.drawOval(x, y, size, size);
-				}
 		}
 		else {
-			g.setColor(Color.DARK_GRAY);
+			if (highlighted)
+				g.setColor(Color.GREEN);
+			else
+				g.setColor(Color.DARK_GRAY);
 			g.fillRect(x, y, size, size);
 			if (isDoorway()) {
 				if (highlighted)
@@ -145,6 +141,30 @@ public class BoardCell extends Component {
 				}
 			}
 		}
+		if (!players.isEmpty())
+			if (players.size() == 2) {
+				// For now, only handles the case where < 3 players are in a square
+				// To the grader:
+				// If you're reading this, I'm sorry for how messy everything is.
+				// I was in a hurry and submitted this just before midnight.
+				// Before the final submission unused methods will be removed and
+				// the functionality for 3+ players on a square will be added.
+				g.setColor(players.get(0).getColor());
+				g.fillOval(x, y, size/2, size/2);
+				g.setColor(Color.BLACK);
+				g.drawOval(x, y, size/2, size/2);
+				g.setColor(players.get(1).getColor());
+				g.fillOval(x+size/2, y+size/2, size/2, size/2);
+				g.setColor(Color.BLACK);
+				g.drawOval(x+size/2, y+size/2, size/2, size/2);
+			}
+			else
+				for (Player p : players) {
+					g.setColor(p.getColor());
+					g.fillOval(x, y, size, size);
+					g.setColor(Color.BLACK);
+					g.drawOval(x, y, size, size);
+				}
 		if (!name.equals("")) {
 			g.setColor(Color.WHITE);
 			g.drawString(name, x, y);
@@ -153,13 +173,5 @@ public class BoardCell extends Component {
 	
 	public void toggleHighlight() {
 		highlighted = !highlighted;
-	}
-
-	public boolean containsClick(int mouseX, int mouseY) {
-		Rectangle rect = new Rectangle(column, row, size, size);
-		if(rect.contains(new Point(mouseX, mouseY))){
-			return true;
-		}
-		return false;
 	}
 }

@@ -20,7 +20,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 
-public class Board extends JPanel{
+public class Board extends JPanel implements MouseListener {
 	public static final int MAX_ROWS = 50;
 	public static final int MAX_COLS = 50;
 	private int numRows;
@@ -40,10 +40,13 @@ public class Board extends JPanel{
 	private ArrayList<Card> suggestionChoices = new ArrayList<Card>();
 	private ArrayList<Player> players = new ArrayList<Player>();
 	private ArrayList<Card> seenCards =  new ArrayList<Card>();
+	private boolean highlighted = false;
+	private HumanPlayer humanPlayer;
 	
 	public Board() {
 		// Default constructor creates a new board using Cyndi Rader's config files
 		this("ClueLayout.csv", "ClueLegend.txt", "ClueLayout/Players.txt", "ClueLayout/Cards.txt");
+		addMouseListener(this);
 	}
 
 	public Board(int rows, int columns) {
@@ -55,6 +58,7 @@ public class Board extends JPanel{
 		for(int i=0; i < numRows; i++)
 			for(int j=0; j < numColumns; j++)
 				board[i][j] = new BoardCell(i, j);
+		addMouseListener(this);
 	}
 	
 	public Board(String layoutFile, String legendFile) {
@@ -63,6 +67,7 @@ public class Board extends JPanel{
 		roomConfigFile = legendFile;
 		playerConfigFile = "ClueLayout/Players.txt";
 		cardConfigFile = "ClueLayout/Cards.txt";
+		addMouseListener(this);
 	} 
 
 	public Board(String layoutFile, String legendFile, String playerFile, String cardFile) {
@@ -71,6 +76,7 @@ public class Board extends JPanel{
 		roomConfigFile = legendFile;
 		playerConfigFile = playerFile;
 		cardConfigFile = cardFile;
+		addMouseListener(this);
 	} 
 	
 	public BoardCell getCell(int row, int column) {
@@ -167,7 +173,6 @@ public class Board extends JPanel{
 		dealCards();
 		calcAdjacencies();
 		updateBoard();
-		validCell = getCell(players.get(0).getRow(), players.get(0).getColumn());
 	}
 	
 	public void loadRoomConfig() throws BadConfigFormatException {
@@ -266,8 +271,10 @@ public class Board extends JPanel{
 					throw new BadConfigFormatException("column value is " + player[4] + ", must be between 0 and " + numColumns);
 				
 				// Add human player to list
-				if (player[1].equals("Human"))
-					players.add(new HumanPlayer(player[0], convertColor(player[2]), Integer.parseInt(player[3]), Integer.parseInt(player[4])));
+				if (player[1].equals("Human")) {
+					humanPlayer = new HumanPlayer(player[0], convertColor(player[2]), Integer.parseInt(player[3]), Integer.parseInt(player[4]));
+					players.add(humanPlayer);
+				}
 				
 				// Add AI player to list
 				else if (player[1].equals("Computer"))
@@ -502,10 +509,10 @@ public class Board extends JPanel{
 		for (BoardCell bc : targets)
 			bc.toggleHighlight();
 		
+		highlighted = !highlighted;
+		
 		repaint();
 		revalidate();
-		
-		addMouseListener(new CellListener());
 	}
 
 	public void updateBoard() {
@@ -514,51 +521,6 @@ public class Board extends JPanel{
 				board[i][j].updateCell(players);
 	}
 	
-	public class CellListener implements MouseListener{
-
-		BoardCell bc;
-		int size = 25;
-		
-		@Override
-		public void mouseClicked(MouseEvent e) {
-			System.out.println("Y: " + e.getY());
-			for(int i = 0; i<MAX_COLS; i++)
-				for(int j = 0; i<MAX_ROWS; i++){
-					if (getCellAt(i,j).containsClick(e.getX(), e.getY())){
-						bc = getCellAt(i,j);
-					}
-				}
-		}
-
-		@Override
-		public void mouseEntered(MouseEvent e) {
-			
-		}
-
-		@Override
-		public void mouseExited(MouseEvent e) {
-			
-		}
-
-		@Override
-		public void mousePressed(MouseEvent e) {
-			
-		}
-
-		@Override
-		public void mouseReleased(MouseEvent e) {
-			
-		}
-	
-		public void checkIsValid(){
-			for(BoardCell b : targets){
-				if(b == bc){
-					validCell = bc;
-				}
-			}
-		}
-	
-	}
 	
 	////////////////////////////////////////////
 	//            Testing Methods              //
@@ -602,5 +564,44 @@ public class Board extends JPanel{
 			if(!suggestionChoices.get(i).getName().equals("Miss Scarlet") && !suggestionChoices.get(i).getName().equals("Candlestick"))
 			addSeenCard(suggestionChoices.get(i));
 		}
+	}
+	
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		BoardCell bc;
+		int size = 25;
+		if (highlighted) {
+			bc = getCellAt(e.getPoint().y/size, e.getPoint().x/size);
+			if (targets.contains(bc)) {
+				humanPlayer.changePosition(bc.getRow(), bc.getColumn());
+				ClueControlPanelGUI.toggleFinished();
+				highlightTargets();
+				updateBoard();
+			}
+		}
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}	
 }

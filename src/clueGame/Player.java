@@ -1,10 +1,11 @@
 package clueGame;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.util.ArrayList;
 import java.util.Set;
 
-public abstract class Player {
+public abstract class Player extends Component{
 	protected String playerName;
 	protected int row;
 	protected int column;
@@ -50,6 +51,8 @@ public abstract class Player {
 	}
 	
 	abstract public boolean isHuman();
+	
+	abstract public boolean isFinished();
 
 	abstract public void makeMove(Board board);
 }

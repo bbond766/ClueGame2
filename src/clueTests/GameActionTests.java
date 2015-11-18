@@ -146,6 +146,7 @@ public class GameActionTests {
 		// Test 100 times
 		for (int i=0; i<100; i++) {
 			BoardCell targetCell = testPlayer.pickLocation(board.getTargets());
+			testPlayer.setLastVisited("");
 			assertEquals(targetCell, board.getCellAt(9, 3));
 		}
 	}

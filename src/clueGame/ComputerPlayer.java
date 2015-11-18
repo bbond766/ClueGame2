@@ -17,16 +17,21 @@ public class ComputerPlayer extends Player{
 
 		for (BoardCell bc : targets)
 			// If target is a room that was not the last visited room
-			if (bc.isRoom() && !Board.getRooms().get(bc.getInitial()).equals(lastVisited))
+			if (bc.isRoom() && !Board.getRooms().get(bc.getInitial()).equals(lastVisited)) {
+				lastVisited = Board.getRooms().get(bc.getInitial());
 				return bc;
+			}
 		
 		// If no suitable room found, pick target randomly
 		int size = targets.size();
 		int item = new Random().nextInt(size);
 		int i = 0;
 		for (BoardCell bc : targets) {
-			if (i == item)
+			if (i == item) {
+				if (!bc.isWalkway())
+					lastVisited = Board.getRooms().get(bc.getInitial());
 				return bc;
+			}
 			i += 1;
 		}
 		
@@ -91,6 +96,13 @@ public class ComputerPlayer extends Player{
 		BoardCell newLocation = pickLocation(board.getTargets());
 		row = newLocation.getRow();
 		column = newLocation.getColumn();
+		board.updateBoard();
+		board.repaint();
+	}
+
+	@Override
+	public boolean isFinished() {
+		return true;
 	}
 
 }
