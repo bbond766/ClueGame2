@@ -1,18 +1,11 @@
 package clueGame;
 
 import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.Set;
 
 public class HumanPlayer extends Player {
 	private boolean finished = false;
-	private boolean highlighted = false;
-	private Board b;
 
 	public HumanPlayer(String name, Color color, int row, int column) {
 		super(name, color, row, column);
@@ -81,8 +74,6 @@ public class HumanPlayer extends Player {
 			ClueControlPanelGUI.toggleFinished();
 		board.highlightTargets();
 		finished = false;		
-		highlighted = true;
-		b = board;
 	}
 
 	@Override

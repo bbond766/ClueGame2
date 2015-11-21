@@ -1,11 +1,6 @@
 package clueGame;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.Graphics;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -22,7 +17,7 @@ import javax.swing.JPanel;
 
 public class ClueGame extends JFrame {
 	public static final int SIZE_X = 850;
-	public static final int SIZE_Y = 775;
+	public static final int SIZE_Y = 785;
 	private static Board gameBoardPanel;
 	private DetectiveNotes dialog;
 	private CardPanel cardPanel;

@@ -1,9 +1,7 @@
 package clueGame;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,8 +9,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -49,18 +45,16 @@ public class ClueControlPanelGUI extends JPanel{
 		currentPlayerPanel.add(whosTurn);
 		currentPlayerPanel.add(currentPlayer);
 		currentPlayerPanel.setBorder(new TitledBorder(new EtchedBorder(), "Whose turn is it anyway?"));
-		currentPlayerPanel.setSize(new Dimension(100, 10));
 		return currentPlayerPanel;
 	}
 	private JPanel createDiceRoll(){
 		JPanel diceRollPanel = new JPanel();
-		diceRoll = new JTextField(roll);
+		diceRoll = new JTextField(3);
 		diceRoll.setEditable(false);
 		JLabel diceRollLabel = new JLabel("Dice Roll");
-		diceRollPanel.setLayout(new GridLayout(1,1));
+		diceRollPanel.setLayout(new FlowLayout());
 		diceRollPanel.add(diceRollLabel);
 		diceRollPanel.add(diceRoll);
-		diceRollPanel.setSize(new Dimension(100, 10));
 		diceRollPanel.setBorder(new TitledBorder(new EtchedBorder(), "Your move"));
 		return diceRollPanel;
 	}
@@ -86,21 +80,7 @@ public class ClueControlPanelGUI extends JPanel{
 		guessPanel.setBorder(new TitledBorder(new EtchedBorder(), "Suggestion Results"));
 		return guessPanel;
 	}
-	private JComboBox<String> setUpPersonBox(){
-		JComboBox<String> jcb = new JComboBox<String>();
-		for (Card c : board.getChoices())
-			if (c.getType().equals(CardType.PERSON))
-				jcb.addItem(c.getName());
-		return jcb;
-	}
-	
-	private JComboBox<String> setUpWeaponBox() {
-		JComboBox<String> jcb = new JComboBox<String>();
-		for (Card c : board.getChoices())
-			if (c.getType().equals(CardType.WEAPON))
-				jcb.addItem(c.getName());
-		return jcb;
-	}
+
 	private JPanel createButtons(){
 		JButton nextPlayer = new JButton("Next Player");
 		JButton makeAccu = new JButton("Make an Accusation");
