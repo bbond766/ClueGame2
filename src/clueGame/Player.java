@@ -5,7 +5,7 @@ import java.awt.Component;
 import java.util.ArrayList;
 import java.util.Set;
 
-public abstract class Player extends Component{
+public abstract class Player extends Component {
 	protected String playerName;
 	protected int row;
 	protected int column;

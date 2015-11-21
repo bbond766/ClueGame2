@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.util.Random;
 import java.util.Set;
 
-public class ComputerPlayer extends Player{
+public class ComputerPlayer extends Player {
 	private String lastVisited;
 	
 	public ComputerPlayer(String name, Color color, int row, int column) {

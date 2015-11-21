@@ -9,14 +9,13 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Set;
 
-public class HumanPlayer extends Player implements MouseListener {
+public class HumanPlayer extends Player {
 	private boolean finished = false;
 	private boolean highlighted = false;
 	private Board b;
 
 	public HumanPlayer(String name, Color color, int row, int column) {
 		super(name, color, row, column);
-		addMouseListener(this);
 	}
 
 	@Override
@@ -95,40 +94,10 @@ public class HumanPlayer extends Player implements MouseListener {
 		this.row = row;
 		this.column = col;
 	}
-
-	@Override
-	public void mouseClicked(MouseEvent e) {
-
-	}
 	
 	public boolean checkIsValid(BoardCell bc, Board b) {
 		if (b.getTargets().contains(bc))
 			return true;
 		return false;
 	}
-
-	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

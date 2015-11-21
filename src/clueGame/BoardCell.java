@@ -6,7 +6,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BoardCell extends Component {
+public class BoardCell {
 	private int row, column;
 	private char initial;
 	private DoorDirection doorDirection;

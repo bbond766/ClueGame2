@@ -21,6 +21,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class ClueGame extends JFrame {
+	public static final int SIZE_X = 850;
+	public static final int SIZE_Y = 775;
 	private static Board gameBoardPanel;
 	private DetectiveNotes dialog;
 	private CardPanel cardPanel;
@@ -33,7 +35,7 @@ public class ClueGame extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
 		setTitle("Clue Game");
-		setSize(850, 775);	
+		setSize(SIZE_X, SIZE_Y);	
 		
 		gameBoardPanel  = new Board("ClueLayout/Layout.csv", "ClueLayout/Legend.txt", "ClueLayout/Players.txt", "ClueLayout/Cards.txt");
 		gameBoardPanel.initialize();

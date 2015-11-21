@@ -2,6 +2,7 @@ package clueGame;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -19,8 +20,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
 public class ClueControlPanelGUI extends JPanel{
-	private JTextField currentPlayer, diceRoll, guessResult;
-	private JComboBox<String> person, weapon;
+	private JTextField currentPlayer, diceRoll, guessResult, lastGuess;
 	private Board board;
 	private static boolean humanFinished = false;
 	private ArrayList<Player> players;
@@ -42,7 +42,7 @@ public class ClueControlPanelGUI extends JPanel{
 	}
 	private JPanel createCurrentPlayer() {
 		JPanel currentPlayerPanel = new JPanel();
-		JLabel whosTurn = new JLabel("CURRENT PLAYER:");
+		JLabel whosTurn = new JLabel("Current Player:");
 		currentPlayer = new JTextField(16);
 		currentPlayer.setEditable(false);
 		currentPlayerPanel.setLayout(new GridLayout(1,1));
@@ -66,19 +66,24 @@ public class ClueControlPanelGUI extends JPanel{
 	}
 	private JPanel createGuessDisplays(){
 		JPanel guessPanel = new JPanel();
-		guessPanel.setLayout(new GridLayout(1,1));
-		JLabel guessLabel = new JLabel("Make a guess");
-		JLabel guessResultLabel = new JLabel("The result of your guess");
-		guessResult =  new JTextField();
+		JPanel lastPanel = new JPanel();
+		lastPanel.setLayout(new GridLayout(2, 1));
+		JPanel resultPanel = new JPanel();
+		resultPanel.setLayout(new GridLayout(2, 1));
+		guessPanel.setLayout(new BorderLayout());
+		JLabel guessLabel = new JLabel("Last Suggestion:");
+		JLabel guessResultLabel = new JLabel("Last Disproving Card:");
+		guessResult =  new JTextField(19);
 		guessResult.setEditable(false);
-		person = setUpPersonBox();
-		weapon = setUpWeaponBox();
-		guessPanel.add(guessLabel);
-		guessPanel.add(person);
-		guessPanel.add(weapon);
-		guessPanel.add(guessResultLabel);
-		guessPanel.add(guessResult);
-		guessPanel.setBorder(new TitledBorder(new EtchedBorder(), "Go for the WIN"));
+		lastGuess = new JTextField(45);
+		lastGuess.setEditable(false);
+		lastPanel.add(guessLabel);
+		lastPanel.add(lastGuess);
+		resultPanel.add(guessResultLabel);
+		resultPanel.add(guessResult);
+		guessPanel.add(lastPanel, BorderLayout.WEST);
+		guessPanel.add(resultPanel, BorderLayout.EAST);
+		guessPanel.setBorder(new TitledBorder(new EtchedBorder(), "Suggestion Results"));
 		return guessPanel;
 	}
 	private JComboBox<String> setUpPersonBox(){
