@@ -140,14 +140,8 @@ public class BoardCell {
 				}
 			}
 		}
-		if (!players.isEmpty())
+		if (!players.isEmpty()) {
 			if (players.size() == 2) {
-				// For now, only handles the case where < 3 players are in a square
-				// To the grader:
-				// If you're reading this, I'm sorry for how messy everything is.
-				// I was in a hurry and submitted this just before midnight.
-				// Before the final submission unused methods will be removed and
-				// the functionality for 3+ players on a square will be added.
 				g.setColor(players.get(0).getColor());
 				g.fillOval(x, y, size/2, size/2);
 				g.setColor(Color.BLACK);
@@ -157,6 +151,23 @@ public class BoardCell {
 				g.setColor(Color.BLACK);
 				g.drawOval(x+size/2, y+size/2, size/2, size/2);
 			}
+			else if (players.size() >= 3) {
+				// Also draws the first 3 circles of the 4 player case
+				g.setColor(players.get(0).getColor());
+				g.fillOval(x, y, size/2, size/2);
+				g.setColor(Color.BLACK);
+				g.drawOval(x, y, size/2, size/2);
+				
+				g.setColor(players.get(1).getColor());
+				g.fillOval(x+size-(size/2), y, size/2, size/2);
+				g.setColor(Color.BLACK);
+				g.drawOval(x+size-(size/2), y, size/2, size/2);
+				
+				g.setColor(players.get(2).getColor());
+				g.fillOval(x, y+size/2, size/2, size/2);
+				g.setColor(Color.BLACK);
+				g.drawOval(x, y+size/2, size/2, size/2);
+			}
 			else
 				for (Player p : players) {
 					g.setColor(p.getColor());
@@ -164,6 +175,14 @@ public class BoardCell {
 					g.setColor(Color.BLACK);
 					g.drawOval(x, y, size, size);
 				}
+			if (players.size() == 4) {
+				// 4 players looks just like 3 but with one extra circle
+				g.setColor(players.get(3).getColor());
+				g.fillOval(x+size-(size/2), y+size-(size/2), size/2, size/2);
+				g.setColor(Color.BLACK);
+				g.drawOval(x+size-(size/2), y+size-(size/2), size/2, size/2);
+			}
+		}
 		if (!name.equals("")) {
 			g.setColor(Color.WHITE);
 			g.drawString(name, x, y);
