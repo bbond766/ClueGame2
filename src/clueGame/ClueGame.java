@@ -42,7 +42,7 @@ public class ClueGame extends JFrame {
 		
 		// For now, humanPlayers will only contain one Player
 		cardPanel = new CardPanel(humanPlayers.get(0).getHand());
-		controlPanel = new ClueControlPanelGUI(gameBoardPanel);
+		controlPanel = new ClueControlPanelGUI(gameBoardPanel, this);
 		
 		JPanel top = new JPanel();
 		top.setLayout(new BorderLayout());

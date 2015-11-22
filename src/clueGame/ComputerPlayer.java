@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.util.Random;
 import java.util.Set;
 
+import javax.swing.JFrame;
+
 public class ComputerPlayer extends Player {
 	private String lastVisited;
 	
@@ -78,12 +80,10 @@ public class ComputerPlayer extends Player {
 		 * to prevent players from making the same suggestion repeatedly and getting new information
 		 * each time.
          */
-
-		for(Card card : hand){
-			if(card.getName().equals(suggestion.person)||card.getName().equals(suggestion.room)||card.getName().equals(suggestion.weapon)){
+		for(Card card : hand)
+			if(card.getName().equals(suggestion.person)||card.getName().equals(suggestion.room)||card.getName().equals(suggestion.weapon))
 				return card;
-			}
-		}
+
 		return null;
 	}
 	
@@ -92,7 +92,7 @@ public class ComputerPlayer extends Player {
 	}
 
 	@Override
-	public void makeMove(Board board){
+	public void makeMove(Board board, JFrame frame){
 		BoardCell newLocation = pickLocation(board.getTargets());
 		row = newLocation.getRow();
 		column = newLocation.getColumn();

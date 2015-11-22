@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javax.swing.JFrame;
+
 public class HumanPlayer extends Player {
 	private boolean finished = false;
 
@@ -69,7 +71,7 @@ public class HumanPlayer extends Player {
 	}
 
 	@Override
-	public void makeMove(Board board) {
+	public void makeMove(Board board, JFrame frame) {
 		if (!ClueControlPanelGUI.first)
 			ClueControlPanelGUI.toggleFinished();
 		board.highlightTargets();

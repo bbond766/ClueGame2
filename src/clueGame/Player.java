@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Component;
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+
 public abstract class Player extends Component {
 	protected String playerName;
 	protected int row;
@@ -49,9 +51,16 @@ public abstract class Player extends Component {
 		return color;
 	}
 	
+	public boolean inRoom(Board b) {
+		return b.getCellAt(row, column).isRoom();
+	}
+	
+	public String getRoom(Board b) {
+		return Board.getRooms().get(b.getCellAt(row, column).getInitial());
+	}
 	abstract public boolean isHuman();
 	
 	abstract public boolean isFinished();
 
-	abstract public void makeMove(Board board);
+	abstract public void makeMove(Board board, JFrame frame);
 }
