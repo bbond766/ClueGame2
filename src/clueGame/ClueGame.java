@@ -34,6 +34,7 @@ public class ClueGame extends JFrame {
 		
 		gameBoardPanel  = new Board("ClueLayout/Layout.csv", "ClueLayout/Legend.txt", "ClueLayout/Players.txt", "ClueLayout/Cards.txt");
 		gameBoardPanel.initialize();
+		gameBoardPanel.setParent(this);
 		
 		humanPlayers = new ArrayList<Player>();
 		for (Player p : gameBoardPanel.getPlayers())

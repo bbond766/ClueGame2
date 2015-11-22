@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import java.awt.Color;
@@ -41,6 +42,10 @@ public class Board extends JPanel implements MouseListener {
 	private ArrayList<Card> seenCards =  new ArrayList<Card>();
 	private boolean highlighted = false;
 	private HumanPlayer humanPlayer;
+	private SuggestionDialog suggestionDialog;
+	public static boolean suggested;
+	private JFrame parent;
+	public static Solution lastGuessSolution;
 	
 	public Board() {
 		// Default constructor creates a new board using Cyndi Rader's config files
@@ -576,8 +581,31 @@ public class Board extends JPanel implements MouseListener {
 				ClueControlPanelGUI.toggleFinished();
 				highlightTargets();
 				updateBoard();
+				if (humanPlayer.inRoom(this)) {
+					suggestionDialog = new SuggestionDialog(parent, this, "Make Your Suggestion", false, humanPlayer.getRoom(this));
+					suggestionDialog.setVisible(true);
+					if (suggested) {
+						Card disprovingCard = null;
+						for (Player p : players)
+							if (!p.isHuman()) {
+								disprovingCard = p.disproveSuggestion(lastGuessSolution);
+								if (disprovingCard != null)
+									break;
+							}
+						if (disprovingCard != null)
+							ClueControlPanelGUI.setLastResult(disprovingCard.getName());
+						else
+							ClueControlPanelGUI.setLastResult("Nothing to disprove");
+						ClueControlPanelGUI.setLastGuess(lastGuessSolution.person + " with the " + lastGuessSolution.weapon + " in the " + lastGuessSolution.room);
+						suggested = false;
+					}
+				}
 			}
 		}
+	}
+		
+	public void setParent(JFrame parent) {
+		this.parent = parent;
 	}
 
 	@Override

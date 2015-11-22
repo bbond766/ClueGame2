@@ -17,7 +17,8 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
 public class ClueControlPanelGUI extends JPanel {
-	private JTextField currentPlayer, diceRoll, guessResult, lastGuess;
+	private JTextField currentPlayer, diceRoll;
+	private static JTextField guessResult, lastGuess;
 	private Board board;
 	private static boolean humanFinished = false;
 	private ArrayList<Player> players;
@@ -26,9 +27,8 @@ public class ClueControlPanelGUI extends JPanel {
 	private int roll = 0;
 	private JFrame frame;
 	private SuggestionDialog suggestionDialog;
-	private static boolean suggested = false;
-	private static Solution lastGuessSolution;
 	public static boolean first = true;  // Flag indicates this is the first move
+	private static boolean suggested;
 	
 	public ClueControlPanelGUI(Board board, JFrame frame){
 		this.board = board;
@@ -103,33 +103,12 @@ public class ClueControlPanelGUI extends JPanel {
 	private class ButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (current.isHuman() && current.inRoom(board) && !suggested) {
-				suggestionDialog = new SuggestionDialog(frame, board, "Make Your Suggestion", false, current.getRoom(board));
-				suggestionDialog.setVisible(true);
-				if (suggested) {
-					Card disprovingCard = null;
-					for (Player p : players)
-						if (!p.isHuman()) {
-							disprovingCard = p.disproveSuggestion(lastGuessSolution);
-							if (disprovingCard != null)
-								break;
-						}
-					if (disprovingCard != null)
-						guessResult.setText(disprovingCard.getName());
-					else
-						guessResult.setText("Nothing to disprove");
-					lastGuess.setText(lastGuessSolution.person + " with the " + lastGuessSolution.weapon + " in the " + lastGuessSolution.room);
-					suggested = false;
-					current = players.get(++currentPlayerIndex%(players.size()));
-					currentPlayer.setText(current.getName());
-					move();
-				}
-			}
-			else if (first) {
+			if (first) {
 				move();
 				first = false;
 			}
 			else if (humanFinished){
+				suggested = false;
 				current = players.get(++currentPlayerIndex%(players.size()));
 				currentPlayer.setText(current.getName());
 				move();
@@ -140,9 +119,19 @@ public class ClueControlPanelGUI extends JPanel {
 	private class AccuListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (current.isHuman()) {
+			if (current.isHuman() && !suggested) {
 				suggestionDialog = new SuggestionDialog(frame, board, "Make Your Accusation!", true, current.getRoom(board));
 				suggestionDialog.setVisible(true);
+				if (suggested) {
+					lastGuess.setText(Board.lastGuessSolution.person + " with the " + Board.lastGuessSolution.weapon + " in the " + Board.lastGuessSolution.room);
+					if(board.checkAccusation(Board.lastGuessSolution)) {
+						GameEndDialog ged = new GameEndDialog(frame, "Congratulations!", current.getName() + " wins!");
+						ged.setVisible(true);
+					}
+					else {
+						guessResult.setText("incorrect");
+					}
+				}
 			}
 		}
 	}
@@ -166,7 +155,16 @@ public class ClueControlPanelGUI extends JPanel {
 	}
 	
 	public static void submitInfo(Solution last) {
-		lastGuessSolution = last;
 		suggested = true;
+		Board.lastGuessSolution = last;
+		Board.suggested = true;
+	}
+	
+	public static void setLastGuess(String last) {
+		lastGuess.setText(last);
+	}
+	
+	public static void setLastResult(String result) {
+		guessResult.setText(result);
 	}
 }

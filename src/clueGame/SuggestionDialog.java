@@ -2,6 +2,7 @@ package clueGame;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -39,9 +40,15 @@ public class SuggestionDialog extends JDialog {
 		JPanel buttonPane = new JPanel();
 		JButton submitButton = new JButton ("Submit");
 		JButton cancelButton = new JButton("Cancel");
-		buttonPane.setLayout(new GridLayout(1, 0));
-		buttonPane.add(submitButton);
-		buttonPane.add(cancelButton);
+		if (accusation) {
+			buttonPane.setLayout(new GridLayout(1, 0));
+			buttonPane.add(submitButton);
+			buttonPane.add(cancelButton);
+		}
+		else {
+			buttonPane.setLayout(new FlowLayout());
+			buttonPane.add(submitButton);
+		}
 		submitButton.addActionListener(new SubmitListener());
 		cancelButton.addActionListener(new CancelListener());
 		add(buttonPane, BorderLayout.SOUTH);
