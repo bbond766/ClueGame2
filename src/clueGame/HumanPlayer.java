@@ -32,39 +32,8 @@ public class HumanPlayer extends Player {
 			return disprovers.get(0);
 		}
 		else if(disprovers.size()>0){
-			System.out.println("The cards you have to disprove this suggestion are: ");
 			for(Card card : disprovers){
-				System.out.print(card.getName()+", ");
-			}
-			System.out.println();
-			while(true){
-				System.out.print("Please enter the index of the card to disprove with: ");
-				Scanner scan=new Scanner(System.in);
-				String response=scan.next();
-				int choice;
-				try{
-					choice=Integer.parseInt(response);
-					switch(choice){
-						case 0:
-							return disprovers.get(0);
-						case 1:
-							return disprovers.get(1);
-						case 2:
-							return disprovers.get(2);
-						default:
-							System.out.println("Please enter a valid index");
-							continue;
-					}
-				}
-				catch(NumberFormatException e){
-					System.out.println();
-					System.out.println("Please enter a valid index");
-					continue;
-				}
-				finally {
-					if (scan != null)
-						scan.close();
-				}
+				
 			}
 		}
 		return null;

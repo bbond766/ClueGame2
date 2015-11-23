@@ -1,6 +1,7 @@
 package clueGame;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Set;
 
@@ -8,6 +9,7 @@ import javax.swing.JFrame;
 
 public class ComputerPlayer extends Player {
 	private String lastVisited;
+	private boolean shouldMakeAccusation = false;
 	
 	public ComputerPlayer(String name, Color color, int row, int column) {
 		super(name, color, row, column);
@@ -40,8 +42,31 @@ public class ComputerPlayer extends Player {
 		return null;
 	}
 	
-	public void makeAccusation() {
-		// TODO: this should have been done already??
+	public Solution makeAccusation(Board board) {
+		ArrayList<Card> seen = board.getSeenCards();
+		ArrayList<Card> deck = board.getDeck();
+		ArrayList<Card> notSeen = new ArrayList<Card>();
+		for(Card c: deck){
+			if (!seen.contains(c)){
+				notSeen.add(c);
+			}
+			
+		}
+		Card person = new Card(), weapon  = new Card(), room  = new Card();
+		for(Card c: notSeen){
+			if(c.getType() == CardType.PERSON){
+				person = c;
+			}
+			else if(c.getType() == CardType.ROOM){
+				room = c;
+			}
+			else if(c.getType() == CardType.WEAPON){
+				weapon = c;
+			}
+		}
+		
+		Solution solution = new Solution(person.getName(), weapon.getName(), room.getName());
+		return solution;
 	}
 
 	public Solution makeSuggestion(Board board) {
@@ -93,11 +118,26 @@ public class ComputerPlayer extends Player {
 
 	@Override
 	public void makeMove(Board board, JFrame frame){
+		Solution solution;
+		if(shouldMakeAccusation){
+			solution = makeAccusation(board);
+		}
 		BoardCell newLocation = pickLocation(board.getTargets());
 		row = newLocation.getRow();
 		column = newLocation.getColumn();
 		board.updateBoard();
 		board.repaint();
+		if(newLocation.isRoom()){
+			solution = makeSuggestion(board);
+			ClueControlPanelGUI.setLastGuess(solution.toString());
+			Card returnedCard = board.handleSuggestion(solution, getName(), newLocation);
+			if (returnedCard != null){
+				ClueControlPanelGUI.setLastResult(returnedCard.getName());
+			}
+			else{
+				shouldMakeAccusation = true;
+			}
+		}
 	}
 
 	@Override
