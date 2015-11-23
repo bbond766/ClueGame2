@@ -13,6 +13,10 @@ public class HumanPlayer extends Player {
 		super(name, color, row, column);
 	}
 
+	public HumanPlayer() {
+		super();
+	}
+
 	@Override
 	public boolean isHuman() {
 		return true;
@@ -50,11 +54,6 @@ public class HumanPlayer extends Player {
 	@Override
 	public boolean isFinished() {
 		return finished;
-	}
-	
-	public void changePosition(int row, int col) {
-		this.row = row;
-		this.column = col;
 	}
 	
 	public boolean checkIsValid(BoardCell bc, Board b) {

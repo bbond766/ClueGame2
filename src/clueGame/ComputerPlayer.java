@@ -15,6 +15,10 @@ public class ComputerPlayer extends Player {
 		super(name, color, row, column);
 	}
 	
+	public ComputerPlayer() {
+		super();
+	}
+
 	public BoardCell pickLocation(Set<BoardCell> targets) {
 		// If the AI's targets list contains a room, the AI will always choose to visit the room
 		// unless it was just visited. Otherwise, the AI will choose a target at random.
@@ -128,6 +132,7 @@ public class ComputerPlayer extends Player {
 		board.updateBoard();
 		board.repaint();
 		if(newLocation.isRoom()){
+			lastVisited = "" + newLocation.getInitial();
 			solution = makeSuggestion(board);
 			ClueControlPanelGUI.setLastGuess(solution.toString());
 			Card returnedCard = board.handleSuggestion(solution, getName(), newLocation);

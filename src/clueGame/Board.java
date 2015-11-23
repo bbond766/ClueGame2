@@ -476,9 +476,34 @@ public class Board extends JPanel implements MouseListener {
 		}
 	}
 	
- 	public Card handleSuggestion(Solution suggestion, String accusingPlayer, BoardCell clicked) {
+ 	public Card handleSuggestion(Solution suggestion, String accusingPlayerName, BoardCell clicked) {
  		// First checks if the suggestion is correct (i.e. it is the same as theAnswer)
  		// If not, it checks each player's hand for a card to disprove the suggestion
+ 		// Moves accused player to room
+ 		Player accusedPlayer;
+ 		Player accusingPlayer;
+ 		if(humanPlayer.getName() == accusingPlayerName){
+ 			accusingPlayer = new HumanPlayer();
+ 		}
+ 		else{
+ 			accusingPlayer = new ComputerPlayer();
+ 		}
+ 		if(humanPlayer.getName() == suggestion.person){
+ 			accusedPlayer = new HumanPlayer();
+ 		}
+ 		else{
+ 			accusedPlayer = new ComputerPlayer();
+ 		}
+ 		for (Player p: players){
+ 			if(p.getName() == suggestion.person){
+ 				accusedPlayer = p;
+ 			}
+ 			else if(p.getName() == accusingPlayerName){
+ 				accusingPlayer = p;
+ 			}
+ 		}
+ 		accusedPlayer.changePosition(accusingPlayer.getColumn(), accusingPlayer.getRow());
+ 		repaint();
 		if(this.checkAccusation(suggestion)){
 			return null;
 		}
