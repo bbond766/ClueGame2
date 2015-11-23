@@ -13,10 +13,6 @@ public class HumanPlayer extends Player {
 		super(name, color, row, column);
 	}
 
-	public HumanPlayer() {
-		super();
-	}
-
 	@Override
 	public boolean isHuman() {
 		return true;
@@ -24,22 +20,15 @@ public class HumanPlayer extends Player {
 
 	@Override
 	public Card disproveSuggestion(Solution suggestion) {
-		// TODO: this method needs to be more player-friendly
-		// The player might not understand "enter the index of the card"
 		ArrayList<Card> disprovers=new ArrayList<Card>();
-		for(Card card : hand){
-			if(card.getName().equals(suggestion.person)||card.getName().equals(suggestion.room)||card.getName().equals(suggestion.weapon)){
+		
+		for(Card card : hand)
+			if(card.getName().equals(suggestion.person)||card.getName().equals(suggestion.room)||card.getName().equals(suggestion.weapon))
 				disprovers.add(card);
-			}
-		}
-		if(disprovers.size()==1){
+
+		if(disprovers.size()==1)
 			return disprovers.get(0);
-		}
-		else if(disprovers.size()>0){
-			for(Card card : disprovers){
-				
-			}
-		}
+		
 		return null;
 	}
 
@@ -56,9 +45,18 @@ public class HumanPlayer extends Player {
 		return finished;
 	}
 	
+	public void changePosition(int row, int col) {
+		this.row = row;
+		this.column = col;
+	}
+	
 	public boolean checkIsValid(BoardCell bc, Board b) {
 		if (b.getTargets().contains(bc))
 			return true;
 		return false;
 	}
+	
+	public void addSeenCard(Card c) {}
+	
+	public void initializeSeenCards() {}
 }

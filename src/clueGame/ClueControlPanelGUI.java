@@ -125,7 +125,7 @@ public class ClueControlPanelGUI extends JPanel {
 				if (suggested) {
 					lastGuess.setText(Board.lastGuessSolution.person + " with the " + Board.lastGuessSolution.weapon + " in the " + Board.lastGuessSolution.room);
 					if(board.checkAccusation(Board.lastGuessSolution)) {
-						GameEndDialog ged = new GameEndDialog(frame, "Congratulations!", current.getName() + " wins!");
+						GameEndDialog ged = new GameEndDialog(frame, "Winner!", current.getName() + " wins!");
 						ged.setVisible(true);
 					}
 					else {

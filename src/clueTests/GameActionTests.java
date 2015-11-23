@@ -295,7 +295,7 @@ public class GameActionTests {
 				//solution because that is the only choices left to make.
 		
 		
-		ComputerPlayer testPlayer =  new ComputerPlayer("Mr Green", Color.BLUE, 5,6);
+		ComputerPlayer testPlayer =  new ComputerPlayer("Mr. Green", Color.BLUE, 5,6);
 		Board testBoard = new Board("ClueLayout/Layout.csv", "ClueLayout/Legend.txt", "ClueLayout/Players.txt", "ClueLayout/Cards.txt");
 		try {
 			testBoard.loadBoardConfig();
@@ -319,20 +319,16 @@ public class GameActionTests {
 		}
 		testBoard.setAnswer();
 		testBoard.dealOnePlayer();//this function is in Board class for testing only
-		testBoard.fillSeenCards();//this function is in Board class for testing only
+		testBoard.fillSeenCards(testPlayer);//this function is in Board class for testing only
 
 		Solution testSolution = testPlayer.makeSuggestion(testBoard);
+		System.out.println("The following cards are in Mr Green's seen cards:");
+		for (String s : testPlayer.getSeenCards()) {
+			System.out.println(s);
+		}
+		System.out.println();
 		assertEquals(testSolution.person, testBoard.getAnswer().person);
 		assertEquals(testSolution.weapon, testBoard.getAnswer().weapon);
 		assertEquals(testSolution.room, testBoard.getAnswer().room);
-		
-
-
-		// TODO
-		/* Suggestion should not include any cards that are not
-		 * in the player's hand or that have been seen.
-		 * Suggestion should choose randomly from the unseen cards.
-		 */
-
 	}
 }

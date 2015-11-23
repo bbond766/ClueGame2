@@ -112,7 +112,7 @@ public class BoardCell {
 		}
 		else {
 			if (highlighted)
-				g.setColor(Color.GREEN);
+				g.setColor(Color.MAGENTA);
 			else
 				g.setColor(Color.DARK_GRAY);
 			g.fillRect(x, y, size, size);

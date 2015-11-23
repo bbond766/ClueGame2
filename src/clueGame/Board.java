@@ -476,39 +476,25 @@ public class Board extends JPanel implements MouseListener {
 		}
 	}
 	
- 	public Card handleSuggestion(Solution suggestion, String accusingPlayerName, BoardCell clicked) {
+ 	public Card handleSuggestion(Solution suggestion, Player accusingPlayer) {
  		// First checks if the suggestion is correct (i.e. it is the same as theAnswer)
  		// If not, it checks each player's hand for a card to disprove the suggestion
- 		// Moves accused player to room
- 		Player accusedPlayer;
- 		Player accusingPlayer;
- 		if(humanPlayer.getName() == accusingPlayerName){
- 			accusingPlayer = new HumanPlayer();
- 		}
- 		else{
- 			accusingPlayer = new ComputerPlayer();
- 		}
- 		if(humanPlayer.getName() == suggestion.person){
- 			accusedPlayer = new HumanPlayer();
- 		}
- 		else{
- 			accusedPlayer = new ComputerPlayer();
- 		}
- 		for (Player p: players){
- 			if(p.getName() == suggestion.person){
- 				accusedPlayer = p;
- 			}
- 			else if(p.getName() == accusingPlayerName){
- 				accusingPlayer = p;
- 			}
- 		}
- 		accusedPlayer.changePosition(accusingPlayer.getColumn(), accusingPlayer.getRow());
- 		repaint();
 		if(this.checkAccusation(suggestion)){
 			return null;
 		}
-		for(Player player : this.players){
-			if(player.disproveSuggestion(suggestion)!=null){
+		for (Player player : players) {
+			if (player.getName().equals(suggestion.person)) {
+				player.setRow(accusingPlayer.getRow());    // move the player to the accuser
+				player.setColumn(accusingPlayer.getColumn());
+				updateBoard();
+				break;    // we don't need to look at the rest of the players
+			}
+		}
+		for (Player player : players) {
+			if(!player.equals(accusingPlayer) && player.disproveSuggestion(suggestion)!=null){
+				for (Player other : players) {
+					other.addSeenCard(player.disproveSuggestion(suggestion));
+				}
 				return player.disproveSuggestion(suggestion);
 			}
 		}
@@ -516,6 +502,7 @@ public class Board extends JPanel implements MouseListener {
 	}
 	
 	public boolean checkAccusation(Solution accusation) {
+		System.out.println("checking " + accusation + "!");
 		if (!accusation.room.equals(theAnswer.room))
 			return false;
 		if (!accusation.person.equals(theAnswer.person))
@@ -588,10 +575,12 @@ public class Board extends JPanel implements MouseListener {
 		}
 	}
 
-	public void fillSeenCards(){
+	public void fillSeenCards(Player p){
+		System.out.println("suggestionChoices has size " + suggestionChoices.size());
 		for(int i=0; i<suggestionChoices.size();++i) {
+			System.out.println(suggestionChoices.get(i).getName());
 			if(!suggestionChoices.get(i).getName().equals("Miss Scarlet") && !suggestionChoices.get(i).getName().equals("Candlestick"))
-			addSeenCard(suggestionChoices.get(i));
+				p.addSeenCard(suggestionChoices.get(i));
 		}
 	}
 	
@@ -606,29 +595,27 @@ public class Board extends JPanel implements MouseListener {
 				ClueControlPanelGUI.toggleFinished();
 				highlightTargets();
 				updateBoard();
-				if (humanPlayer.inRoom(this)) {
+				if (humanPlayer.inRoom(this)) {    // If the player is in a room
 					suggestionDialog = new SuggestionDialog(parent, this, "Make Your Suggestion", false, humanPlayer.getRoom(this));
-					suggestionDialog.setVisible(true);
+					suggestionDialog.setVisible(true);    // Display the suggestion dialog
 					if (suggested) {
-						Card disprovingCard = null;
-						for (Player p : players)
-							if (!p.isHuman()) {
-								disprovingCard = p.disproveSuggestion(lastGuessSolution);
-								if (disprovingCard != null)
-									break;
-							}
-						if (disprovingCard != null)
+						Card disprovingCard = handleSuggestion(lastGuessSolution, humanPlayer);
+						if (disprovingCard != null) {
+							for (Player p : players)
+								p.addSeenCard(disprovingCard);
 							ClueControlPanelGUI.setLastResult(disprovingCard.getName());
+						}
 						else
 							ClueControlPanelGUI.setLastResult("Nothing to disprove");
-						ClueControlPanelGUI.setLastGuess(lastGuessSolution.person + " with the " + lastGuessSolution.weapon + " in the " + lastGuessSolution.room);
+						ClueControlPanelGUI.setLastGuess(lastGuessSolution.toString());
 						suggested = false;
 					}
 				}
 			}
 		}
 	}
-		
+
+
 	public void setParent(JFrame parent) {
 		this.parent = parent;
 	}

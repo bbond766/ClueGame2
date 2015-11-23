@@ -21,8 +21,6 @@ public abstract class Player extends Component {
 		this.hand = new ArrayList<Card>();
 	}
 	
-	public Player(){}
-	
 	abstract public Card disproveSuggestion(Solution suggestion);
 	
 	public void giveCard(Card c) {
@@ -61,10 +59,17 @@ public abstract class Player extends Component {
 		return Board.getRooms().get(b.getCellAt(row, column).getInitial());
 	}
 	
-	public void changePosition(int row, int col) {
+	public void setRow(int row) {
 		this.row = row;
+	}
+	
+	public void setColumn(int col) {
 		this.column = col;
 	}
+	
+	abstract public void initializeSeenCards();
+	
+	abstract public void addSeenCard(Card c);
 	
 	abstract public boolean isHuman();
 	

@@ -99,12 +99,14 @@ public class ClueGame extends JFrame {
 		cg.setVisible(true);
 		String name = "";
 		Timer timer = new Timer();
+		System.out.println(gameBoardPanel.getDeck().size());
 		
-		for (Player p : gameBoardPanel.getPlayers())
+		for (Player p : gameBoardPanel.getPlayers()) {
+			p.initializeSeenCards();
 			if (p.isHuman()) {
 				name = p.getName();
-				break;
 			}
+		}
 		
 		JOptionPane.showMessageDialog(cg, "You are " + name + ", press Next Player to begin play", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
 		timer.schedule(cg.new UpdateDisplay(),  0, 5);

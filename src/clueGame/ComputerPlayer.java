@@ -2,6 +2,7 @@ package clueGame;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
@@ -10,22 +11,26 @@ import javax.swing.JFrame;
 public class ComputerPlayer extends Player {
 	private String lastVisited;
 	private boolean shouldMakeAccusation = false;
+	private List<String> seenCards = new ArrayList<String>();
+	private Solution bestAccusation = null;
 	
 	public ComputerPlayer(String name, Color color, int row, int column) {
 		super(name, color, row, column);
 	}
 	
-	public ComputerPlayer() {
-		super();
+	@Override
+	public void initializeSeenCards() {
+		for (Card c : hand)
+			seenCards.add(c.getName());
 	}
-
+	
 	public BoardCell pickLocation(Set<BoardCell> targets) {
 		// If the AI's targets list contains a room, the AI will always choose to visit the room
 		// unless it was just visited. Otherwise, the AI will choose a target at random.
 
 		for (BoardCell bc : targets)
-			// If target is a room that was not the last visited room
-			if (bc.isRoom() && !Board.getRooms().get(bc.getInitial()).equals(lastVisited)) {
+			// If target is a room that was not the last visited room and has not been seen yet
+			if (bc.isRoom() && !Board.getRooms().get(bc.getInitial()).equals(lastVisited) && !seenCards.contains(Board.getRooms().get(bc.getInitial()))) {
 				lastVisited = Board.getRooms().get(bc.getInitial());
 				return bc;
 			}
@@ -47,54 +52,38 @@ public class ComputerPlayer extends Player {
 	}
 	
 	public Solution makeAccusation(Board board) {
-		ArrayList<Card> seen = board.getSeenCards();
-		ArrayList<Card> deck = board.getDeck();
-		ArrayList<Card> notSeen = new ArrayList<Card>();
-		for(Card c: deck){
-			if (!seen.contains(c)){
-				notSeen.add(c);
-			}
-			
-		}
-		Card person = new Card(), weapon  = new Card(), room  = new Card();
-		for(Card c: notSeen){
-			if(c.getType() == CardType.PERSON){
-				person = c;
-			}
-			else if(c.getType() == CardType.ROOM){
-				room = c;
-			}
-			else if(c.getType() == CardType.WEAPON){
-				weapon = c;
-			}
-		}
+		if (bestAccusation != null)
+			return bestAccusation;
 		
-		Solution solution = new Solution(person.getName(), weapon.getName(), room.getName());
-		return solution;
+		if (seenCards.size() == board.getDeck().size())    // if we have seen all but 3 cards
+			return board.getAnswer();
+		
+		return null;
 	}
 
 	public Solution makeSuggestion(Board board) {
 		// Called when an AI enters a room. The AI makes a suggestion from the current room and
 		// the person and weapon cards are chosen at random.
-		String name = null;
+		String person = null;
 		String weapon = null;
 		
 		// Pick a person and weapon card
-		while(name == null || weapon == null){
+		while(person == null || weapon == null){
 			int choice = new Random().nextInt(board.getChoices().size());
 			Card testCard = board.getChoices().get(choice);
-			if(testCard.getType()== CardType.PERSON && !board.getSeenCards().contains(testCard) && !hand.contains(testCard)){
-				name = testCard.getName();
+			if(testCard.getType()== CardType.PERSON && !seenCards.contains(testCard.getName()) && !hand.contains(testCard)){
+				person = testCard.getName();
 			}
-			if(testCard.getType()== CardType.WEAPON && !board.getSeenCards().contains(testCard) && !hand.contains(testCard)){
+			if(testCard.getType()== CardType.WEAPON && !seenCards.contains(testCard.getName()) && !hand.contains(testCard)){
 				weapon = testCard.getName();
 			}
 		}
 		
+		
 		// Suggestion must contain the current room
 		String room = Board.getRooms().get(board.getCellAt(row, column).getInitial());
 
-		return new Solution(room, name, weapon);
+		return new Solution(room, person, weapon);
 	}
 
 	@Override
@@ -122,9 +111,24 @@ public class ComputerPlayer extends Player {
 
 	@Override
 	public void makeMove(Board board, JFrame frame){
+		System.out.println(playerName + " has seen:");
+		for (String s: seenCards) {
+			System.out.println(s);
+		}
 		Solution solution;
 		if(shouldMakeAccusation){
+			System.out.println(playerName + " is ready to make an accusation!");
 			solution = makeAccusation(board);
+			System.out.println(playerName + " made accusation with " + solution);
+			if(board.checkAccusation(solution)) {
+				System.out.println("the solution was correct, should display dialog");
+				GameEndDialog ged = new GameEndDialog(frame, "Game Over", playerName + " wins!");
+				ged.setVisible(true);
+			}
+			else {
+				shouldMakeAccusation = false;
+				bestAccusation = null;
+			}
 		}
 		BoardCell newLocation = pickLocation(board.getTargets());
 		row = newLocation.getRow();
@@ -132,22 +136,46 @@ public class ComputerPlayer extends Player {
 		board.updateBoard();
 		board.repaint();
 		if(newLocation.isRoom()){
-			lastVisited = "" + newLocation.getInitial();
 			solution = makeSuggestion(board);
 			ClueControlPanelGUI.setLastGuess(solution.toString());
-			Card returnedCard = board.handleSuggestion(solution, getName(), newLocation);
+			Card returnedCard = board.handleSuggestion(solution, this);
 			if (returnedCard != null){
+				for (Player p : board.getPlayers())
+					p.addSeenCard(returnedCard);
 				ClueControlPanelGUI.setLastResult(returnedCard.getName());
 			}
 			else{
+				ClueControlPanelGUI.setLastResult("Nothing to disprove");
+				bestAccusation = solution;
 				shouldMakeAccusation = true;
 			}
+		}
+		if (seenCards.size() == board.getDeck().size()) {    // player has seen all but 3 cards
+			System.out.println(playerName + " has seen all but 3 cards and is accusing!");
+			bestAccusation = makeAccusation(board);
+			if (board.checkAccusation(bestAccusation)) {
+				System.out.println("the solution was correct, should display dialog");
+				GameEndDialog ged = new GameEndDialog(frame, "Game Over", playerName + " wins!");
+				ged.setVisible(true);
+			}
+			else
+				System.out.println("THIS SHOULDN'T HAPPEN");
 		}
 	}
 
 	@Override
 	public boolean isFinished() {
 		return true;
+	}
+	
+	@Override
+	public void addSeenCard(Card c) {
+		if (!seenCards.contains(c.getName()))
+			seenCards.add(c.getName());
+	}
+	
+	public List<String> getSeenCards() {
+		return seenCards;
 	}
 
 }

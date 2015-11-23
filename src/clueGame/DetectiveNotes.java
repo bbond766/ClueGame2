@@ -17,7 +17,7 @@ public class DetectiveNotes extends JDialog{
 	
 	public DetectiveNotes(Board board) {
 		this.board = board;
-		setSize(new Dimension(500, 650));
+		setSize(new Dimension(550, 650));
 		setTitle("Detective Notes");
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setLayout(new GridLayout(3, 2));
@@ -57,11 +57,12 @@ public class DetectiveNotes extends JDialog{
 	
 	public JPanel createRooms() {
 		JPanel p = new JPanel();
-		p.setLayout(new GridLayout(5, 2));
+		p.setLayout(new GridLayout(4, 2));
 		p.setBorder(new TitledBorder(new EtchedBorder(), "Rooms"));
 		
 		for (Map.Entry<Character, String> entry : Board.getRooms().entrySet())
-			p.add(new JCheckBox(entry.getValue()), BorderLayout.CENTER);
+			if (!entry.getValue().equals("Walkway") && !entry.getValue().equals("Closet"))
+				p.add(new JCheckBox(entry.getValue()), BorderLayout.CENTER);
 		
 		return p;
 	}
