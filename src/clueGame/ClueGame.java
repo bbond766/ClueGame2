@@ -99,7 +99,6 @@ public class ClueGame extends JFrame {
 		cg.setVisible(true);
 		String name = "";
 		Timer timer = new Timer();
-		System.out.println(gameBoardPanel.getDeck().size());
 		
 		for (Player p : gameBoardPanel.getPlayers()) {
 			p.initializeSeenCards();

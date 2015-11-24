@@ -111,17 +111,10 @@ public class ComputerPlayer extends Player {
 
 	@Override
 	public void makeMove(Board board, JFrame frame){
-		System.out.println(playerName + " has seen:");
-		for (String s: seenCards) {
-			System.out.println(s);
-		}
 		Solution solution;
 		if(shouldMakeAccusation){
-			System.out.println(playerName + " is ready to make an accusation!");
 			solution = makeAccusation(board);
-			System.out.println(playerName + " made accusation with " + solution);
 			if(board.checkAccusation(solution)) {
-				System.out.println("the solution was correct, should display dialog");
 				GameEndDialog ged = new GameEndDialog(frame, "Game Over", playerName + " wins!");
 				ged.setVisible(true);
 			}
@@ -151,15 +144,12 @@ public class ComputerPlayer extends Player {
 			}
 		}
 		if (seenCards.size() == board.getDeck().size()) {    // player has seen all but 3 cards
-			System.out.println(playerName + " has seen all but 3 cards and is accusing!");
 			bestAccusation = makeAccusation(board);
 			if (board.checkAccusation(bestAccusation)) {
-				System.out.println("the solution was correct, should display dialog");
 				GameEndDialog ged = new GameEndDialog(frame, "Game Over", playerName + " wins!");
 				ged.setVisible(true);
 			}
-			else
-				System.out.println("THIS SHOULDN'T HAPPEN");
+			else{}
 		}
 	}
 

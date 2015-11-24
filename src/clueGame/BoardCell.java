@@ -136,7 +136,6 @@ public class BoardCell {
 					g.fillRect(x, y, 5, size);
 					break;
 				default:
-					System.out.println("Encountered door with no direction");
 				}
 			}
 		}

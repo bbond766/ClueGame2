@@ -502,7 +502,6 @@ public class Board extends JPanel implements MouseListener {
 	}
 	
 	public boolean checkAccusation(Solution accusation) {
-		System.out.println("checking " + accusation + "!");
 		if (!accusation.room.equals(theAnswer.room))
 			return false;
 		if (!accusation.person.equals(theAnswer.person))
@@ -576,9 +575,7 @@ public class Board extends JPanel implements MouseListener {
 	}
 
 	public void fillSeenCards(Player p){
-		System.out.println("suggestionChoices has size " + suggestionChoices.size());
 		for(int i=0; i<suggestionChoices.size();++i) {
-			System.out.println(suggestionChoices.get(i).getName());
 			if(!suggestionChoices.get(i).getName().equals("Miss Scarlet") && !suggestionChoices.get(i).getName().equals("Candlestick"))
 				p.addSeenCard(suggestionChoices.get(i));
 		}
